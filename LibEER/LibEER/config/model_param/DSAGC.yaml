@@ -1,0 +1,32 @@
+# DS-AGC model/training config for LibEER
+
+params:
+  # Graph learning / GCN
+  GLalpha: 0.01
+  K: 3
+  node_feature_hidden1: 5
+  linearsize: 128
+  drop_rate: 0.8
+
+  # DS-AGC branch switches
+  Multi_att: 1
+  T_DANN: 1
+
+train:
+  # Loss weights in original implementation
+  GCL: 1.0
+  dynamic_adj: 1.0
+  DANN: 1.0
+
+  # Optimization
+  optimizer: rmsprop
+  init_lr: 0.001
+  weight_decay: 0.00001
+
+  # Semi setting in original implementation
+  threshold: 30
+  num_of_U: 2
+  seed_fix: 20
+
+  # Runtime
+  eval_interval: 1

@@ -1,0 +1,66 @@
+# FDGCL V2 (Feature Disentanglement + Graph Contrastive Learning)
+
+params:
+  # Graph and spectral encoders
+  graph_hidden: 32
+  graph_readout_hidden: 64
+  gcl_readout_hidden: 64
+  spectral_hidden: 64
+  # SEED official 5-band features are usually [delta, theta, alpha, beta, gamma].
+  # The graph branch still uses all bands; this branch builds true frequency scales.
+  frequency_band_groups:
+    - [1, 2]  # theta + alpha
+    - [3]     # beta
+    - [4]     # gamma
+  cross_scale_heads: 4
+  disentangle_dim: 64
+  projection_dim: 32
+  dropout: 0.2
+
+  # Graph learning and graph contrastive augmentation
+  node_drop_rate: 0.10
+  edge_drop_rate: 0.10
+  gcl_importance_protect: false
+  gcl_importance_centrality_weight: 0.5
+  gcl_importance_feature_weight: 0.5
+  gcl_node_sample_temperature: 1.5
+  gcl_node_sample_eps: 0.000001
+  gcl_edge_protect_strength: 0.3
+  gcl_edge_min_drop_scale: 0.3
+  temperature: 0.2
+  GLalpha: 0.01
+  K: 3
+
+  # Subject-invariant normalization
+  ssbn_eps: 0.00001
+  sin_min_count: 2
+
+  # UGF-CDA alignment and subject adversarial learning
+  ugfcda_warmup_epochs: 20
+  ugfcda_eps: 0.000001
+  # UGF-CDA: uncertainty-guided graph-frequency contrastive domain alignment.
+  # Reliability is estimated by feature-prototype margin, entropy, multi-scale
+  # consistency, and low shared-subject leakage. Target samples are selected by
+  # class-balanced dynamic top-k instead of a fixed confidence threshold.
+  ugfcda_keep_ratio_start: 0.2
+  ugfcda_keep_ratio_end: 0.6
+  ugfcda_keep_ratio_step: 0.1
+  ugfcda_keep_ratio_step_epochs: 20
+  ugfcda_subject_weight: 0.2
+  ugfcda_proto_align_weight: 0.5
+  grl_max_iters: 2000
+
+train:
+  optimizer: adamw
+  weight_decay: 0.0001
+  eval_interval: 1
+
+  # Loss weights
+  loss_ce: 1.0
+  loss_aj: 0.2
+  loss_gcl: 0.3
+  loss_align: 0.2
+  # Cross-covariance decorrelation between shared/private features.
+  loss_orth: 0.5
+  # Shared subject adversarial + private subject classification.
+  loss_subject: 0.3

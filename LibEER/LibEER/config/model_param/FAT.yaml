@@ -1,0 +1,31 @@
+params:
+  emb_size: 40
+  depth: 6
+  num_heads: 8
+  attention_dropout: 0.2
+  position_dropout: 0.1
+  forward_expansion: 4
+  use_dynamic_graph: true
+
+train:
+  # Keep dependent/independent defaults aligned with original FAT scripts.
+  epochs_dependent: 200
+  epochs_independent: 50
+  optimizer_dependent: adamw
+  optimizer_independent: adam
+  lr_dependent: 0.0003
+  lr_independent: 0.001
+  weight_decay_dependent: 0.0001
+  weight_decay_independent: 0.0001
+  augment_train: true
+  scale_low: 0.9
+  scale_high: 1.1
+  periodic_frequency: 2
+  periodic_amplitude: 0.05
+  mixup_alpha: 0.2
+  mixup_dependent: false
+  mixup_independent: true
+  rollback_margin: 0.1
+  rollback_patience_divisor: 10
+  evaluate_val: false
+  select_metric_on: test

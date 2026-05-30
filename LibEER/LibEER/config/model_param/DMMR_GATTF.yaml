@@ -1,0 +1,46 @@
+params:
+  input_dim: 310
+  num_channels: 62
+  num_bands: 5
+  gat_hidden_dim: 16
+  gat_heads: 4
+  model_dim: 128
+  transformer_heads: 4
+  transformer_layers: 2
+  decoder_layers: 2
+  feedforward_dim: 256
+  dropout: 0.1
+  beta: 0.05
+  gamma: 0.1
+  temperature: 0.2
+
+setting:
+  default:
+    experiment_mode: subject-independent
+    split_type: leave-one-out
+    feature_type: de_lds
+    onehot: true
+  seed:
+    sessions: [1]
+  seediv:
+    sessions: [1]
+
+train:
+  seed:
+    num_classes: 3
+    time_steps: 30
+    batch_size: 512
+    epoch_pretraining: 60
+    epoch_finetuning: 100
+    iteration: 7
+    lr: 0.001
+    weight_decay: 0.0005
+  seediv:
+    num_classes: 4
+    time_steps: 10
+    batch_size: 256
+    epoch_pretraining: 60
+    epoch_finetuning: 100
+    iteration: 3
+    lr: 0.001
+    weight_decay: 0.0005

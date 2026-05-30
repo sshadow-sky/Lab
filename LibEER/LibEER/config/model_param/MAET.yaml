@@ -1,0 +1,37 @@
+params:
+  # Core MAET architecture (kept aligned with official defaults)
+  embed_dim: 32
+  depth: 3
+  eeg_seq_len: 5
+  eye_seq_len: 5
+  num_heads: 4
+  mlp_ratio: 4.0
+  qkv_bias: true
+  drop_rate: 0.0
+  attn_drop_rate: 0.0
+  drop_path_rate: 0.0
+  use_abs_pos_emb: false
+  layer_scale_init_values: 0.1
+  mixffn_start_layer_index: 2
+  use_mean_pooling: false
+
+  # LibEER EEG-only usage
+  eye_dim: 33
+  prompt: false
+  prompt_len: 2
+
+  # Domain-adversarial branch size hint.
+  # DG on/off is now controlled only by MAET_train.py via experiment_mode.
+  domain_generalization: false
+  num_domains: 19
+
+train:
+  # Optimizer defaults
+  lr: 0.001
+  weight_decay: 0.0001
+  eps: 0.00000001
+
+  # Original MAET domain loss settings
+  domain_loss_weight: 1.0
+  label_smoothing_init: 0.1
+  # DG switch is not configured here anymore to avoid layered control.
