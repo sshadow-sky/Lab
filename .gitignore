@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.agents/
+.codex/
+DSAGC/
+FAT/
+log/
+Log/
+PAA/
+PCL-TDGCN/
+result/
+save/
+Sera-code/
+workspace/
+requirements.txt
