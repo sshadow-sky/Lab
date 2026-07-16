@@ -1,7 +1,8 @@
 import fnmatch
 import json
 import os
-from data_utils.symbol import trailer
+from lib2to3.pygram import python_symbols as syms
+trailer = syms.trailer
 
 import scipy.io
 from scipy.io import loadmat
@@ -73,6 +74,11 @@ def get_uniform_data(dataset, dataset_path):
     }
     if dataset.startswith("seediv") and dataset != "seediv_raw":
         data, baseline, label, sample_rate, channels = read_seedIV_feature(dataset_path, feature_type=dataset[7:])
+    elif dataset.startswith("seedv") and dataset != "seedv_raw":
+        # SEED-V has no pre-extracted feature reader in this codebase. Treat
+        # seedv_de/seedv_* as aliases for raw loading; preprocess() will extract
+        # the requested feature_type later.
+        data, baseline, label, sample_rate, channels = read_seedV_raw(dataset_path)
     elif dataset.startswith("seed") and not dataset.startswith("seediv") and not dataset.startswith("seedv") and dataset != "seed_raw":
         # call the read_seed_feature function when using the feature provided by seed official
         data, baseline, label, sample_rate, channels = read_seed_feature(dataset_path, feature_type=dataset[5:])
@@ -344,9 +350,68 @@ def parallel_read_seedIV_feature(fi, dir_path, label, file):
         trail_datas.append(trail_data)
     return trail_datas
 
+def _resolve_seedv_cnt_path(dir_path, sub_file):
+    if sub_file == "7_1_20180411.cnt":
+        repaired_file = "7_1_20180411_repaired.cnt"
+        repaired_path = os.path.join(dir_path, repaired_file)
+        if os.path.exists(repaired_path):
+            print(f"Using repaired SEED-V CNT file for {sub_file}: {repaired_file}")
+            return repaired_path
+    return os.path.join(dir_path, sub_file)
+
+
+SEEDV_CHANNEL_LIST = [
+    'FP1', 'FPZ', 'FP2', 'AF3', 'AF4', 'F7', 'F5', 'F3', 'F1', 'FZ', 'F2', 'F4',
+    'F6', 'F8', 'FT7', 'FC5', 'FC3', 'FC1', 'FCZ', 'FC2', 'FC4', 'FC6', 'FT8',
+    'T7', 'C5', 'C3', 'C1', 'CZ', 'C2', 'C4', 'C6', 'T8', 'TP7', 'CP5', 'CP3',
+    'CP1', 'CPZ', 'CP2', 'CP4', 'CP6', 'TP8', 'P7', 'P5', 'P3', 'P1', 'PZ',
+    'P2', 'P4', 'P6', 'P8', 'PO7', 'PO5', 'PO3', 'POZ', 'PO4', 'PO6', 'PO8',
+    'CB1', 'O1', 'OZ', 'O2', 'CB2',
+]
+
+SEEDV_MISSING_CHANNEL_FALLBACKS = {
+    'FC4': ['FC2', 'FC6', 'F4', 'C4'],
+}
+
+
+def _seedv_62_channel_data(eeg_raw, sub_file):
+    name_to_idx = {name.upper(): idx for idx, name in enumerate(eeg_raw.ch_names)}
+    raw_data = eeg_raw.get_data()
+    aligned = []
+    missing_channels = []
+
+    for ch_name in SEEDV_CHANNEL_LIST:
+        key = ch_name.upper()
+        if key in name_to_idx:
+            aligned.append(raw_data[name_to_idx[key]])
+            continue
+
+        missing_channels.append(ch_name)
+        fallback_names = SEEDV_MISSING_CHANNEL_FALLBACKS.get(ch_name, [])
+        fallback_rows = [
+            raw_data[name_to_idx[fallback.upper()]]
+            for fallback in fallback_names
+            if fallback.upper() in name_to_idx
+        ]
+        if fallback_rows:
+            aligned.append(np.mean(np.stack(fallback_rows, axis=0), axis=0))
+        else:
+            aligned.append(raw_data.mean(axis=0))
+
+    extra_channels = [
+        name for name in eeg_raw.ch_names
+        if name.upper() not in {ch.upper() for ch in SEEDV_CHANNEL_LIST}
+    ]
+    if missing_channels:
+        print(f"SEED-V {sub_file}: filled missing channels {missing_channels} from neighbor fallback")
+    if extra_channels:
+        print(f"SEED-V {sub_file}: ignored non-standard channels {extra_channels}")
+    return np.stack(aligned, axis=0)
+
+
 def read_seedV_raw(dir_path):
     mne.set_log_level("ERROR")
-    dir_path = dir_path + "EEG_raw/"
+    dir_path = os.path.join(dir_path, "EEG_raw")
     eeg_files = [[
                   '1_1_20180804.cnt', '2_1_20180416.cnt', '3_1_20180414.cnt', '4_1_20180414.cnt',
                   '5_1_20180719.cnt', '6_1_20180713.cnt', '7_1_20180411.cnt', '8_1_20180717.cnt',
@@ -389,11 +454,12 @@ def read_seedV_raw(dir_path):
         with tqdm(total=len(ses_file), desc=f"Session {ses_id + 1}", leave=False) as pbar_session:
             for sub_file in ses_file:
                 sub_data = []
-                eeg_raw = mne.io.read_raw_cnt(dir_path + sub_file, verbose=False)
+                eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
                 useless_ch = ['M1', 'M2', 'VEO', 'HEO']
-                eeg_raw.drop_channels(useless_ch)
-                ch = eeg_raw.ch_names
-                sub_raw_data = eeg_raw.get_data()
+                drop_ch = [ch for ch in useless_ch if ch in eeg_raw.ch_names]
+                if drop_ch:
+                    eeg_raw.drop_channels(drop_ch)
+                sub_raw_data = _seedv_62_channel_data(eeg_raw, sub_file)
                 for i in tqdm(range(15), desc="Processing trials", leave=False):
                     trail_data_i = sub_raw_data[:, start_seconds[ses_id][i] * 1000: end_seconds[ses_id][i] * 1000]
                     trail_downsampled_data_i = decimate(trail_data_i, q=5, ftype='fir', axis=1)

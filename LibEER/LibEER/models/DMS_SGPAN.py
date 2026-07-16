@@ -49,516 +49,43 @@ class GRL(nn.Module):
         self.iter_num += 1
 
 
-# class SubjectInvariantNorm(nn.Module):
-#     """
-#     Subject-wise normalization without subject-specific learnable identities.
-#     Input shape: [B, D], subject ids shape: [B].
-#     """
-
-#     def __init__(self, num_features: int, eps: float = 1e-5, min_count: int = 2):
-#         super().__init__()
-#         self.num_features = num_features
-#         self.eps = eps
-#         self.min_count = max(1, int(min_count))
-
-#         self.shared_gamma = nn.Parameter(torch.ones(1, num_features))
-#         self.shared_beta = nn.Parameter(torch.zeros(1, num_features))
-
-#     def forward(self, x: torch.Tensor, subject_ids: torch.Tensor) -> torch.Tensor:
-#         bsz, feat_dim = x.shape
-#         if feat_dim != self.num_features:
-#             raise ValueError(f"SubjectInvariantNorm feature mismatch: got {feat_dim}, expected {self.num_features}")
-#         if subject_ids.ndim != 1 or subject_ids.shape[0] != bsz:
-#             raise ValueError("subject_ids must be shape [B]")
-
-#         out = torch.empty_like(x)
-#         unique_ids = torch.unique(subject_ids.detach().long())
-#         for sid_tensor in unique_ids:
-#             mask = subject_ids == sid_tensor
-#             idx = torch.where(mask)[0]
-#             chunk = x[idx]
-
-#             if chunk.shape[0] >= self.min_count:
-#                 mean = chunk.mean(dim=0, keepdim=True)
-#                 var = chunk.var(dim=0, unbiased=False, keepdim=True)
-#                 out[idx] = (chunk - mean) / torch.sqrt(var + self.eps)
-#             else:
-#                 out[idx] = F.layer_norm(x[idx], (feat_dim,), eps=self.eps)
-
-#         return out * self.shared_gamma + self.shared_beta
-
-# class SubjectStylePrototypeNorm(nn.Module):
-#     """
-#     Batch-free subject-adaptive normalization with learnable style prototypes.
-#     Input shape: [B, D], subject ids shape: [B].
-#     """
-
-#     def __init__(
-#         self,
-#         num_features: int,
-#         num_subjects: int,
-#         eps: float = 1e-5,
-#         num_prototypes: int = 8,
-#         context_dim: Optional[int] = None,
-#         memory_momentum: float = 0.1,
-#         style_scale: float = 0.1,
-#         style_temperature: float = 1.0,
-#     ):
-#         super().__init__()
-#         self.num_features = int(num_features)
-#         self.num_subjects = int(num_subjects)
-#         self.eps = float(eps)
-#         self.num_prototypes = max(1, int(num_prototypes))
-#         if context_dim is None or int(context_dim) <= 0:
-#             context_dim = min(64, max(8, self.num_features // 4))
-#         self.context_dim = int(context_dim)
-#         self.memory_momentum = max(0.0, min(1.0, float(memory_momentum)))
-#         self.style_scale = max(0.0, float(style_scale))
-#         self.style_temperature = max(1e-6, float(style_temperature))
-
-#         self.base_norm = nn.LayerNorm(self.num_features, elementwise_affine=False, eps=self.eps)
-#         self.base_gamma = nn.Parameter(torch.ones(1, self.num_features))
-#         self.base_beta = nn.Parameter(torch.zeros(1, self.num_features))
-
-#         self.context_encoder = nn.Sequential(
-#             nn.LayerNorm(self.num_features),
-#             nn.Linear(self.num_features, self.context_dim),
-#             nn.GELU(),
-#             nn.Linear(self.context_dim, self.context_dim),
-#         )
-
-#         self.style_prototypes = nn.Parameter(torch.empty(self.num_prototypes, self.context_dim))
-
-#         adapter_hidden = max(self.context_dim, min(self.num_features, self.context_dim * 2))
-#         self.style_adapter = nn.Sequential(
-#             nn.LayerNorm(self.context_dim),
-#             nn.Linear(self.context_dim, adapter_hidden),
-#             nn.GELU(),
-#             nn.Linear(adapter_hidden, self.num_features * 2),
-#         )
-
-#         self.register_buffer("subject_context_memory", torch.zeros(self.num_subjects, self.context_dim))
-#         self.register_buffer("subject_memory_counts", torch.zeros(self.num_subjects, dtype=torch.long))
-#         self.register_buffer("global_context_memory", torch.zeros(1, self.context_dim))
-#         self.register_buffer("global_memory_count", torch.zeros((), dtype=torch.long))
-#         self.reset_parameters()
-
-#     def reset_parameters(self):
-#         nn.init.normal_(self.style_prototypes, mean=0.0, std=0.02)
-#         final = self.style_adapter[-1]
-#         nn.init.normal_(final.weight, mean=0.0, std=1e-3)
-#         nn.init.zeros_(final.bias)
-
-#     def _encode_context(self, x: torch.Tensor) -> torch.Tensor:
-#         context = self.context_encoder(x)
-#         return F.normalize(context, dim=-1)
-
-#     def _memory_query(self, context: torch.Tensor, subject_ids: torch.Tensor) -> torch.Tensor:
-#         subject_ids = subject_ids.detach().long().view(-1)
-#         valid = (subject_ids >= 0) & (subject_ids < self.num_subjects)
-#         has_memory = torch.zeros_like(valid)
-#         memory = torch.zeros_like(context)
-
-#         if valid.any():
-#             valid_subjects = subject_ids[valid]
-#             counts = self.subject_memory_counts.index_select(0, valid_subjects).to(device=context.device)
-#             valid_has_memory = counts > 0
-#             has_memory[valid] = valid_has_memory
-#             if valid_has_memory.any():
-#                 memory_valid = self.subject_context_memory.index_select(0, valid_subjects).to(
-#                     device=context.device,
-#                     dtype=context.dtype,
-#                 )
-#                 valid_rows = torch.where(valid)[0]
-#                 memory[valid_rows[valid_has_memory]] = memory_valid[valid_has_memory]
-
-#         memory = F.normalize(memory, dim=-1)
-#         memory_st = memory + (context - context.detach())
-#         if int(self.global_memory_count.item()) > 0:
-#             global_memory = self.global_context_memory.to(device=context.device, dtype=context.dtype)
-#             global_memory = F.normalize(global_memory, dim=-1).expand_as(context)
-#             fallback = F.normalize(0.5 * context + 0.5 * global_memory, dim=-1)
-#         else:
-#             fallback = context
-#         query = torch.where(has_memory.unsqueeze(-1), memory_st, fallback)
-#         return F.normalize(query, dim=-1)
-
-#     @torch.no_grad()
-#     def _ema_update_one(self, memory: torch.Tensor, count_tensor: torch.Tensor, value: torch.Tensor, count: int):
-#         count = int(count)
-#         if count <= 0:
-#             return
-#         value = value.detach().to(device=memory.device, dtype=memory.dtype).view_as(memory)
-#         if int(count_tensor.item()) == 0:
-#             memory.copy_(value)
-#         else:
-#             memory.mul_(1.0 - self.memory_momentum).add_(value, alpha=self.memory_momentum)
-#         memory.copy_(F.normalize(memory, dim=0))
-#         count_tensor.add_(count)
-
-#     @torch.no_grad()
-#     def _update_memory(self, context: torch.Tensor, subject_ids: torch.Tensor):
-#         if context.numel() == 0:
-#             return
-#         context = context.detach()
-#         subject_ids = subject_ids.detach().long().view(-1)
-
-#         self._ema_update_one(
-#             self.global_context_memory[0],
-#             self.global_memory_count,
-#             context.mean(dim=0),
-#             context.shape[0],
-#         )
-
-#         valid = (subject_ids >= 0) & (subject_ids < self.num_subjects)
-#         if not valid.any():
-#             return
-
-#         for sid_tensor in torch.unique(subject_ids[valid], sorted=True):
-#             sid = int(sid_tensor.item())
-#             sid_context = context[subject_ids == sid_tensor]
-#             self._ema_update_one(
-#                 self.subject_context_memory[sid],
-#                 self.subject_memory_counts[sid],
-#                 sid_context.mean(dim=0),
-#                 sid_context.shape[0],
-#             )
-
-#     def forward(
-#         self,
-#         x: torch.Tensor,
-#         subject_ids: torch.Tensor,
-#         update_memory: Optional[bool] = None,
-#     ) -> torch.Tensor:
-#         bsz, feat_dim = x.shape
-#         if feat_dim != self.num_features:
-#             raise ValueError(
-#                 f"SubjectStylePrototypeNorm feature mismatch: got {feat_dim}, expected {self.num_features}"
-#             )
-#         if subject_ids.ndim != 1 or subject_ids.shape[0] != bsz:
-#             raise ValueError("subject_ids must be shape [B]")
-            
-#         base = self.base_norm(x) * self.base_gamma + self.base_beta
-#         context = self._encode_context(x)
-#         query = self._memory_query(context, subject_ids)
-#         proto = F.normalize(self.style_prototypes, dim=-1)
-#         style_logits = torch.matmul(query, proto.t()) / self.style_temperature
-#         style_weights = torch.softmax(style_logits, dim=-1)
-#         style = torch.matmul(style_weights, self.style_prototypes)
-#         gamma, beta = self.style_adapter(style).chunk(2, dim=-1)
-#         gamma = torch.tanh(gamma) * self.style_scale
-#         beta = torch.tanh(beta) * self.style_scale
-#         out = base * (1.0 + gamma) + beta
-#         if update_memory is None:
-#             update_memory = self.training
-#         if update_memory:
-#             self._update_memory(context, subject_ids)
-#         return out
-
-class SubjectMemoryStyleNorm(nn.Module):
+class SubjectInvariantNorm(nn.Module):
     """
-    Subject-memory-based adaptive normalization without prototypes.
-
-    Main idea:
-    1. Use LayerNorm as the stable base normalization.
-    2. Encode each sample into a context vector.
-    3. Maintain EMA memory for each subject and a global memory.
-    4. Directly use memory/query to generate small gamma/beta correction.
-    5. No style prototypes, no prototype attention.
-
-    Input:
-        x: [B, D]
-        subject_ids: [B]
-
-    Output:
-        out: [B, D]
+    Subject-wise normalization without subject-specific learnable identities.
+    Input shape: [B, D], subject ids shape: [B].
     """
 
-    def __init__(
-        self,
-        num_features: int,
-        num_subjects: int,
-        eps: float = 1e-5,
-        context_dim: Optional[int] = None,
-        memory_momentum: float = 0.1,
-        style_scale: float = 0.03,
-        detach_context: bool = True,
-        use_global_fallback: bool = True,
-    ):
+    def __init__(self, num_features: int, eps: float = 1e-5, min_count: int = 2):
         super().__init__()
+        self.num_features = num_features
+        self.eps = eps
+        self.min_count = max(1, int(min_count))
 
-        self.num_features = int(num_features)
-        self.num_subjects = int(num_subjects)
-        self.eps = float(eps)
+        self.shared_gamma = nn.Parameter(torch.ones(1, num_features))
+        self.shared_beta = nn.Parameter(torch.zeros(1, num_features))
 
-        if context_dim is None:
-            context_dim = min(32, max(8, self.num_features // 8))
-        self.context_dim = int(context_dim)
-
-        self.memory_momentum = max(0.0, min(1.0, float(memory_momentum)))
-        self.style_scale = max(0.0, float(style_scale))
-        self.detach_context = bool(detach_context)
-        self.use_global_fallback = bool(use_global_fallback)
-
-        # Stable base normalization
-        self.base_norm = nn.LayerNorm(
-            self.num_features,
-            elementwise_affine=False,
-            eps=self.eps,
-        )
-
-        # Global affine after normalization
-        self.global_gamma = nn.Parameter(torch.ones(1, self.num_features))
-        self.global_beta = nn.Parameter(torch.zeros(1, self.num_features))
-
-        # Context encoder: x -> style/context representation
-        self.context_encoder = nn.Sequential(
-            nn.LayerNorm(self.num_features),
-            nn.Linear(self.num_features, self.context_dim),
-            nn.GELU(),
-            nn.Linear(self.context_dim, self.context_dim),
-        )
-
-        # Directly maps memory/query to gamma and beta
-        adapter_hidden = max(self.context_dim, min(self.num_features, self.context_dim * 2))
-        self.style_adapter = nn.Sequential(
-            nn.LayerNorm(self.context_dim),
-            nn.Linear(self.context_dim, adapter_hidden),
-            nn.GELU(),
-            nn.Linear(adapter_hidden, self.num_features * 2),
-        )
-
-        # Learnable gate, initially almost closed
-        # sigmoid(-5) ≈ 0.0067
-        self.style_gate = nn.Parameter(torch.tensor(-5.0))
-
-        # Subject memory
-        self.register_buffer(
-            "subject_context_memory",
-            torch.zeros(self.num_subjects, self.context_dim),
-        )
-        self.register_buffer(
-            "subject_memory_counts",
-            torch.zeros(self.num_subjects, dtype=torch.long),
-        )
-
-        # Global memory
-        self.register_buffer(
-            "global_context_memory",
-            torch.zeros(1, self.context_dim),
-        )
-        self.register_buffer(
-            "global_memory_count",
-            torch.zeros((), dtype=torch.long),
-        )
-
-        self.reset_parameters()
-
-    def reset_parameters(self):
-        # Important:
-        # Make the whole module start as almost pure LayerNorm.
-        final = self.style_adapter[-1]
-        nn.init.zeros_(final.weight)
-        nn.init.zeros_(final.bias)
-
-    def _encode_context(self, base: torch.Tensor) -> torch.Tensor:
-        context = self.context_encoder(base)
-        context = F.normalize(context, dim=-1)
-        return context
-
-    def _memory_query(
-        self,
-        context: torch.Tensor,
-        subject_ids: torch.Tensor,
-    ) -> torch.Tensor:
-        """
-        Build query from subject memory if available.
-        If not available, use current context or global-memory fallback.
-        """
-        subject_ids = subject_ids.detach().long().view(-1)
-
-        valid = (subject_ids >= 0) & (subject_ids < self.num_subjects)
-
-        has_memory = torch.zeros(
-            context.shape[0],
-            dtype=torch.bool,
-            device=context.device,
-        )
-
-        memory = torch.zeros_like(context)
-
-        if valid.any():
-            valid_subjects = subject_ids[valid]
-
-            counts = self.subject_memory_counts.index_select(
-                0,
-                valid_subjects,
-            ).to(device=context.device)
-
-            valid_has_memory = counts > 0
-
-            valid_rows = torch.where(valid)[0]
-            has_memory[valid_rows] = valid_has_memory
-
-            if valid_has_memory.any():
-                memory_valid = self.subject_context_memory.index_select(
-                    0,
-                    valid_subjects,
-                ).to(device=context.device, dtype=context.dtype)
-
-                memory[valid_rows[valid_has_memory]] = memory_valid[valid_has_memory]
-
-        memory = F.normalize(memory, dim=-1)
-
-        # Straight-through trick:
-        # forward uses memory, but gradient can still pass through current context.
-        memory_st = memory + (context - context.detach())
-
-        if self.use_global_fallback and int(self.global_memory_count.item()) > 0:
-            global_memory = self.global_context_memory.to(
-                device=context.device,
-                dtype=context.dtype,
-            )
-            global_memory = F.normalize(global_memory, dim=-1).expand_as(context)
-
-            fallback = F.normalize(
-                0.5 * context + 0.5 * global_memory,
-                dim=-1,
-            )
-        else:
-            fallback = context
-
-        query = torch.where(
-            has_memory.unsqueeze(-1),
-            memory_st,
-            fallback,
-        )
-
-        query = F.normalize(query, dim=-1)
-        return query
-
-    @torch.no_grad()
-    def _ema_update_one(
-        self,
-        memory: torch.Tensor,
-        count_tensor: torch.Tensor,
-        value: torch.Tensor,
-        count: int,
-    ):
-        count = int(count)
-        if count <= 0:
-            return
-
-        value = value.detach().to(
-            device=memory.device,
-            dtype=memory.dtype,
-        ).view_as(memory)
-
-        value = F.normalize(value, dim=0)
-
-        if int(count_tensor.item()) == 0:
-            memory.copy_(value)
-        else:
-            memory.mul_(1.0 - self.memory_momentum).add_(
-                value,
-                alpha=self.memory_momentum,
-            )
-            memory.copy_(F.normalize(memory, dim=0))
-
-        count_tensor.add_(count)
-
-    @torch.no_grad()
-    def _update_memory(
-        self,
-        context: torch.Tensor,
-        subject_ids: torch.Tensor,
-    ):
-        if context.numel() == 0:
-            return
-
-        context = context.detach()
-        subject_ids = subject_ids.detach().long().view(-1)
-
-        # Update global memory
-        self._ema_update_one(
-            self.global_context_memory[0],
-            self.global_memory_count,
-            context.mean(dim=0),
-            context.shape[0],
-        )
-
-        # Update subject memories
-        valid = (subject_ids >= 0) & (subject_ids < self.num_subjects)
-        if not valid.any():
-            return
-
-        for sid_tensor in torch.unique(subject_ids[valid], sorted=True):
-            sid = int(sid_tensor.item())
-
-            sid_context = context[subject_ids == sid_tensor]
-
-            self._ema_update_one(
-                self.subject_context_memory[sid],
-                self.subject_memory_counts[sid],
-                sid_context.mean(dim=0),
-                sid_context.shape[0],
-            )
-
-    def forward(
-        self,
-        x: torch.Tensor,
-        subject_ids: torch.Tensor,
-        update_memory: Optional[bool] = None,
-    ) -> torch.Tensor:
+    def forward(self, x: torch.Tensor, subject_ids: torch.Tensor) -> torch.Tensor:
         bsz, feat_dim = x.shape
-
         if feat_dim != self.num_features:
-            raise ValueError(
-                f"SubjectMemoryStyleNorm feature mismatch: "
-                f"got {feat_dim}, expected {self.num_features}"
-            )
-
+            raise ValueError(f"SubjectInvariantNorm feature mismatch: got {feat_dim}, expected {self.num_features}")
         if subject_ids.ndim != 1 or subject_ids.shape[0] != bsz:
             raise ValueError("subject_ids must be shape [B]")
 
-        # 1. Stable base normalization
-        base = self.base_norm(x)
+        out = torch.empty_like(x)
+        unique_ids = torch.unique(subject_ids.detach().long())
+        for sid_tensor in unique_ids:
+            mask = subject_ids == sid_tensor
+            idx = torch.where(mask)[0]
+            chunk = x[idx]
 
-        # 2. Encode context
-        if self.detach_context:
-            context_input = base.detach()
-        else:
-            context_input = base
+            if chunk.shape[0] >= self.min_count:
+                mean = chunk.mean(dim=0, keepdim=True)
+                var = chunk.var(dim=0, unbiased=False, keepdim=True)
+                out[idx] = (chunk - mean) / torch.sqrt(var + self.eps)
+            else:
+                out[idx] = F.layer_norm(x[idx], (feat_dim,), eps=self.eps)
 
-        context = self._encode_context(context_input)
-
-        # 3. Query memory
-        query = self._memory_query(context, subject_ids)
-
-        # 4. Directly generate gamma/beta from memory query
-        gamma, beta = self.style_adapter(query).chunk(2, dim=-1)
-
-        # 5. Limit correction strength
-        gate = torch.sigmoid(self.style_gate)
-
-        gamma = torch.tanh(gamma) * self.style_scale * gate
-        beta = torch.tanh(beta) * self.style_scale * gate
-
-        # 6. Residual adaptive correction
-        out = base * (1.0 + gamma) + beta
-
-        # 7. Global affine
-        out = out * self.global_gamma + self.global_beta
-
-        # 8. Update memory
-        if update_memory is None:
-            update_memory = self.training
-
-        if update_memory:
-            self._update_memory(context, subject_ids)
-
-        return out
-
+        return out * self.shared_gamma + self.shared_beta
 
 
 class FeatureBlock(nn.Module):
@@ -741,7 +268,7 @@ class Projector(nn.Module):
         return self.fc_layer2(x)
 
 
-class FDGCL(nn.Module):
+class DMS_SGPAN(nn.Module):
     def __init__(self, net_params: Dict):
         super().__init__()
         self.device = net_params["DEVICE"]
@@ -760,25 +287,9 @@ class FDGCL(nn.Module):
         self.temperature = float(net_params.get("temperature", 0.2))
         self.ugfcda_warmup_epochs = max(0, int(net_params.get("ugfcda_warmup_epochs", 10)))
         self.ugfcda_eps = max(1e-12, float(net_params.get("ugfcda_eps", 1e-6)))
-        self.ugfcda_keep_ratio_start = max(
+        self.ugfcda_reliability_threshold = max(
             0.0,
-            min(1.0, float(net_params.get("ugfcda_keep_ratio_start", 0.2))),
-        )
-        self.ugfcda_keep_ratio_end = max(
-            self.ugfcda_keep_ratio_start,
-            min(1.0, float(net_params.get("ugfcda_keep_ratio_end", 0.6))),
-        )
-        self.ugfcda_keep_ratio_step = max(
-            0.0,
-            float(net_params.get("ugfcda_keep_ratio_step", 0.1)),
-        )
-        self.ugfcda_keep_ratio_step_epochs = max(
-            1,
-            int(net_params.get("ugfcda_keep_ratio_step_epochs", 20)),
-        )
-        self.ugfcda_subject_weight = max(
-            0.0,
-            min(1.0, float(net_params.get("ugfcda_subject_weight", 0.5))),
+            min(1.0, float(net_params.get("ugfcda_reliability_threshold", 0.6))),
         )
         self.ugfcda_proto_align_weight = max(0.0, float(net_params.get("ugfcda_proto_align_weight", 0.1)))
         self.node_drop_rate = float(net_params.get("node_drop_rate", 0.15))
@@ -811,6 +322,8 @@ class FDGCL(nn.Module):
         self.frequency_band_groups = self._sanitize_frequency_band_groups(
             net_params.get("frequency_band_groups", None)
         )
+        self.graph_band_indices = self._graph_frequency_band_indices()
+        self.graph_num_bands = len(self.graph_band_indices)
         self.num_scales = len(self.frequency_band_groups)
 
         self.w_ce = float(net_params.get("w_ce", 1.0))
@@ -825,19 +338,14 @@ class FDGCL(nn.Module):
             self.num_channels,
             max(1, int(round(self.num_channels * (1.0 - self.node_drop_rate)))),
         )
-        self.ssbn = SubjectMemoryStyleNorm(
-            num_features=flat_dim,
-            num_subjects=int(net_params.get("num_subjects")),
+        self.ssbn = SubjectInvariantNorm(
+            flat_dim,
             eps=float(net_params.get("ssbn_eps", 1e-5)),
-            context_dim=net_params.get("ssbn_context_dim", None),
-            memory_momentum=float(net_params.get("ssbn_memory_momentum", 0.1)),
-            style_scale=float(net_params.get("ssbn_style_scale", 0.03)),
-            detach_context=bool(net_params.get("ssbn_detach_context", True)),
-            use_global_fallback=bool(net_params.get("ssbn_use_global_fallback", True)),
+            min_count=int(net_params.get("sin_min_count", 2)),
         )
 
         self.gcn = GCNBlock(
-            num_of_features=self.num_bands,
+            num_of_features=self.graph_num_bands,
             out_feature=self.graph_hidden,
             alpha=self.GLalpha,
             k=self.cheb_k,
@@ -920,7 +428,7 @@ class FDGCL(nn.Module):
 
     def _default_frequency_band_groups(self) -> List[List[int]]:
         if self.num_bands >= 5:
-            return [[1, 2], [3], [4]]
+            return [[0], [1], [2], [3], [4]]
         if self.num_bands >= 3:
             return [[i] for i in range(self.num_bands)][-3:]
         return [[i] for i in range(self.num_bands)]
@@ -940,8 +448,14 @@ class FDGCL(nn.Module):
                 valid_groups.append(valid_group)
         return valid_groups if valid_groups else self._default_frequency_band_groups()
 
+    def _graph_frequency_band_indices(self) -> List[int]:
+        band_indices = sorted({idx for band_group in self.frequency_band_groups for idx in band_group})
+        if band_indices:
+            return band_indices
+        return list(range(self.num_bands))
+
     def _ensure_shape(self, x: torch.Tensor) -> torch.Tensor:
-        # FDGCL now treats each sample as one graph over EEG channels.
+        # DMS_SGPAN now treats each sample as one graph over EEG channels.
         if x.ndim != 3:
             raise ValueError(f"Expected input shape [B, C, F], got shape={tuple(x.shape)}")
         if x.shape[1] != self.num_channels or x.shape[2] != self.num_bands:
@@ -958,7 +472,8 @@ class FDGCL(nn.Module):
     def _dynamic_graph(self, x: torch.Tensor) -> List[torch.Tensor]:
         # x: [B, C, F]
         bsz = x.shape[0]
-        graph_feat, adj, ajloss = self.gcn(x)
+        graph_x = x[:, :, self.graph_band_indices]
+        graph_feat, adj, ajloss = self.gcn(graph_x)
 
         graph_flat = graph_feat.reshape(bsz, -1)  # [B, C * H]
         _, graph_step_feat = self.graph_readout(graph_flat)  # [B, H]
@@ -1149,19 +664,7 @@ class FDGCL(nn.Module):
         private_acc = (private_logits.detach().argmax(dim=1) == repeated_labels).float().mean()
         return [subject_loss, shared_loss, private_loss, shared_acc, private_acc]
 
-    def _ugfcda_scale_reliability(
-        self,
-        target_scale_weights: Optional[torch.Tensor],
-        num_scales: int,
-        device: torch.device,
-    ) -> torch.Tensor:
-        if target_scale_weights is not None and target_scale_weights.numel() > 0:
-            reliability = target_scale_weights.detach().float().mean(dim=0).to(device)
-            if reliability.numel() == num_scales and reliability.sum() > self.ugfcda_eps:
-                return reliability / (reliability.sum() + self.ugfcda_eps)
-        return torch.full((num_scales,), 1.0 / max(1, num_scales), device=device)
-
-    def _build_class_prototypes_all(
+    def _ugfcda_build_batch_prototypes(
         self,
         features: torch.Tensor,
         labels: torch.Tensor,
@@ -1180,57 +683,6 @@ class FDGCL(nn.Module):
                 valid_mask[cls_id] = True
         return prototypes, valid_mask
 
-    def _ugfcda_shared_subject_invariance(
-        self,
-        shared_scales: List[torch.Tensor],
-    ) -> torch.Tensor:
-        if len(shared_scales) == 0:
-            return torch.zeros(0, device=self.device)
-        with torch.no_grad():
-            shared_stack = torch.stack(shared_scales, dim=1)
-            shared_feat = shared_stack.mean(dim=1)
-            was_training = self.shared_subject_discriminator.training
-            self.shared_subject_discriminator.eval()
-            subject_logits = self.shared_subject_discriminator(shared_feat)
-            if was_training:
-                self.shared_subject_discriminator.train()
-            subject_prob = torch.softmax(subject_logits, dim=1)
-            subject_confidence = subject_prob.max(dim=1).values
-            chance_confidence = 1.0 / max(1, self.num_subjects)
-            bias_score = ((subject_confidence - chance_confidence) / (1.0 - chance_confidence + 1e-6)).clamp(0.0, 1.0)
-            subject_invariance = 1.0 - self.ugfcda_subject_weight * bias_score
-        return subject_invariance.clamp(0.0, 1.0)
-
-    def _ugfcda_keep_ratio(self, current_epoch: int) -> float:
-        if int(current_epoch) < self.ugfcda_warmup_epochs:
-            return 0.0
-        steps = max(0, (int(current_epoch) - self.ugfcda_warmup_epochs) // self.ugfcda_keep_ratio_step_epochs)
-        ratio = self.ugfcda_keep_ratio_start + steps * self.ugfcda_keep_ratio_step
-        return float(min(self.ugfcda_keep_ratio_end, max(self.ugfcda_keep_ratio_start, ratio)))
-
-    def _ugfcda_class_balanced_mask(
-        self,
-        pseudo_labels: torch.Tensor,
-        reliability: torch.Tensor,
-        keep_ratio: float,
-    ) -> torch.Tensor:
-        keep = torch.zeros_like(reliability, dtype=torch.bool)
-        if reliability.numel() == 0 or keep_ratio <= 0.0:
-            return keep
-
-        for cls_id in range(self.num_classes):
-            cls_idx = torch.nonzero(
-                (pseudo_labels == cls_id) & (reliability > self.ugfcda_eps),
-                as_tuple=False,
-            ).view(-1)
-            if cls_idx.numel() == 0:
-                continue
-            k = int(np.ceil(float(cls_idx.numel()) * keep_ratio))
-            k = max(1, min(k, int(cls_idx.numel())))
-            top_local = torch.topk(reliability[cls_idx], k=k, largest=True).indices
-            keep[cls_idx[top_local]] = True
-        return keep
-
     def _ugfcda_empty_state(self, device: torch.device) -> Dict[str, torch.Tensor]:
         return {
             "pseudo_labels": torch.zeros(0, dtype=torch.long, device=device),
@@ -1239,7 +691,6 @@ class FDGCL(nn.Module):
             "feature_margin": torch.zeros(0, device=device),
             "feature_entropy_score": torch.zeros(0, device=device),
             "scale_consistency": torch.zeros(0, device=device),
-            "subject_invariance": torch.zeros(0, device=device),
         }
 
     def _ugfcda_reliability_and_pseudo(
@@ -1247,7 +698,6 @@ class FDGCL(nn.Module):
         source_scales: List[torch.Tensor],
         target_scales: List[torch.Tensor],
         source_label: torch.Tensor,
-        target_shared_scales: List[torch.Tensor],
         target_scale_weights: Optional[torch.Tensor] = None,
     ) -> Dict[str, torch.Tensor]:
         with torch.no_grad():
@@ -1256,6 +706,15 @@ class FDGCL(nn.Module):
                 return self._ugfcda_empty_state(source_label.device)
 
             device = target_scales[0].device
+            source_proto_scales = []
+            source_valid_scales = []
+            for scale_idx, s_feat in enumerate(source_scales):
+                proto, valid = self._ugfcda_build_batch_prototypes(s_feat, source_labels)
+                source_proto_scales.append(proto)
+                source_valid_scales.append(valid)
+            source_proto_scales = torch.stack(source_proto_scales, dim=0)
+            source_valid_scales = torch.stack(source_valid_scales, dim=0)
+
             if target_scale_weights is None or target_scale_weights.numel() == 0:
                 scale_weights = torch.full(
                     (target_scales[0].shape[0], len(target_scales)),
@@ -1266,13 +725,10 @@ class FDGCL(nn.Module):
                 scale_weights = target_scale_weights.detach().float().to(device)
                 scale_weights = scale_weights / (scale_weights.sum(dim=1, keepdim=True) + self.ugfcda_eps)
 
-            feature_valid_masks = []
             feature_scores = []
             scale_predictions = []
-            for scale_idx, s_feat in enumerate(source_scales):
-                proto, valid_mask = self._build_class_prototypes_all(s_feat, source_labels)
-                feature_valid_masks.append(valid_mask)
-
+            for scale_idx, proto in enumerate(source_proto_scales):
+                valid_mask = source_valid_scales[scale_idx]
                 t_feat = F.normalize(target_scales[scale_idx].detach(), dim=-1)
                 scale_sim = torch.matmul(t_feat, proto.t()) / max(self.temperature, 1e-6)
                 scale_sim = scale_sim.masked_fill(~valid_mask.unsqueeze(0), -1e9)
@@ -1282,16 +738,11 @@ class FDGCL(nn.Module):
 
             feature_score_stack = torch.stack(feature_scores, dim=1)  # [B, S, C]
             feature_agreement_scores = torch.sum(feature_score_stack * scale_weights.unsqueeze(-1), dim=1)
-            source_feature_valid = torch.stack(feature_valid_masks, dim=0).all(dim=0)
+            source_feature_valid = source_valid_scales.all(dim=0)
             feature_agreement_scores = feature_agreement_scores.masked_fill(~source_feature_valid.unsqueeze(0), 0.0)
 
-            subject_invariance = self._ugfcda_shared_subject_invariance(target_shared_scales)
             pseudo_labels = feature_agreement_scores.argmax(dim=1)
-            feature_agreement = torch.gather(
-                feature_agreement_scores,
-                1,
-                pseudo_labels.view(-1, 1),
-            ).squeeze(1)
+            feature_agreement = torch.gather(feature_agreement_scores, 1, pseudo_labels.view(-1, 1)).squeeze(1)
             top2 = torch.topk(feature_agreement_scores, k=min(2, self.num_classes), dim=1).values
             if top2.shape[1] > 1:
                 feature_margin = (top2[:, 0] - top2[:, 1]).clamp(0.0, 1.0)
@@ -1307,10 +758,10 @@ class FDGCL(nn.Module):
             scale_consistency = (scale_pred_stack == pseudo_labels.unsqueeze(1)).float().mean(dim=1)
 
             reliability = (
-                feature_margin
-                * feature_entropy_score
-                * scale_consistency
-                * subject_invariance
+                feature_agreement.pow(0.25)
+                * feature_margin.pow(0.25)
+                * feature_entropy_score.pow(0.25)
+                * scale_consistency.pow(0.25)
             ).clamp(0.0, 1.0)
 
             return {
@@ -1320,7 +771,6 @@ class FDGCL(nn.Module):
                 "feature_margin": feature_margin,
                 "feature_entropy_score": feature_entropy_score,
                 "scale_consistency": scale_consistency,
-                "subject_invariance": subject_invariance,
             }
 
     def _ugfcda_alignment_loss(
@@ -1331,8 +781,6 @@ class FDGCL(nn.Module):
         target_pseudo_label: torch.Tensor,
         target_reliability: torch.Tensor,
         target_align_mask: torch.Tensor,
-        target_shared_scales: Optional[List[torch.Tensor]] = None,
-        target_scale_weights: Optional[torch.Tensor] = None,
     ) -> torch.Tensor:
         if target_pseudo_label.numel() == 0:
             return torch.zeros((), device=source_scales[0].device)
@@ -1346,33 +794,30 @@ class FDGCL(nn.Module):
 
         source_labels = source_label.long().view(-1)
         target_labels = target_pseudo_label.long().view(-1)
-        scale_reliability = self._ugfcda_scale_reliability(
-            target_scale_weights,
-            len(source_scales),
-            source_scales[0].device,
-        )
+        source_proto_scales = []
+        source_valid_scales = []
+        for scale_idx, s_feat in enumerate(source_scales):
+            proto, valid = self._ugfcda_build_batch_prototypes(s_feat, source_labels)
+            source_proto_scales.append(proto)
+            source_valid_scales.append(valid)
+        source_proto_scales = torch.stack(source_proto_scales, dim=0)
+        source_valid_scales = torch.stack(source_valid_scales, dim=0)
 
-        feature_losses = []
+        t2s_losses = []
+        proto_align = torch.zeros((), device=source_scales[0].device)
         for scale_idx, (s_feat, t_feat) in enumerate(zip(source_scales, target_scales)):
-            source_prototypes, source_valid = self._build_class_prototypes_all(s_feat, source_labels)
+            source_prototypes = source_proto_scales[scale_idx]
+            source_valid = source_valid_scales[scale_idx]
             feat_norm = F.normalize(t_feat[keep], dim=-1)
             logits = torch.matmul(feat_norm, source_prototypes.t()) / max(self.temperature, 1e-6)
             logits = logits.masked_fill(~source_valid.unsqueeze(0), -1e9)
             losses = F.cross_entropy(logits, target_labels[keep], reduction="none")
-            feature_losses.append(scale_reliability[scale_idx] * torch.sum(losses * target_reliability[keep]) / (target_reliability[keep].sum() + self.ugfcda_eps))
+            t2s_losses.append(torch.sum(losses * target_reliability[keep]) / (target_reliability[keep].sum() + self.ugfcda_eps))
 
-        if target_shared_scales is not None and len(target_shared_scales) > 0:
-            subject_invariance = self._ugfcda_shared_subject_invariance([feat[keep] for feat in target_shared_scales])
-        else:
-            subject_invariance = torch.ones_like(target_reliability[keep])
-        reliability_weight = target_reliability[keep] * subject_invariance
-        reliability_weight = reliability_weight / (reliability_weight.sum() + self.ugfcda_eps)
-
-        proto_align = torch.zeros((), device=source_scales[0].device)
-        for scale_idx, (s_feat, t_feat) in enumerate(zip(source_scales, target_scales)):
-            source_prototypes, source_valid = self._build_class_prototypes_all(s_feat, source_labels)
             target_proto = torch.zeros(self.num_classes, source_prototypes.shape[-1], device=source_prototypes.device)
             target_feat_norm = F.normalize(t_feat[keep], dim=-1)
+            reliability_weight = target_reliability[keep]
+            reliability_weight = reliability_weight / (reliability_weight.sum() + self.ugfcda_eps)
             for cls_id in range(self.num_classes):
                 cls_mask = target_labels[keep] == cls_id
                 if cls_mask.any():
@@ -1385,9 +830,10 @@ class FDGCL(nn.Module):
             target_valid = torch.bincount(target_labels[keep], minlength=self.num_classes).to(torch.bool)
             proto_valid = source_valid & target_valid
             if proto_valid.any():
-                proto_align = proto_align + scale_reliability[scale_idx] * proto_dist[proto_valid].mean()
+                proto_align = proto_align + proto_dist[proto_valid].mean()
 
-        total_align = torch.stack(feature_losses).sum() + self.ugfcda_proto_align_weight * proto_align
+        t2s_loss = torch.stack(t2s_losses).mean() if t2s_losses else torch.zeros((), device=source_scales[0].device)
+        total_align = t2s_loss + self.ugfcda_proto_align_weight * proto_align
         return total_align
 
     def _cross_covariance_loss(self, shared_scales: List[torch.Tensor], private_scales: List[torch.Tensor]) -> torch.Tensor:
@@ -1463,20 +909,15 @@ class FDGCL(nn.Module):
             source_scales,
             target_scales,
             source_label,
-            target_scales,
             target_scale_weights,
         )
         target_pseudo = ugfcda_state["pseudo_labels"]
         target_reliability = ugfcda_state["reliability"]
-        ugfcda_keep_ratio = self._ugfcda_keep_ratio(current_epoch)
-        if int(current_epoch) >= self.ugfcda_warmup_epochs:
-            target_align_mask = self._ugfcda_class_balanced_mask(
-                target_pseudo,
-                target_reliability,
-                ugfcda_keep_ratio,
-            )
-        else:
-            target_align_mask = torch.zeros_like(target_reliability, dtype=torch.bool)
+        target_align_mask = (
+            target_reliability >= self.ugfcda_reliability_threshold
+            if int(current_epoch) >= self.ugfcda_warmup_epochs
+            else torch.zeros_like(target_reliability, dtype=torch.bool)
+        )
         align_active = bool(target_align_mask.any().item())
         if align_active:
             align_loss = self._ugfcda_alignment_loss(
@@ -1486,8 +927,6 @@ class FDGCL(nn.Module):
                 target_pseudo,
                 target_reliability,
                 target_align_mask,
-                target_scales,
-                target_scale_weights,
             )
         else:
             align_loss = torch.zeros((), device=logits_s.device)
@@ -1518,7 +957,6 @@ class FDGCL(nn.Module):
         target_feature_margin = ugfcda_state["feature_margin"].mean() if target_count > 0 else torch.zeros((), device=logits_s.device)
         target_feature_entropy_score = ugfcda_state["feature_entropy_score"].mean() if target_count > 0 else torch.zeros((), device=logits_s.device)
         target_scale_consistency = ugfcda_state["scale_consistency"].mean() if target_count > 0 else torch.zeros((), device=logits_s.device)
-        target_subject_invariance = ugfcda_state["subject_invariance"].mean() if target_count > 0 else torch.zeros((), device=logits_s.device)
 
         total_loss = (
             self.w_ce * ce_loss
@@ -1547,11 +985,9 @@ class FDGCL(nn.Module):
             "target_feature_margin_mean": target_feature_margin,
             "target_feature_entropy_score_mean": target_feature_entropy_score,
             "target_scale_consistency_mean": target_scale_consistency,
-            "target_subject_invariance_mean": target_subject_invariance,
             "target_align_conf_mean": target_align_confidence,
             "target_align_coverage": target_align_coverage,
             "target_align_count": target_align_count,
-            "target_keep_ratio": torch.tensor(float(ugfcda_keep_ratio), device=logits_s.device),
             "target_pseudo_class_counts": target_pseudo_class_counts,
             "target_align_class_counts": target_align_class_counts,
             "align_active": torch.tensor(float(align_active), device=logits_s.device),

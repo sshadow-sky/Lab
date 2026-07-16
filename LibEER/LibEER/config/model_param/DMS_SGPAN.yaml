@@ -1,5 +1,3 @@
-# FDGCL V2 (Feature Disentanglement + Graph Contrastive Learning)
-
 params:
   # Graph and spectral encoders
   graph_hidden: 32

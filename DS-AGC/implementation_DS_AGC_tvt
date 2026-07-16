@@ -1,0 +1,1418 @@
+'''
+Description: 
+Author: voicebeer
+Date: 2020-09-14 01:01:51
+LastEditTime: 2021-12-28 01:46:52
+'''
+SEED_PATH = "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED/SEED_EEG"
+SEEDIV_PATH = "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED_IV"
+SEEDV_PATH = "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED-V/SEED-V/"
+DEAP_PATH = "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/DEAP/data_preprocessed_python"
+
+# Supported: "seed", "seediv", "seedv", "deap_a", "deap_v"
+DATASET = "deap_v"
+# All datasets use zero-based session indices in this script. DEAP only has session 0.
+SESSION_ID = 0
+
+# Supported: "single_tvt" or "strict_loso".
+# single_tvt runs one fixed train/validation/test split.
+PROTOCOL = "single_tvt"
+import torch
+import numpy as np
+from tqdm import tqdm
+import models_DS_AGC
+import os
+import random
+from torch.optim import RMSprop
+from sklearn import preprocessing
+import scipy.io as scio
+import torch.utils.data as Data
+from AutoWeight import AutomaticWeightedLoss
+import torch.nn as nn
+from torch.nn import init
+from load_data import (
+    read_seed_feature,
+    read_seedIV_feature,
+    read_seedV_raw,
+    read_deap_preprocessed,
+    preprocess
+)
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+RESULT_DIR = os.path.join(PROJECT_DIR, "model_result")
+os.makedirs(RESULT_DIR, exist_ok=True)
+
+# In-memory cache: DEAP DE-LDS extraction is performed only once per process,
+# rather than once for every LOSO fold.
+_DEAP_CACHE = None
+def setup_seed(seed):
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)  # if you are using multi-GPU.
+    np.random.seed(seed)  # Numpy module.
+    random.seed(seed)  # Python random module.
+    torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
+
+def to_onehot(label, num_class):
+
+    label = np.asarray(label).astype(int)
+
+    one_hot = np.zeros(
+        (len(label), num_class),
+        dtype=np.float32
+    )
+
+    one_hot[np.arange(len(label)), label] = 1
+
+    return one_hot
+
+def weigth_init(m):
+    if isinstance(m, nn.Conv2d):
+        setup_seed(2024)
+        init.xavier_uniform_(m.weight.data)##对参数进行xavier初始化，为了使得网络中信息更好的流动，每一层输出的方差应该尽量相等
+        init.constant_(m.bias.data,0.3)
+    elif isinstance(m, nn.BatchNorm2d):
+        m.weight.data.fill_(1)
+        m.bias.data.zero_()
+    elif isinstance(m, nn.BatchNorm1d):
+        m.weight.data.fill_(1)
+        m.bias.data.zero_()
+    elif isinstance(m, nn.Linear):
+        setup_seed(2024)
+        m.weight.data.normal_(0,0.03)
+#        torch.nn.init.kaiming_normal_(m.weight.data,a=0,mode='fan_in',nonlinearity='relu')
+        if m.bias is not None:
+            m.bias.data.zero_()
+
+def get_cos_similarity_distance(pseudo, pred):
+    """Get distance in cosine similarity
+    :param features: features of samples, (batch_size, num_clusters)
+    :return: distance matrix between features, (batch_size, batch_size)
+    """
+    pseudo_norm = torch.norm(pseudo, dim=1, keepdim=True)
+    pseudo = pseudo / pseudo_norm
+
+    pred_norm = torch.norm(pred, dim=1, keepdim=True)
+    pred = pred / pred_norm
+
+    cos_dist_matrix = torch.mm(pseudo, pred.transpose(0, 1))
+    return cos_dist_matrix
+
+def train_GCN_contrast(
+    subject_id,
+    validation_id,
+    parameter,
+    net_params,
+    source_labeled_loaders,
+    source_unlabeled_loaders,
+    target_loader,
+    validation_loader,
+):
+    """Train with unlabeled target features and select only on validation.
+
+    The target subject's labels are never used inside the epoch loop.  The
+    validation subject is entirely excluded from optimization/adaptation and
+    is used to choose the checkpoint.  Test labels are evaluated once after
+    restoring that checkpoint.
+    """
+    device = net_params['DEVICE']
+    setup_seed(2024)
+    model = models_DS_AGC.SemiGCL(net_params).to(device)
+    setup_seed(2024)
+    model.apply(weigth_init)
+    awl = AutomaticWeightedLoss(4)
+    optimizer = RMSprop([
+        {
+            'params': model.parameters(),
+            'lr': parameter['init_lr'],
+            'weight_decay': parameter['weight_decay'],
+        },
+        {'params': awl.parameters(), 'weight_decay': 0},
+    ])
+
+    best_val_acc = -1.0
+    best_epoch = -1
+    patience_counter = 0
+    val_acc_curve = np.full(parameter['epochs'], np.nan)
+    threshold = parameter['threshold']
+    protocol_tag = str(parameter.get('protocol', PROTOCOL))
+    fold_tag = parameter.get('fold_tag', None)
+    if fold_tag is None:
+        try:
+            fold_tag = 'test{:02d}_val{:02d}'.format(
+                int(subject_id), int(validation_id)
+            )
+        except Exception:
+            fold_tag = '{}_{}'.format(subject_id, validation_id)
+    checkpoint_path = os.path.join(
+        RESULT_DIR,
+        '{}_{}_session{}_{}.pkl'.format(
+            protocol_tag, Dataset_name, SESSION_ID, fold_tag
+        ),
+    )
+
+    for epoch in range(parameter['epochs']):
+        model.train()
+        total_loss = 0.0
+        total_num = 0
+        source_acc_total = 0.0
+        target_bar = tqdm(target_loader)
+        train_source_iter_labeled = iter(source_labeled_loaders)
+        train_source_iter_unlabeled = iter(source_unlabeled_loaders)
+        setup_seed(2024)
+
+        for data_target, _ in target_bar:
+            try:
+                data_source, labels_source = next(train_source_iter_labeled)
+            except StopIteration:
+                train_source_iter_labeled = iter(source_labeled_loaders)
+                data_source, labels_source = next(train_source_iter_labeled)
+            try:
+                x_un, _ = next(train_source_iter_unlabeled)
+            except StopIteration:
+                train_source_iter_unlabeled = iter(source_unlabeled_loaders)
+                x_un, _ = next(train_source_iter_unlabeled)
+
+            x_un = x_un.to(device)
+            data_source = data_source.to(device)
+            labels_source = labels_source.to(device)
+            data_target = data_target.to(device)
+
+            tripleada = 0 if parameter['T_DANN'] else 1
+            if epoch >= threshold:
+                pred, domain_loss, ajloss, contrastive_loss, sim_weight, L2 = model(
+                    torch.cat((data_source, x_un, data_target)),
+                    tripleada=tripleada,
+                    threshold=1,
+                )
+            else:
+                pred, domain_loss, ajloss, contrastive_loss, sim_weight, L2 = model(
+                    torch.cat((data_source, data_target)),
+                    tripleada=0,
+                    threshold=0,
+                )
+
+            source_pred = pred[:len(data_source), :]
+            if epoch >= threshold:
+                log_prob = torch.nn.functional.log_softmax(
+                    sim_weight * source_pred, dim=1
+                )
+            else:
+                log_prob = torch.nn.functional.log_softmax(source_pred, dim=1)
+
+            celoss = -torch.sum(log_prob * labels_source) / len(labels_source)
+            loss = (
+                celoss
+                + parameter['DANN'] * domain_loss
+                + parameter['dynamic_adj'] * ajloss
+                + parameter['GCL'] * contrastive_loss
+            )
+
+            source_scores = source_pred.detach().argmax(dim=1)
+            source_acc_total += (
+                source_scores == labels_source.argmax(dim=1)
+            ).float().sum().item()
+
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+            batch_n = len(data_source)
+            total_num += batch_n
+            total_loss += loss.item() * batch_n
+            target_bar.set_description(
+                'test-sub:{} val-sub:{} Epoch:[{}/{}] Loss:{:.4f} source_acc:{:.2f}%'.format(
+                    subject_id,
+                    validation_id,
+                    epoch + 1,
+                    parameter['epochs'],
+                    total_loss / max(total_num, 1),
+                    source_acc_total / max(total_num, 1) * 100,
+                )
+            )
+
+        val_acc = test_GCN_contrast(
+            model, validation_loader, device, split_name='validation'
+        )
+        val_acc_curve[epoch] = val_acc
+        if val_acc > best_val_acc:
+            best_val_acc = float(val_acc)
+            best_epoch = epoch
+            patience_counter = 0
+            torch.save(model.state_dict(), checkpoint_path)
+        else:
+            patience_counter += 1
+
+        print(
+            'epoch={} validation_acc={:.4f} best_validation={:.4f}@{}'.format(
+                epoch, val_acc, best_val_acc, best_epoch
+            )
+        )
+        if patience_counter >= parameter.get('patience', 15):
+            print('Early stopping based only on validation subject.')
+            break
+
+    if best_epoch < 0 or not os.path.isfile(checkpoint_path):
+        raise RuntimeError('No validation-selected checkpoint was saved.')
+    state_dict = torch.load(checkpoint_path, map_location=device)
+    model.load_state_dict(state_dict)
+    final_test_acc = test_GCN_contrast(
+        model, target_loader, device, split_name='final-test'
+    )
+    print(
+        'fold complete: test_subject={} validation_subject={} best_epoch={} '
+        'best_val={:.4f} final_test={:.4f}'.format(
+            subject_id,
+            validation_id,
+            best_epoch,
+            best_val_acc,
+            final_test_acc,
+        )
+    )
+    return val_acc_curve, float(final_test_acc), float(best_val_acc), best_epoch
+
+
+def test_GCN_contrast(model, target_loader, device, split_name='evaluation'):
+    model.eval()
+    data_target = target_loader.dataset.tensors[0].to(device)
+    labels_target = target_loader.dataset.tensors[1].to(device)
+    with torch.no_grad():
+        pred = model.predict(data_target)
+    target_scores = pred.detach().argmax(dim=1)
+    target_acc = (
+        (target_scores == labels_target.argmax(dim=1)).float().sum().item()
+        / len(data_target)
+    )
+    print('{} accuracy: {}'.format(split_name, target_acc))
+    return target_acc
+
+
+
+def _load_deap_de_lds():
+    """Load DEAP through LibEER and extract 1-second five-band DE-LDS."""
+    global _DEAP_CACHE
+    if _DEAP_CACHE is not None:
+        return _DEAP_CACHE
+
+    raw_data, baseline, labels, sample_rate, channels = read_deap_preprocessed(
+        DEAP_PATH
+    )
+    if channels != 32:
+        raise ValueError("DEAP must contain 32 EEG channels, got {}.".format(channels))
+
+    data, feature_dim = preprocess(
+        data=raw_data,
+        baseline=baseline,
+        sample_rate=sample_rate,
+        pass_band=[0.3, 50],
+        extract_bands=[[0.5, 4], [4, 8], [8, 14], [14, 30], [30, 50]],
+        time_window=1,
+        overlap=0,
+        feature_type="de_lds",
+        eog_clean=False,
+        sample_length=1,
+        stride=1,
+    )
+    if feature_dim != 5:
+        raise ValueError("Expected five DE frequency bands, got {}.".format(feature_dim))
+
+    _DEAP_CACHE = (data, labels)
+    return _DEAP_CACHE
+
+
+def _deap_trial_binary_label(trial_label, task):
+    """LibEER bounds=[5, 5]: <=5 is class 0 and >5 is class 1."""
+    label_array = np.asarray(trial_label).reshape(-1)
+    label_index = 1 if task == "deap_a" else 0
+    value = float(label_array[label_index])
+    return 0 if value <= 5.0 else 1
+
+
+def _ensure_deap_trial_shape(trial_feature):
+    """Normalize LibEER output to [windows, 32, 5]."""
+    trial_feature = np.asarray(trial_feature, dtype=np.float32)
+    if trial_feature.ndim == 4 and trial_feature.shape[1] == 1:
+        trial_feature = trial_feature[:, 0]
+    if trial_feature.ndim != 3 or trial_feature.shape[1:] != (32, 5):
+        raise ValueError(
+            "Expected a DEAP trial with shape [windows, 32, 5], got {}."
+            .format(trial_feature.shape)
+        )
+    return trial_feature
+
+
+def _subject_arrays_for_dataset(dataset_key, session, parameter):
+    """Load and normalize all subjects into [samples, channels, 5]."""
+    if dataset_key == 'seed':
+        data, _, labels, _, _ = read_seed_feature(SEED_PATH, 'de_lds')
+        num_subjects, num_classes, channels = 15, 3, 62
+    elif dataset_key in {'seediv', 'seed_iv'}:
+        data, _, labels, _, _ = read_seedIV_feature(SEEDIV_PATH, 'de_lds')
+        num_subjects, num_classes, channels = 15, 4, 62
+    elif dataset_key in {'seedv', 'seed_v'}:
+        raw_data, baseline, labels, sample_rate, channels = read_seedV_raw(
+            SEEDV_PATH
+        )
+        data, feature_dim = preprocess(
+            data=raw_data,
+            baseline=None,
+            sample_rate=sample_rate,
+            pass_band=[-1, -1],
+            extract_bands=None,
+            time_window=1,
+            overlap=0,
+            feature_type='de',
+            eog_clean=False,
+            sample_length=1,
+            stride=1,
+        )
+        num_subjects, num_classes, channels = 16, 5, 62
+    elif dataset_key in {'deap_a', 'deap_v'}:
+        data, labels = _load_deap_de_lds()
+        num_subjects, num_classes, channels = 32, 2, 32
+    else:
+        raise ValueError('Unsupported dataset: {}'.format(dataset_key))
+
+    subject_features = []
+    subject_labels = []
+    for subject in range(num_subjects):
+        feature_parts = []
+        label_parts = []
+        for trial_id, raw_trial in enumerate(data[session][subject]):
+            if dataset_key in {'deap_a', 'deap_v'}:
+                trial_feature = _ensure_deap_trial_shape(raw_trial)
+                trial_label = _deap_trial_binary_label(
+                    labels[session][subject][trial_id], dataset_key
+                )
+            else:
+                trial_feature = np.asarray(raw_trial, dtype=np.float32)
+                trial_label = int(labels[session][subject][trial_id])
+            feature_parts.append(trial_feature)
+            label_parts.extend([trial_label] * len(trial_feature))
+
+        feature = np.vstack(feature_parts).astype(np.float32, copy=False)
+        flat = feature.reshape(feature.shape[0], -1)
+        flat = preprocessing.MinMaxScaler(
+            feature_range=(-1, 1)
+        ).fit_transform(flat).astype(np.float32)
+        feature = flat.reshape(feature.shape[0], channels, 5)
+        one_hot = to_onehot(np.asarray(label_parts, dtype=np.int64), num_classes)
+        subject_features.append(feature)
+        subject_labels.append(one_hot)
+    return subject_features, subject_labels
+
+
+def _cyclic_unlabeled_ids(train_ids, test_id, num_subjects, num_of_u):
+    """Choose unlabeled source subjects cyclically, skipping val/test."""
+    train_id_set = set(train_ids)
+    ordered = [
+        (test_id + step) % num_subjects
+        for step in range(1, num_subjects + 1)
+        if (test_id + step) % num_subjects in train_id_set
+    ]
+    if not 1 <= num_of_u < len(train_ids):
+        raise ValueError(
+            'num_of_U must be at least 1 and smaller than the N-2 training '
+            'subject count; got {} for {} train subjects.'.format(
+                num_of_u, len(train_ids)
+            )
+        )
+    return ordered[:num_of_u]
+
+
+def get_strict_dataset(
+    dataset_key,
+    test_id,
+    validation_id,
+    session,
+    parameter,
+):
+    """Return test target, validation, labeled source and unlabeled source."""
+    features, labels = _subject_arrays_for_dataset(
+        dataset_key, session, parameter
+    )
+    num_subjects = len(features)
+    if test_id == validation_id:
+        raise ValueError('test and validation subjects must differ.')
+    train_ids = [
+        i for i in range(num_subjects)
+        if i not in {test_id, validation_id}
+    ]
+    unlabeled_ids = _cyclic_unlabeled_ids(
+        train_ids,
+        test_id,
+        num_subjects,
+        parameter['num_of_U'],
+    ) if parameter['semi'] == 1 else []
+    labeled_ids = [i for i in train_ids if i not in set(unlabeled_ids)]
+    if not unlabeled_ids:
+        raise RuntimeError(
+            'DS-AGC requires at least one unlabeled source subject.'
+        )
+
+    def pack(ids):
+        return {
+            'feature': np.vstack([features[i] for i in ids]).astype(
+                np.float32, copy=False
+            ),
+            'label': np.vstack([labels[i] for i in ids]).astype(
+                np.float32, copy=False
+            ),
+        }
+
+    return (
+        pack([test_id]),
+        pack([validation_id]),
+        pack(labeled_ids),
+        pack(unlabeled_ids),
+        labeled_ids,
+        unlabeled_ids,
+    )
+
+
+def _dataset_tvt_key(dataset_key):
+    """Map dataset aliases to fixed single-TVT split presets."""
+    key = str(dataset_key).strip().lower().replace('-', '_')
+    if key in {'seed', 'seed3', 'seed_de', 'seed_de_lds'}:
+        return 'seed'
+    if key in {'seediv', 'seed_iv', 'seed4', 'seediv_de', 'seediv_de_lds'}:
+        return 'seediv'
+    if key in {'deap_a', 'deap_arousal'}:
+        return 'deap_a'
+    if key in {'deap_v', 'deap_valence'}:
+        return 'deap_v'
+    return key
+
+
+def _fixed_single_tvt_ids(dataset_key, num_subjects):
+    """Return the user-specified fixed TVT subject split.
+
+    All subject ids are 0-based.
+    """
+    key = _dataset_tvt_key(dataset_key)
+
+    if key in {'seed', 'seediv'}:
+        train_ids = [14, 10, 6, 3, 4, 9, 11, 2, 7]
+        validation_ids = [13, 12, 1]
+        test_ids = [8, 0, 5]
+    elif key in {'deap_a', 'deap_v'}:
+        train_ids = [
+            28, 25, 4, 26, 16, 24, 11, 15, 7, 17,
+            8, 22, 13, 29, 6, 9, 18, 23, 5, 30,
+        ]
+        validation_ids = [12, 20, 3, 1, 21, 31]
+        test_ids = [2, 0, 10, 14, 27, 19]
+    else:
+        raise ValueError(
+            'No fixed single-TVT split preset for dataset_key={!r}.'.format(
+                dataset_key
+            )
+        )
+
+    all_ids = train_ids + validation_ids + test_ids
+    if len(set(all_ids)) != len(all_ids):
+        raise ValueError(
+            'Fixed TVT split has duplicated subjects: train={}, val={}, test={}.'
+            .format(train_ids, validation_ids, test_ids)
+        )
+    if len(all_ids) != num_subjects:
+        raise ValueError(
+            'Fixed TVT split must cover all subjects exactly once; '
+            'got {} ids for {} subjects.'.format(len(all_ids), num_subjects)
+        )
+    invalid = [idx for idx in all_ids if idx < 0 or idx >= num_subjects]
+    if invalid:
+        raise ValueError(
+            'Fixed TVT split has invalid ids {} for {} subjects.'
+            .format(invalid, num_subjects)
+        )
+
+    return train_ids, validation_ids, test_ids
+
+
+def _single_tvt_unlabeled_ids(train_ids, parameter):
+    """Choose unlabeled source subjects from the train split only.
+
+    DS-AGC needs labeled source S and unlabeled source U.  For single TVT,
+    validation/test subjects must not enter U.  By default we use the first
+    `num_of_U` subjects in the fixed train list.  You can override this by
+    setting parameter['single_tvt_unlabeled_ids'] to a list of train ids.
+    """
+    if parameter.get('semi', 1) != 1:
+        return []
+
+    num_of_u = int(parameter['num_of_U'])
+    if not 1 <= num_of_u < len(train_ids):
+        raise ValueError(
+            'num_of_U must be at least 1 and smaller than train subject count; '
+            'got num_of_U={} for train_ids={}.'.format(num_of_u, train_ids)
+        )
+
+    manual = parameter.get('single_tvt_unlabeled_ids', None)
+    if manual is not None:
+        unlabeled_ids = [int(x) for x in manual]
+        if len(unlabeled_ids) != num_of_u:
+            raise ValueError(
+                'single_tvt_unlabeled_ids length must equal num_of_U={}, got {}.'
+                .format(num_of_u, unlabeled_ids)
+            )
+        if not set(unlabeled_ids).issubset(set(train_ids)):
+            raise ValueError(
+                'single_tvt_unlabeled_ids must be a subset of train_ids. '
+                'got unlabeled_ids={}, train_ids={}.'.format(
+                    unlabeled_ids, train_ids
+                )
+            )
+        return unlabeled_ids
+
+    return list(train_ids[:num_of_u])
+
+
+def get_single_tvt_dataset(dataset_key, session, parameter):
+    """Return fixed single-TVT target, validation, labeled source and U source.
+
+    train_ids are split internally:
+        unlabeled_ids = train_ids[:num_of_U] by default
+        labeled_ids   = train_ids - unlabeled_ids
+
+    Validation and test subjects are never used as unlabeled source subjects.
+    """
+    features, labels = _subject_arrays_for_dataset(
+        dataset_key, session, parameter
+    )
+    num_subjects = len(features)
+    train_ids, validation_ids, test_ids = _fixed_single_tvt_ids(
+        dataset_key, num_subjects
+    )
+    unlabeled_ids = _single_tvt_unlabeled_ids(train_ids, parameter)
+    labeled_ids = [idx for idx in train_ids if idx not in set(unlabeled_ids)]
+
+    if parameter.get('semi', 1) == 1 and not unlabeled_ids:
+        raise RuntimeError('DS-AGC requires at least one unlabeled source subject.')
+    if not labeled_ids:
+        raise RuntimeError('No labeled source subjects remain after choosing U.')
+
+    def pack(ids):
+        return {
+            'feature': np.vstack([features[i] for i in ids]).astype(
+                np.float32, copy=False
+            ),
+            'label': np.vstack([labels[i] for i in ids]).astype(
+                np.float32, copy=False
+            ),
+        }
+
+    return (
+        pack(test_ids),
+        pack(validation_ids),
+        pack(labeled_ids),
+        pack(unlabeled_ids),
+        labeled_ids,
+        unlabeled_ids,
+        train_ids,
+        validation_ids,
+        test_ids,
+    )
+
+
+def get_dataset_DEAP(test_id, session, parameter, task):
+    """Build a semi-supervised 32-subject LOSO split for DEAP-A or DEAP-V."""
+    if task not in {"deap_a", "deap_v"}:
+        raise ValueError("task must be 'deap_a' or 'deap_v'.")
+    if session != 0:
+        raise ValueError("DEAP has one session; use SESSION_ID = 0.")
+    if not 0 <= test_id < 32:
+        raise ValueError("DEAP test_id must be in [0, 31].")
+    if parameter["semi"] == 1 and not 1 <= parameter["num_of_U"] <= 30:
+        raise ValueError("For DEAP, num_of_U must be between 1 and 30.")
+
+    data, labels = _load_deap_de_lds()
+    num_subjects = 32
+    num_classes = 2
+
+    unlabeled_subjects = {
+        (test_id + offset + 1) % num_subjects
+        for offset in range(parameter["num_of_U"])
+    }
+
+    feature_list_source_labeled = []
+    label_list_source_labeled = []
+    feature_list_source_unlabeled = []
+    label_list_source_unlabeled = []
+    feature_list_target = []
+    label_list_target = []
+
+    for subject in range(num_subjects):
+        subject_features = []
+        subject_labels = []
+
+        for trial_id, trial in enumerate(data[0][subject]):
+            trial_feature = _ensure_deap_trial_shape(trial)
+            trial_label = _deap_trial_binary_label(
+                labels[0][subject][trial_id], task
+            )
+            subject_features.append(trial_feature)
+            subject_labels.extend([trial_label] * len(trial_feature))
+
+        feature = np.vstack(subject_features).astype(np.float32, copy=False)
+        label = np.asarray(subject_labels, dtype=np.int64)
+
+        # Preserve DS-AGC's subject-wise MinMax normalization.
+        scaler = preprocessing.MinMaxScaler(feature_range=(-1, 1))
+        flat_feature = scaler.fit_transform(
+            feature.reshape(feature.shape[0], -1)
+        ).astype(np.float32)
+        feature = flat_feature.reshape(-1, 32, 5)
+        one_hot = to_onehot(label, num_classes)
+
+        if subject == test_id:
+            feature_list_target.append(feature)
+            label_list_target.append(one_hot)
+        elif parameter["semi"] == 1 and subject in unlabeled_subjects:
+            feature_list_source_unlabeled.append(feature)
+            label_list_source_unlabeled.append(one_hot)
+        else:
+            feature_list_source_labeled.append(feature)
+            label_list_source_labeled.append(one_hot)
+
+    if not feature_list_source_unlabeled:
+        raise RuntimeError(
+            "DS-AGC requires at least one unlabeled source subject; "
+            "set semi=1 and num_of_U>=1."
+        )
+
+    return {
+        "feature": np.vstack(feature_list_target).astype(np.float32),
+        "label": np.vstack(label_list_target).astype(np.float32),
+    }, {
+        "feature": np.vstack(feature_list_source_labeled).astype(np.float32),
+        "label": np.vstack(label_list_source_labeled).astype(np.float32),
+    }, {
+        "feature": np.vstack(feature_list_source_unlabeled).astype(np.float32),
+        "label": np.vstack(label_list_source_unlabeled).astype(np.float32),
+    }
+
+
+def get_dataset(test_id, session, parameter):
+
+    data, _, labels, _, _ = read_seed_feature(
+        SEED_PATH,
+        "de_lds"
+    )
+
+    min_max_scaler = preprocessing.MinMaxScaler(
+        feature_range=(-1, 1)
+    )
+
+    feature_list_source_labeled = []
+    label_list_source_labeled = []
+
+    feature_list_source_unlabeled = []
+    label_list_source_unlabeled = []
+
+    feature_list_target = []
+    label_list_target = []
+
+    u_list = []
+
+    for u in range(parameter["num_of_U"]):
+
+        idx = (test_id + u + 1) % 15
+
+        u_list.append(idx)
+
+    for subject in range(15):
+
+        feature = []
+        label = []
+
+        for trial_id in range(
+                len(data[session][subject])):
+
+            trial_feature = np.array(
+                data[session][subject][trial_id]
+            )
+
+            trial_label = labels[
+                session][subject][trial_id]
+
+            feature.append(trial_feature)
+
+            label.extend(
+                [trial_label] *
+                len(trial_feature)
+            )
+
+        feature = np.vstack(feature)
+
+        label = np.array(label)
+
+        feature = min_max_scaler.fit_transform(
+            feature.reshape(
+                feature.shape[0],
+                -1
+            )
+        )
+
+        feature = feature.reshape(
+            feature.shape[0],
+            62,
+            5
+        ).astype(np.float32)
+
+        one_hot = to_onehot(label, 3)
+
+        if subject == test_id:
+
+            feature_list_target.append(feature)
+            label_list_target.append(one_hot)
+
+        else:
+
+            if parameter["semi"] == 1 and subject in u_list:
+
+                feature_list_source_unlabeled.append(
+                    feature
+                )
+
+                label_list_source_unlabeled.append(
+                    one_hot
+                )
+
+            else:
+
+                feature_list_source_labeled.append(
+                    feature
+                )
+
+                label_list_source_labeled.append(
+                    one_hot
+                )
+
+    target_set = {
+        "feature": np.vstack(feature_list_target),
+        "label": np.vstack(label_list_target)
+    }
+
+    source_set_labeled = {
+        "feature": np.vstack(
+            feature_list_source_labeled),
+        "label": np.vstack(
+            label_list_source_labeled)
+    }
+
+    source_set_unlabeled = {
+        "feature": np.vstack(
+            feature_list_source_unlabeled),
+        "label": np.vstack(
+            label_list_source_unlabeled)
+    }
+
+    return (
+        target_set,
+        source_set_labeled,
+        source_set_unlabeled
+    )
+
+def get_dataset_IV(
+        test_id,
+        session,
+        parameter):
+
+    data, _, labels, _, _ = read_seedIV_feature(
+        SEEDIV_PATH,
+        "de_lds"
+    )
+
+    min_max_scaler = preprocessing.MinMaxScaler(
+        feature_range=(-1, 1)
+    )
+
+    feature_list_source_labeled = []
+    label_list_source_labeled = []
+
+    feature_list_source_unlabeled = []
+    label_list_source_unlabeled = []
+
+    feature_list_target = []
+    label_list_target = []
+
+    u_list = []
+
+    for u in range(parameter["num_of_U"]):
+
+        idx = (test_id + u + 1) % 15
+
+        u_list.append(idx)
+
+    for subject in range(15):
+
+        feature = []
+        label = []
+
+        for trial_id in range(
+                len(data[session][subject])):
+
+            trial_feature = np.array(
+                data[session][subject][trial_id]
+            )
+
+            trial_label = labels[
+                session][subject][trial_id]
+
+            feature.append(trial_feature)
+
+            label.extend(
+                [trial_label] *
+                len(trial_feature)
+            )
+
+        feature = np.vstack(feature)
+
+        label = np.array(label)
+
+        feature = min_max_scaler.fit_transform(
+            feature.reshape(
+                feature.shape[0],
+                -1
+            )
+        )
+
+        feature = feature.reshape(
+            feature.shape[0],
+            62,
+            5
+        ).astype(np.float32)
+
+        one_hot = to_onehot(label, 4)
+
+        if subject == test_id:
+
+            feature_list_target.append(feature)
+            label_list_target.append(one_hot)
+
+        else:
+
+            if parameter["semi"] == 1 and subject in u_list:
+
+                feature_list_source_unlabeled.append(
+                    feature
+                )
+
+                label_list_source_unlabeled.append(
+                    one_hot
+                )
+
+            else:
+
+                feature_list_source_labeled.append(
+                    feature
+                )
+
+                label_list_source_labeled.append(
+                    one_hot
+                )
+
+    return {
+        "feature": np.vstack(feature_list_target),
+        "label": np.vstack(label_list_target)
+    }, {
+        "feature": np.vstack(
+            feature_list_source_labeled),
+        "label": np.vstack(
+            label_list_source_labeled)
+    }, {
+        "feature": np.vstack(
+            feature_list_source_unlabeled),
+        "label": np.vstack(
+            label_list_source_unlabeled)
+    }
+
+def get_dataset_V(
+        test_id,
+        session,
+        parameter):
+
+    raw_data, baseline, labels, \
+    sample_rate, channels = read_seedV_raw(
+        SEEDV_PATH
+    )
+
+    data, _ = preprocess(
+        data=raw_data,
+        baseline=None,
+        sample_rate=sample_rate,
+        pass_band=[-1, -1],
+        extract_bands=None,
+        time_window=1,
+        overlap=0,
+        feature_type="de",
+        eog_clean=False,
+        sample_length=1,
+        stride=1
+    )
+
+    min_max_scaler = preprocessing.MinMaxScaler(
+        feature_range=(-1, 1)
+    )
+
+    feature_list_source_labeled = []
+    label_list_source_labeled = []
+
+    feature_list_source_unlabeled = []
+    label_list_source_unlabeled = []
+
+    feature_list_target = []
+    label_list_target = []
+
+    u_list = []
+
+    for u in range(parameter["num_of_U"]):
+
+        idx = (test_id + u + 1) % 16
+
+        u_list.append(idx)
+
+    for subject in range(16):
+
+        feature = []
+        label = []
+
+        for trial_id in range(
+                len(data[session][subject])):
+
+            trial_feature = np.array(
+                data[session][subject][trial_id]
+            )
+
+            trial_label = labels[
+                session][subject][trial_id]
+
+            feature.append(trial_feature)
+
+            label.extend(
+                [trial_label] *
+                len(trial_feature)
+            )
+
+        feature = np.vstack(feature)
+
+        label = np.array(label)
+
+        feature = min_max_scaler.fit_transform(
+            feature.reshape(
+                feature.shape[0],
+                -1
+            )
+        )
+
+        feature = feature.reshape(
+            feature.shape[0],
+            62,
+            5
+        ).astype(np.float32)
+
+        one_hot = to_onehot(label, 5)
+
+        if subject == test_id:
+
+            feature_list_target.append(feature)
+            label_list_target.append(one_hot)
+
+        else:
+
+            if parameter["semi"] == 1 and subject in u_list:
+
+                feature_list_source_unlabeled.append(
+                    feature
+                )
+
+                label_list_source_unlabeled.append(
+                    one_hot
+                )
+
+            else:
+
+                feature_list_source_labeled.append(
+                    feature
+                )
+
+                label_list_source_labeled.append(
+                    one_hot
+                )
+
+    return {
+        "feature": np.vstack(feature_list_target),
+        "label": np.vstack(label_list_target)
+    }, {
+        "feature": np.vstack(
+            feature_list_source_labeled),
+        "label": np.vstack(
+            label_list_source_labeled)
+    }, {
+        "feature": np.vstack(
+            feature_list_source_unlabeled),
+        "label": np.vstack(
+            label_list_source_unlabeled)
+    }
+
+def cross_subject(
+    target_set,
+    validation_set,
+    source_set_labeled,
+    source_set_unlabeled,
+    subject_id,
+    validation_id,
+    parameter,
+    net_params,
+):
+    """Run one strict N-2 + 1 + 1 fold.
+
+    The target subject is used without labels during adaptation.  The
+    validation subject is excluded from optimization and selects the best
+    checkpoint.  Target labels are read only after that checkpoint is loaded.
+    """
+    setup_seed(2024)
+
+    def _tensor_dataset(split):
+        feature = np.ascontiguousarray(split["feature"], dtype=np.float32)
+        label = np.ascontiguousarray(split["label"], dtype=np.float32)
+        return Data.TensorDataset(
+            torch.from_numpy(feature),
+            torch.from_numpy(label),
+        )
+
+    target_dataset = _tensor_dataset(target_set)
+    validation_dataset = _tensor_dataset(validation_set)
+    source_labeled_dataset = _tensor_dataset(source_set_labeled)
+    source_unlabeled_dataset = _tensor_dataset(source_set_unlabeled)
+
+    batch_size = int(parameter["batch_size"])
+
+    source_labeled_loader = Data.DataLoader(
+        dataset=source_labeled_dataset,
+        batch_size=batch_size,
+        shuffle=True,
+        drop_last=True,
+    )
+    source_unlabeled_loader = Data.DataLoader(
+        dataset=source_unlabeled_dataset,
+        batch_size=batch_size,
+        shuffle=True,
+        drop_last=True,
+    )
+    # This loader is iterated during adaptation. Its labels are present only
+    # because TensorDataset requires a pair; train_GCN_contrast deliberately
+    # ignores them inside the training loop.
+    target_loader = Data.DataLoader(
+        dataset=target_dataset,
+        batch_size=batch_size,
+        shuffle=True,
+        drop_last=True,
+    )
+    validation_loader = Data.DataLoader(
+        dataset=validation_dataset,
+        batch_size=batch_size,
+        shuffle=False,
+        drop_last=False,
+    )
+
+    if len(source_labeled_loader) == 0:
+        raise RuntimeError(
+            "No complete labeled-source batch is available; reduce batch_size."
+        )
+    if len(source_unlabeled_loader) == 0:
+        raise RuntimeError(
+            "No complete unlabeled-source batch is available; reduce "
+            "batch_size or num_of_U."
+        )
+    if len(target_loader) == 0:
+        raise RuntimeError(
+            "No complete target batch is available; reduce batch_size."
+        )
+
+    return train_GCN_contrast(
+        subject_id,
+        validation_id,
+        parameter,
+        net_params,
+        source_labeled_loader,
+        source_unlabeled_loader,
+        target_loader,
+        validation_loader,
+    )
+
+def _configure_dataset(dataset_name, parameter):
+    """Apply dataset-dependent class/channel/subject settings."""
+    key = dataset_name.strip().lower().replace("-", "_")
+    configs = {
+        "seed": {"subjects": 15, "classes": 3, "channels": 62, "sessions": 3, "display": "SEED"},
+        "seediv": {"subjects": 15, "classes": 4, "channels": 62, "sessions": 3, "display": "SEEDIV"},
+        "seed_iv": {"subjects": 15, "classes": 4, "channels": 62, "sessions": 3, "display": "SEEDIV"},
+        "seedv": {"subjects": 16, "classes": 5, "channels": 62, "sessions": 3, "display": "SEEDV"},
+        "seed_v": {"subjects": 16, "classes": 5, "channels": 62, "sessions": 3, "display": "SEEDV"},
+        "deap_a": {"subjects": 32, "classes": 2, "channels": 32, "sessions": 1, "display": "DEAP_A"},
+        "deap_v": {"subjects": 32, "classes": 2, "channels": 32, "sessions": 1, "display": "DEAP_V"},
+    }
+    if key not in configs:
+        raise ValueError(
+            "Unsupported DATASET={!r}. Choose from seed, seediv, seedv, deap_a, deap_v."
+            .format(dataset_name)
+        )
+    cfg = configs[key]
+    parameter["category_number"] = cfg["classes"]
+    parameter["num_of_vertices"] = cfg["channels"]
+    parameter["num_of_features"] = 5
+    return key, cfg
+
+
+def main(
+    parameter,
+    net_params,
+    dataset_name=DATASET,
+    session_id=SESSION_ID,
+    protocol=PROTOCOL,
+):
+    setup_seed(2024)
+    dataset_key, cfg = _configure_dataset(dataset_name, net_params)
+    if parameter is not net_params:
+        _configure_dataset(dataset_name, parameter)
+    if not 0 <= session_id < cfg['sessions']:
+        raise ValueError(
+            'Session {} is invalid for {} ({} session(s)).'.format(
+                session_id, cfg['display'], cfg['sessions']
+            )
+        )
+
+    protocol = str(parameter.get('protocol', protocol)).strip().lower()
+    if protocol not in {'single_tvt', 'strict_loso'}:
+        raise ValueError(
+            "Unsupported protocol={!r}; choose 'single_tvt' or 'strict_loso'."
+            .format(protocol)
+        )
+    parameter['protocol'] = protocol
+
+    sub_num = cfg['subjects']
+    print('Model name: DS-AGC. Dataset name: {}'.format(cfg['display']))
+    print(
+        'session={}, subjects={}, classes={}, channels={}, bands={}'.format(
+            session_id,
+            sub_num,
+            cfg['classes'],
+            cfg['channels'],
+            net_params['num_of_features'],
+        )
+    )
+
+    global Dataset_name
+    Dataset_name = cfg['display']
+
+    if protocol == 'single_tvt':
+        print(
+            'Protocol: fixed single train + validation + test; target/test '
+            'features are unlabeled during adaptation; validation alone '
+            'selects the checkpoint.'
+        )
+        (
+            target_set,
+            validation_set,
+            source_set_labeled,
+            source_set_unlabeled,
+            labeled_ids,
+            unlabeled_ids,
+            train_ids,
+            validation_ids,
+            test_ids,
+        ) = get_single_tvt_dataset(dataset_key, session_id, parameter)
+
+        print(
+            'single TVT split: train_ids={}, validation_ids={}, test_ids={}'
+            .format(train_ids, validation_ids, test_ids)
+        )
+        print(
+            'DS-AGC source split inside train: labeled_ids={}, unlabeled_ids={}'
+            .format(labeled_ids, unlabeled_ids)
+        )
+        print(
+            '1-based split: train={}, validation={}, test={}'.format(
+                [idx + 1 for idx in train_ids],
+                [idx + 1 for idx in validation_ids],
+                [idx + 1 for idx in test_ids],
+            )
+        )
+
+        parameter['fold_tag'] = 'fixed_split'
+        val_curve, test_acc, best_val_acc, best_epoch = cross_subject(
+            target_set,
+            validation_set,
+            source_set_labeled,
+            source_set_unlabeled,
+            'fixed_test',
+            'fixed_val',
+            parameter,
+            net_params,
+        )
+
+        test_acc_mat = np.asarray([test_acc], dtype=np.float64)
+        best_validation_acc_mat = np.asarray([best_val_acc], dtype=np.float64)
+        best_epoch_mat = np.asarray([best_epoch], dtype=np.int64)
+        validation_acc_curve = val_curve.reshape(1, -1)
+
+        result_list = {
+            'test_acc_mat': test_acc_mat,
+            'best_validation_acc_mat': best_validation_acc_mat,
+            'best_epoch_mat': best_epoch_mat,
+            'validation_acc_curve': validation_acc_curve,
+            'protocol': 'single_tvt_fixed_split',
+            'train_ids': train_ids,
+            'validation_ids': validation_ids,
+            'test_ids': test_ids,
+            'labeled_ids': labeled_ids,
+            'unlabeled_ids': unlabeled_ids,
+            'num_of_U': parameter['num_of_U'],
+        }
+        result_path = os.path.join(
+            RESULT_DIR,
+            'single_tvt_{}_session{}_batch{}_{}epoch_{}U.npy'.format(
+                Dataset_name,
+                session_id,
+                parameter['batch_size'],
+                parameter['threshold'],
+                parameter['num_of_U'],
+            ),
+        )
+        np.save(result_path, result_list)
+        print('Final single-TVT test accuracy: {:.4f}'.format(test_acc))
+        print('Best validation accuracy: {:.4f}'.format(best_val_acc))
+        print('Best epoch:', best_epoch)
+        print('Saved result to:', result_path)
+        return test_acc_mat.tolist(), result_path
+
+    # Original strict N-2 + 1 + 1 LOSO branch.
+    offset = parameter.get('validation_offset', 1) % sub_num
+    if offset == 0:
+        raise ValueError('validation_offset cannot be a multiple of subject count.')
+    print(
+        'Protocol: strict N-2 + 1 + 1; target features are unlabeled during '
+        'adaptation; validation alone selects the checkpoint.'
+    )
+
+    test_acc_mat = np.zeros(sub_num)
+    best_validation_acc_mat = np.zeros(sub_num)
+    best_epoch_mat = np.zeros(sub_num, dtype=np.int64)
+    validation_acc_curve = np.full(
+        (sub_num, parameter['epochs']), np.nan
+    )
+
+    for test_id in range(sub_num):
+        validation_id = (test_id + offset) % sub_num
+        (
+            target_set,
+            validation_set,
+            source_set_labeled,
+            source_set_unlabeled,
+            labeled_ids,
+            unlabeled_ids,
+        ) = get_strict_dataset(
+            dataset_key,
+            test_id,
+            validation_id,
+            session_id,
+            parameter,
+        )
+        print(
+            'fold {}/{}: labeled_ids={}, unlabeled_ids={}, validation={}, test={}'.format(
+                test_id + 1,
+                sub_num,
+                labeled_ids,
+                unlabeled_ids,
+                validation_id,
+                test_id,
+            )
+        )
+        parameter['fold_tag'] = 'test{:02d}_val{:02d}'.format(
+            test_id, validation_id
+        )
+        val_curve, test_acc, best_val_acc, best_epoch = cross_subject(
+            target_set,
+            validation_set,
+            source_set_labeled,
+            source_set_unlabeled,
+            test_id,
+            validation_id,
+            parameter,
+            net_params,
+        )
+        validation_acc_curve[test_id, :] = val_curve
+        test_acc_mat[test_id] = test_acc
+        best_validation_acc_mat[test_id] = best_val_acc
+        best_epoch_mat[test_id] = best_epoch
+
+    result_list = {
+        'test_acc_mat': test_acc_mat,
+        'best_validation_acc_mat': best_validation_acc_mat,
+        'best_epoch_mat': best_epoch_mat,
+        'validation_acc_curve': validation_acc_curve,
+        'protocol': 'strict_N_minus_2_plus_1_plus_1',
+    }
+    result_path = os.path.join(
+        RESULT_DIR,
+        'strict_loso_{}_session{}_batch{}_{}epoch_{}U.npy'.format(
+            Dataset_name,
+            session_id,
+            parameter['batch_size'],
+            parameter['threshold'],
+            parameter['num_of_U'],
+        ),
+    )
+    np.save(result_path, result_list)
+    print('Final test accuracies:', test_acc_mat.tolist())
+    print(
+        'Final test accuracy: {:.4f} ± {:.4f}'.format(
+            test_acc_mat.mean(), test_acc_mat.std()
+        )
+    )
+    print('Saved result to:', result_path)
+    return test_acc_mat.tolist(), result_path
+
+
+
+parameter = {
+    "epochs": 60,
+    "batch_size": 48,
+    "init_lr": 1e-3,
+    "weight_decay": 1e-5,
+    "semi": 1,
+    "threshold": 30,
+    "num_of_U": 2,
+    "validation_offset": 1,
+    "patience": 15,
+    "protocol": PROTOCOL,
+    # For single_tvt, None means use the first num_of_U subjects in train_ids as U.
+    "single_tvt_unlabeled_ids": None,
+    "drop_rate": 0.8,
+    "GLalpha": 0.01,
+    "node_feature_hidden1": 5,
+    "linearsize": 128,
+    # category_number and num_of_vertices are overwritten from DATASET.
+    "category_number": 2,
+    "DEVICE": "cuda:0",
+    "K": 3,
+    "num_of_vertices": 32,
+    "num_of_features": 5,
+    "GCL": 1,
+    "dynamic_adj": 1,
+    "DANN": 1,
+    "Multi_att": 1,
+    "T_DANN": 1,
+}
+
+
+if __name__ == "__main__":
+    csub, result_path = main(parameter, parameter, DATASET, SESSION_ID, PROTOCOL)
+    result = np.load(result_path, allow_pickle=True).item()
+    c_mean = np.mean(result["test_acc_mat"])
+    c_std = np.std(result["test_acc_mat"])
+    print("Final test accuracy: {:.4f} ± {:.4f}".format(c_mean, c_std))

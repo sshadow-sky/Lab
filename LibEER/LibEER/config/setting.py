@@ -245,6 +245,20 @@ def seed_sub_independent_leave_one_out_setting(args):
                    split_type='leave-one-out', sessions=[1] if args.sessions is None else args.sessions,
                    pr=args.pr, sr=args.sr, onehot=args.onehot, label_used=args.label_used)
 
+def seed_sub_independent_loso_train_val_test_setting(args):
+    if not args.dataset.startswith('seed') or args.dataset.startswith('seediv') or args.dataset.startswith('seedv'):
+        print('not using SEED dataset, please check your setting')
+        exit(1)
+    print("Using SEED subject independent LOSO train-val-test experiment mode,\n"
+          "Each round uses one subject as test, the next subject as validation/target, "
+          "and all remaining subjects as training/source.")
+    return Setting(dataset=args.dataset, dataset_path=args.dataset_path, pass_band=[args.low_pass, args.high_pass],
+                   extract_bands=None, time_window=args.time_window, overlap=args.overlap,
+                   sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
+                   only_seg=args.only_seg, experiment_mode="subject-independent", normalize=args.normalize,
+                   split_type='leave-one-out-train-val-test', sessions=[1] if args.sessions is None else args.sessions,
+                   pr=args.pr, sr=args.sr, onehot=args.onehot, label_used=args.label_used)
+
 def seed_sub_independent_train_val_test_setting(args):
     if not args.dataset.startswith('seed'):
         print('not using SEED dataset, please check your setting')
@@ -288,6 +302,35 @@ def seediv_sub_independent_train_val_test_setting(args):
                    sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
                    only_seg=args.only_seg, experiment_mode="subject-independent", normalize=args.normalize,
                    split_type='train-val-test', test_size=0.2, val_size=0.2,
+                   sessions=[1] if args.sessions is None else args.sessions,
+                   pr=args.pr, sr=args.sr, onehot=args.onehot, label_used=args.label_used)
+
+def seediv_sub_independent_leave_one_out_setting(args):
+    if not args.dataset.startswith('seediv'):
+        print('not using SEED IV dataset, please check your setting')
+        exit(1)
+    print("Using Default SEED-IV subject independent non-strict leave-one-out experiment mode,\n"
+          "Using the leave one out method, all samples for 1 subject are used as test set, "
+          "and all samples for the remaining subjects are used as training set.")
+    return Setting(dataset=args.dataset, dataset_path=args.dataset_path, pass_band=[args.low_pass, args.high_pass],
+                   extract_bands=None, time_window=args.time_window, overlap=args.overlap,
+                   sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
+                   only_seg=args.only_seg, experiment_mode="subject-independent", normalize=args.normalize,
+                   split_type='leave-one-out', sessions=[1] if args.sessions is None else args.sessions,
+                   pr=args.pr, sr=args.sr, onehot=args.onehot, label_used=args.label_used)
+
+def seediv_sub_independent_loso_train_val_test_setting(args):
+    if not args.dataset.startswith('seediv'):
+        print('not using SEED IV dataset, please check your setting')
+        exit(1)
+    print("Using SEED-IV subject independent LOSO train-val-test experiment mode,\n"
+          "Each round uses one subject as test, the next subject as validation/target, "
+          "and all remaining subjects as training/source.")
+    return Setting(dataset=args.dataset, dataset_path=args.dataset_path, pass_band=[args.low_pass, args.high_pass],
+                   extract_bands=None, time_window=args.time_window, overlap=args.overlap,
+                   sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
+                   only_seg=args.only_seg, experiment_mode="subject-independent", normalize=args.normalize,
+                   split_type='leave-one-out-train-val-test', test_size=0.2, val_size=0.2,
                    sessions=[1] if args.sessions is None else args.sessions,
                    pr=args.pr, sr=args.sr, onehot=args.onehot, label_used=args.label_used)
 
@@ -356,6 +399,20 @@ def deap_sub_independent_leave_one_out_setting(args):
                    normalize=args.normalize, split_type='leave-one-out', pr=args.pr, sr=args.sr, bounds=args.bounds,
                    onehot=args.onehot, label_used=args.label_used)
 
+def deap_sub_independent_loso_train_val_test_setting(args):
+    if not args.dataset.startswith('deap'):
+        print('not using DEAP dataset, please check your setting')
+        exit(1)
+    print("Using DEAP subject independent LOSO train-val-test experiment mode,\n"
+          "Each round uses one subject as test, the next subject as validation/target, "
+          "and all remaining subjects as training/source.")
+    return Setting(dataset=args.dataset, dataset_path=args.dataset_path, pass_band=[args.low_pass, args.high_pass],
+                   extract_bands=[[4, 7], [8, 10], [8, 12], [13, 30], [30, 47]], time_window=args.time_window,
+                   overlap=args.overlap, sample_length=args.sample_length, stride=args.stride, seed=args.seed,
+                   feature_type=args.feature_type, only_seg=args.only_seg, experiment_mode="subject-independent",
+                   normalize=args.normalize, split_type='leave-one-out-train-val-test', pr=args.pr, sr=args.sr,
+                   bounds=args.bounds, onehot=args.onehot, label_used=args.label_used)
+
 def deap_sub_dependent_10fold_setting(args):
     if not args.dataset.startswith('deap'):
         print('not using DEAP dataset, please check your setting')
@@ -396,12 +453,16 @@ preset_setting = {
     "seed_sub_dependent_train_val_test_setting": seed_sub_dependent_train_val_test_setting,
     "seediv_sub_dependent_train_val_test_setting": seediv_sub_dependent_train_val_test_setting,
     "seed_sub_independent_train_val_test_setting": seed_sub_independent_train_val_test_setting,
+    "seed_sub_independent_loso_train_val_test_setting": seed_sub_independent_loso_train_val_test_setting,
     "seediv_sub_independent_train_val_test_setting": seediv_sub_independent_train_val_test_setting,
+    "seediv_sub_independent_leave_one_out_setting": seediv_sub_independent_leave_one_out_setting,
+    "seediv_sub_independent_loso_train_val_test_setting": seediv_sub_independent_loso_train_val_test_setting,
     "seedv_sub_dependent_train_val_test_mean_setting":seedv_sub_dependent_train_val_test_mean_setting,
     "seedv_sub_independent_train_val_test_setting":seedv_sub_independent_train_val_test_setting,
     "deap_sub_dependent_train_val_test_setting" : deap_sub_dependent_train_val_test_setting,
     "hci_sub_dependent_train_val_test_setting" : hci_sub_dependent_train_val_test_setting,
     "deap_sub_independent_train_val_test_setting" : deap_sub_independent_train_val_test_setting,
+    "deap_sub_independent_loso_train_val_test_setting" : deap_sub_independent_loso_train_val_test_setting,
     "hci_sub_independent_train_val_test_setting" : hci_sub_independent_train_val_test_setting,
     "mped_sub_dependent_train_val_test_setting" : mped_sub_dependent_train_val_test_setting,
     "mped_sub_independent_train_val_test_setting" : mped_sub_independent_train_val_test_setting,

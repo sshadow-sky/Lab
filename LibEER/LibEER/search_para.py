@@ -116,25 +116,25 @@ MODEL_BRANCHES = {
             "epochs": [100, 150],
         },
     },
-    "FDGCL": {
-        "entry": "FDGCL_train.py",
+    "DMS_SGPAN": {
+        "entry": "DMS_SGPAN_train.py",
         "fixed_args": {
             "feature_type": "de_lds",
             "time_window": 1,
             "sample_length": 1,
             "stride": 1,
             "onehot": True,
-            "fdgcl_ugfcda_warmup_epochs": 20,
-            "fdgcl_ugfcda_eps": 0.000001,
-            "fdgcl_ugfcda_keep_ratio_step_epochs": 20,
+            "dms_sgpan_ugfcda_warmup_epochs": 20,
+            "dms_sgpan_ugfcda_eps": 0.000001,
+            "dms_sgpan_ugfcda_keep_ratio_step_epochs": 20,
         },
         "search_space": {
             "batch_size": [32, 64],
             "lr": [0.001, 0.0005],
             "epochs": [100],
 
-            "fdgcl_loss_align": [0.3, 0.5],
-            "fdgcl_loss_subject": [0.1, 0.3],
+            "dms_sgpan_loss_align": [0.3, 0.5],
+            "dms_sgpan_loss_subject": [0.1, 0.3],
         },
     },
     "RGNN_official": {
@@ -169,6 +169,25 @@ MODEL_BRANCHES = {
             "batch_size": [512],
             "lr": [0.001],
             "epochs": [200],
+        },
+    },
+    "DBHPL": {
+        "entry": "DBHPL_train.py",
+        "fixed_args": {
+            "feature_type": "de_lds",
+            "time_window": 1,
+            "sample_length": 1,
+            "stride": 1,
+            "onehot": True,
+            "dbhpl_ugfcda_warmup_epochs": 20,
+            "dbhpl_ugfcda_eps": 0.000001,
+        },
+        "search_space": {
+            "batch_size": [32, 64],
+            "lr": [0.001, 0.0005],
+            "epochs": [100],
+            "dbhpl_loss_align": [0.2, 0.5],
+            "dbhpl_loss_subject": [0.1, 0.3],
         },
     },
 }
@@ -610,6 +629,12 @@ def _append_cli_arg(cmd, key, value):
         return
     if isinstance(value, (list, tuple)):
         if len(value) == 0:
+            return
+        # If the list contains nested lists/dicts, serialize the whole value as JSON
+        # and pass as a single token so argparse on the training script receives
+        if any(isinstance(x, (list, tuple, dict)) for x in value):
+            cmd.append(flag)
+            cmd.append(json.dumps(value, ensure_ascii=False))
             return
         cmd.append(flag)
         cmd.extend(str(x) for x in value)

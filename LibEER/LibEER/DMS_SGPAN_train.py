@@ -10,14 +10,14 @@ from tqdm import tqdm
 from config.setting import preset_setting, set_setting_by_args
 from data_utils.load_data import get_data
 from data_utils.split import get_split_index, index_to_data, merge_to_part
-from models.FDGCL import FDGCL
+from models.DMS_SGPAN import DMS_SGPAN
 from utils.args import get_args_parser
 from utils.metric import Metric
 from utils.store import make_output_dir, save_state
 from utils.utils import result_log, setup_seed, sub_result_log
 
 
-param_path = "config/model_param/FDGCL.yaml"
+param_path = "config/model_param/DMS_SGPAN.yaml"
 
 def _load_cfg():
     cfg = {"params": {}, "train": {}}
@@ -34,51 +34,58 @@ def _load_cfg():
 
 def _apply_cli_overrides(args, params_cfg, train_cfg):
     param_overrides = {
-        "fdgcl_ugfcda_warmup_epochs": "ugfcda_warmup_epochs",
-        "fdgcl_ugfcda_eps": "ugfcda_eps",
-        "fdgcl_ugfcda_keep_ratio_start": "ugfcda_keep_ratio_start",
-        "fdgcl_ugfcda_keep_ratio_end": "ugfcda_keep_ratio_end",
-        "fdgcl_ugfcda_keep_ratio_step": "ugfcda_keep_ratio_step",
-        "fdgcl_ugfcda_keep_ratio_step_epochs": "ugfcda_keep_ratio_step_epochs",
-        "fdgcl_ugfcda_subject_weight": "ugfcda_subject_weight",
-        "fdgcl_ugfcda_proto_align_weight": "ugfcda_proto_align_weight",
-        "fdgcl_node_drop_rate": "node_drop_rate",
-        "fdgcl_edge_drop_rate": "edge_drop_rate",
-        "fdgcl_gcl_importance_protect": "gcl_importance_protect",
-        "fdgcl_gcl_importance_centrality_weight": "gcl_importance_centrality_weight",
-        "fdgcl_gcl_importance_feature_weight": "gcl_importance_feature_weight",
-        "fdgcl_gcl_node_sample_temperature": "gcl_node_sample_temperature",
-        "fdgcl_gcl_node_sample_eps": "gcl_node_sample_eps",
-        "fdgcl_gcl_edge_protect_strength": "gcl_edge_protect_strength",
-        "fdgcl_gcl_edge_min_drop_scale": "gcl_edge_min_drop_scale",
-        "fdgcl_dropout": "dropout",
-        "fdgcl_temperature": "temperature",
-        "fdgcl_graph_hidden": "graph_hidden",
-        "fdgcl_graph_readout_hidden": "graph_readout_hidden",
-        "fdgcl_gcl_readout_hidden": "gcl_readout_hidden",
-        "fdgcl_spectral_hidden": "spectral_hidden",
-        "fdgcl_disentangle_dim": "disentangle_dim",
-        "fdgcl_projection_dim": "projection_dim",
-        "fdgcl_cross_scale_heads": "cross_scale_heads",
-        "fdgcl_gl_alpha": "GLalpha",
-        "fdgcl_cheb_k": "K",
-        "fdgcl_ssbn_eps": "ssbn_eps",
-        "fdgcl_sin_min_count": "sin_min_count",
-        "fdgcl_grl_max_iters": "grl_max_iters",
+        "dms_sgpan_ugfcda_warmup_epochs": "ugfcda_warmup_epochs",
+        "dms_sgpan_ugfcda_eps": "ugfcda_eps",
+        "dms_sgpan_ugfcda_reliability_threshold": "ugfcda_reliability_threshold",
+        "dms_sgpan_ugfcda_proto_align_weight": "ugfcda_proto_align_weight",
+        "dms_sgpan_node_drop_rate": "node_drop_rate",
+        "dms_sgpan_edge_drop_rate": "edge_drop_rate",
+        "dms_sgpan_gcl_importance_protect": "gcl_importance_protect",
+        "dms_sgpan_gcl_importance_centrality_weight": "gcl_importance_centrality_weight",
+        "dms_sgpan_gcl_importance_feature_weight": "gcl_importance_feature_weight",
+        "dms_sgpan_gcl_node_sample_temperature": "gcl_node_sample_temperature",
+        "dms_sgpan_gcl_node_sample_eps": "gcl_node_sample_eps",
+        "dms_sgpan_gcl_edge_protect_strength": "gcl_edge_protect_strength",
+        "dms_sgpan_gcl_edge_min_drop_scale": "gcl_edge_min_drop_scale",
+        "dms_sgpan_dropout": "dropout",
+        "dms_sgpan_temperature": "temperature",
+        "dms_sgpan_graph_hidden": "graph_hidden",
+        "dms_sgpan_graph_readout_hidden": "graph_readout_hidden",
+        "dms_sgpan_gcl_readout_hidden": "gcl_readout_hidden",
+        "dms_sgpan_spectral_hidden": "spectral_hidden",
+        "dms_sgpan_disentangle_dim": "disentangle_dim",
+        "dms_sgpan_projection_dim": "projection_dim",
+        "dms_sgpan_cross_scale_heads": "cross_scale_heads",
+        "dms_sgpan_gl_alpha": "GLalpha",
+        "dms_sgpan_cheb_k": "K",
+        "dms_sgpan_ssbn_eps": "ssbn_eps",
+        "dms_sgpan_sin_min_count": "sin_min_count",
+        "dms_sgpan_grl_max_iters": "grl_max_iters",
     }
     train_overrides = {
-        "fdgcl_loss_ce": "loss_ce",
-        "fdgcl_loss_aj": "loss_aj",
-        "fdgcl_loss_gcl": "loss_gcl",
-        "fdgcl_loss_align": "loss_align",
-        "fdgcl_loss_orth": "loss_orth",
-        "fdgcl_loss_subject": "loss_subject",
+        "dms_sgpan_loss_ce": "loss_ce",
+        "dms_sgpan_loss_aj": "loss_aj",
+        "dms_sgpan_loss_gcl": "loss_gcl",
+        "dms_sgpan_loss_align": "loss_align",
+        "dms_sgpan_loss_orth": "loss_orth",
+        "dms_sgpan_loss_subject": "loss_subject",
     }
 
     for arg_name, cfg_name in param_overrides.items():
         value = getattr(args, arg_name, None)
         if value is not None:
             params_cfg[cfg_name] = value
+        # Special handling for frequency_band_groups passed as JSON string
+    fbgs = getattr(args, 'dms_sgpan_frequency_band_groups', None)
+    if fbgs is not None:
+        import json
+        try:
+            parsed = json.loads(fbgs)
+            # basic validation: should be list/tuple of lists/ints
+            if isinstance(parsed, (list, tuple)):
+                params_cfg['frequency_band_groups'] = parsed
+        except Exception:
+            print('Warning: failed to parse -dms_sgpan_frequency_band_groups, ignoring')
     for arg_name, cfg_name in train_overrides.items():
         value = getattr(args, arg_name, None)
         if value is not None:
@@ -115,7 +122,7 @@ def _flatten_time_steps(feature: np.ndarray, label: np.ndarray, sid: np.ndarray)
     if feature.ndim == 3:
         return feature, label, sid
     if feature.ndim != 4:
-        raise ValueError(f"FDGCL expects feature shape [N, C, F] or [N, T, C, F], got {feature.shape}")
+        raise ValueError(f"DMS_SGPAN expects feature shape [N, C, F] or [N, T, C, F], got {feature.shape}")
 
     num_samples, time_length, num_channels, num_bands = feature.shape
     feature = feature.reshape(num_samples * time_length, num_channels, num_bands)
@@ -127,7 +134,17 @@ def _flatten_time_steps(feature: np.ndarray, label: np.ndarray, sid: np.ndarray)
 def _collect_samples(indexes, data_keep, label_keep, num_classes):
     xs, ys, sids = [], [], []
     for sid, sub_x, sub_y in zip(indexes, data_keep, label_keep):
-        sub_x = np.array(sub_x, dtype=np.float32)
+        try:
+            sub_x = np.array(sub_x, dtype=np.float32)
+        except ValueError as exc:
+            shape_counts = {}
+            for sample in sub_x:
+                shape = tuple(np.asarray(sample).shape)
+                shape_counts[shape] = shape_counts.get(shape, 0) + 1
+            shape_text = ", ".join(f"{shape}:{count}" for shape, count in sorted(shape_counts.items())[:8])
+            raise ValueError(
+                f"DMS_SGPAN collected inconsistent sample shapes for subject {sid}: {shape_text}"
+            ) from exc
         sub_y = _ensure_onehot(np.array(sub_y), num_classes)
 
         if len(sub_x) == 0:
@@ -204,6 +221,65 @@ def _format_class_counts(values):
     return "[" + ",".join(str(int(round(v))) for v in values.tolist()) + "]"
 
 
+def _format_metric_values(metric, metric_names):
+    return " ".join(f"{name}={float(metric[name]):.4f}" for name in metric_names if name in metric)
+
+
+def _format_subject_indexes(indexes):
+    zero_based = ",".join(str(int(idx)) for idx in indexes)
+    one_based = ",".join(str(int(idx) + 1) for idx in indexes)
+    return f"0-based=[{zero_based}] 1-based=[{one_based}]"
+
+
+def _print_test_subject_summary(args, test_subject_records):
+    if len(test_subject_records) == 0:
+        print("FDGCL test subject summary: no finished test subject records")
+        return
+
+    print("\nFDGCL test subject summary")
+    print(f"FDGCL per-test-subject records: {len(test_subject_records)}")
+    header = "|{:^8}|{:^18}|".format("Round", "TestSubject")
+    for metric_name in args.metrics:
+        header += "{:^15}|".format(metric_name)
+    print(header)
+
+    metric_outputs = {metric_name: [] for metric_name in args.metrics}
+    for record in test_subject_records:
+        subject_text = ",".join(str(int(idx) + 1) for idx in record["test_indexes"])
+        row = "|{:^8}|{:^18}|".format(record["round"], subject_text)
+        for metric_name in args.metrics:
+            value = float(record["metric"][metric_name])
+            metric_outputs[metric_name].append(value)
+            row += "{:^15.4f}|".format(value)
+        print(row)
+
+    row = "|{:^8}|{:^18}|".format("Mean", "-")
+    for metric_name in args.metrics:
+        values = np.asarray(metric_outputs[metric_name], dtype=np.float64)
+        row += "{:^15.4f}|".format(float(np.mean(values)))
+    print(row)
+
+    row = "|{:^8}|{:^18}|".format("Std", "-")
+    for metric_name in args.metrics:
+        values = np.asarray(metric_outputs[metric_name], dtype=np.float64)
+        row += "{:^15.4f}|".format(float(np.std(values)))
+    print(row)
+
+    for metric_name in args.metrics:
+        values = np.asarray(metric_outputs[metric_name], dtype=np.float64)
+        print(
+            "ALLTestSubject Mean and Std of {} : {:.4f}/{:.4f}".format(
+                metric_name,
+                float(np.mean(values)),
+                float(np.std(values)),
+            )
+        )
+
+
+def _subject_records_to_metrics(test_subject_records):
+    return [dict(record["metric"]) for record in test_subject_records]
+
+
 def _train_one_round(
     args,
     model_params,
@@ -212,11 +288,12 @@ def _train_one_round(
     target_loader,
     val_dataset,
     test_dataset,
+    test_subject_datasets,
     output_dir,
     device,
 ):
     setup_seed(args.seed)
-    model = FDGCL(model_params).to(device)
+    model = DMS_SGPAN(model_params).to(device)
 
     learning_rate = float(args.lr)
     weight_decay = float(train_cfg.get("weight_decay", 1e-4))
@@ -228,7 +305,23 @@ def _train_one_round(
 
     metric_key = args.metric_choose if args.metric_choose in args.metrics else args.metrics[0]
     best_metric = -1.0
+    best_checkpoint_saved = False
     eval_interval = max(1, int(train_cfg.get("eval_interval", 1)))
+
+    # The model is not eligible for checkpoint selection during UGFCDA warmup.
+    # With warmup_epochs=W, epochs 1..W are warmup and selection starts at W+1.
+    warmup_epochs = max(0, int(model_params.get("ugfcda_warmup_epochs", 0)))
+    selection_start_epoch = warmup_epochs + 1  # one-based epoch number
+    if int(args.epochs) < selection_start_epoch:
+        raise ValueError(
+            f"DMS_SGPAN requires at least {selection_start_epoch} epochs when "
+            f"ugfcda_warmup_epochs={warmup_epochs}, but args.epochs={args.epochs}. "
+            "No checkpoint would be eligible for selection."
+        )
+    print(
+        f"DMS_SGPAN checkpoint selection: warmup epochs=1..{warmup_epochs}; "
+        f"best-model selection starts from epoch {selection_start_epoch}."
+    )
 
     for epoch in range(args.epochs):
         model.train()
@@ -253,11 +346,9 @@ def _train_one_round(
             "target_feature_margin_mean",
             "target_feature_entropy_score_mean",
             "target_scale_consistency_mean",
-            "target_subject_invariance_mean",
             "target_align_conf_mean",
             "target_align_coverage",
             "target_align_count",
-            "target_keep_ratio",
             "align_active",
         ]
         diag_sums = {key: 0.0 for key in diag_scalar_keys}
@@ -332,17 +423,23 @@ def _train_one_round(
             f"margin={diag_means['target_feature_margin_mean']:.4f} "
             f"entropy_score={diag_means['target_feature_entropy_score_mean']:.4f} "
             f"scale_cons={diag_means['target_scale_consistency_mean']:.4f} "
-            f"subj_inv={diag_means['target_subject_invariance_mean']:.4f} "
             f"align_conf={diag_means['target_align_conf_mean']:.4f} "
             f"align_cov={diag_means['target_align_coverage'] * 100:.2f}% "
             f"align_count={diag_means['target_align_count']:.2f} "
-            f"keep_ratio={diag_means['target_keep_ratio']:.2f} "
             f"align_batch={diag_means['align_active'] * 100:.2f}% "
             f"pseudo_counts={_format_class_counts(pseudo_class_counts)} "
             f"align_counts={_format_class_counts(align_class_counts)}"
         )
 
-        if (epoch + 1) % eval_interval == 0:
+        epoch_number = epoch + 1
+        # Always evaluate the final epoch. This guarantees at least one
+        # post-warmup candidate even when eval_interval does not divide epochs.
+        should_eval = (
+            epoch_number % eval_interval == 0
+            or epoch_number == selection_start_epoch
+            or epoch_number == int(args.epochs)
+        )
+        if should_eval:
             eval_metric = _evaluate(
                 model,
                 val_dataset,
@@ -350,26 +447,68 @@ def _train_one_round(
                 device,
                 batch_size=args.batch_size,
             )
-            if eval_metric[metric_key] > best_metric:
-                best_metric = eval_metric[metric_key]
-                save_state(output_dir, model, optimizer, epoch + 1, metric=metric_key)
+
+            if epoch_number < selection_start_epoch:
+                print(
+                    f"DMS_SGPAN validation at epoch {epoch_number}: "
+                    f"{metric_key}={float(eval_metric[metric_key]):.4f}; "
+                    f"warmup is active, so this checkpoint is not eligible "
+                    "for best-model selection."
+                )
+            elif eval_metric[metric_key] > best_metric:
+                best_metric = float(eval_metric[metric_key])
+                save_state(
+                    output_dir,
+                    model,
+                    optimizer,
+                    epoch_number,
+                    metric=metric_key,
+                )
+                best_checkpoint_saved = True
+                print(
+                    f"DMS_SGPAN selected new best checkpoint at epoch "
+                    f"{epoch_number}: {metric_key}={best_metric:.4f}"
+                )
 
     ckpt_path = Path(output_dir) / f"checkpoint-best{metric_key}"
-    if ckpt_path.exists():
+    if best_checkpoint_saved and ckpt_path.exists():
         state = torch.load(ckpt_path, map_location=device)
         model.load_state_dict(state["model"])
+        selected_epoch = state.get("epoch", "unknown")
+        print(
+            f"DMS_SGPAN loading best post-warmup checkpoint: "
+            f"epoch={selected_epoch}, {metric_key}={best_metric:.4f}"
+        )
+    else:
+        raise RuntimeError(
+            "DMS_SGPAN did not create a post-warmup checkpoint. "
+            f"warmup_epochs={warmup_epochs}, epochs={args.epochs}, "
+            f"eval_interval={eval_interval}."
+        )
 
-    return _evaluate(
+    test_metric = _evaluate(
         model,
         test_dataset,
         args.metrics,
         device,
         batch_size=args.batch_size,
     )
+    test_subject_metrics = []
+    for subject_index, subject_dataset in test_subject_datasets:
+        print(f"DMS_SGPAN evaluating test subject {_format_subject_indexes([subject_index])}")
+        subject_metric = _evaluate(
+            model,
+            subject_dataset,
+            args.metrics,
+            device,
+            batch_size=args.batch_size,
+        )
+        test_subject_metrics.append((subject_index, subject_metric))
+    return test_metric, test_subject_metrics
 
 
 def main(args):
-    args.model = "FDGCL"
+    args.model = "DMS_SGPAN"
     cfg = _load_cfg()
     params_cfg = cfg.get("params", {})
     train_cfg = cfg.get("train", {})
@@ -387,6 +526,7 @@ def main(args):
 
     best_metrics = []
     subjects_metrics = [[] for _ in range(len(data))]
+    test_subject_records = []
 
     for rridx, (data_i, label_i) in enumerate(zip(data, label), 1):
         tts = get_split_index(data_i, label_i, setting)
@@ -398,6 +538,10 @@ def main(args):
                 print(f"train indexes:{train_indexes}, test indexes:{test_indexes}")
             else:
                 print(f"train indexes:{train_indexes}, val indexes:{val_indexes}, test indexes:{test_indexes}")
+            print(
+                f"DMS_SGPAN round {ridx}: current test subject(s) "
+                f"{_format_subject_indexes(test_indexes)}"
+            )
 
             train_data_keep, train_label_keep, val_data_keep, val_label_keep, test_data_keep, test_label_keep = index_to_data(
                 data_i,
@@ -408,21 +552,59 @@ def main(args):
                 True,
             )
 
+            effective_val_indexes = val_indexes
             # Strict no-test-leak protocol: use val split as target stream and for model selection.
+            # The original LibEER leave-one-out split has no validation split. Keep it runnable
+            # as the legacy/non-strict protocol by using the test split as target/validation.
             if len(val_data_keep) == 0:
-                print("skip one split because val split is empty under strict no-test-leak protocol")
-                continue
+                if setting.split_type == "leave-one-out":
+                    effective_val_indexes = test_indexes
+                    val_data_keep = test_data_keep
+                    val_label_keep = test_label_keep
+                    print(
+                        "DMS_SGPAN non-strict LOSO compatibility: val split is empty; "
+                        "using test split as target/validation for this round (test-leak protocol)."
+                    )
+                else:
+                    print("skip one split because val split is empty under strict no-test-leak protocol")
+                    continue
 
             source_x, source_y, source_sid = _collect_samples(train_indexes, train_data_keep, train_label_keep, num_classes)
-            target_x, target_y, target_sid = _collect_samples(val_indexes, val_data_keep, val_label_keep, num_classes)
+            target_x, target_y, target_sid = _collect_samples(effective_val_indexes, val_data_keep, val_label_keep, num_classes)
             test_x, test_y, test_sid = _collect_samples(test_indexes, test_data_keep, test_label_keep, num_classes)
 
             if len(source_x) == 0 or len(target_x) == 0 or len(test_x) == 0:
                 print("skip one split because source/target/test split is empty")
                 continue
 
-            source_loader = _build_loader(source_x, source_y, source_sid, args.batch_size, shuffle=True, drop_last=True)
-            target_loader = _build_loader(target_x, target_y, target_sid, args.batch_size, shuffle=True, drop_last=True)
+            source_drop_last = len(source_x) >= args.batch_size
+            target_drop_last = False
+            source_loader = _build_loader(
+                source_x,
+                source_y,
+                source_sid,
+                args.batch_size,
+                shuffle=True,
+                drop_last=source_drop_last,
+            )
+            target_loader = _build_loader(
+                target_x,
+                target_y,
+                target_sid,
+                args.batch_size,
+                shuffle=True,
+                drop_last=target_drop_last,
+            )
+            print(
+                f"DMS_SGPAN round {ridx}: samples source={len(source_x)} "
+                f"target/val={len(target_x)} test={len(test_x)} "
+                f"batch_size={args.batch_size} "
+                f"source_batches={len(source_loader)} target_batches={len(target_loader)} "
+                f"source_drop_last={source_drop_last} target_drop_last={target_drop_last}"
+            )
+            if len(source_loader) == 0 or len(target_loader) == 0:
+                print("skip one split because source/target loader is empty")
+                continue
 
             val_dataset = TensorDataset(
                 torch.from_numpy(target_x).float(),
@@ -434,6 +616,24 @@ def main(args):
                 torch.from_numpy(test_y).float(),
                 torch.from_numpy(test_sid).long(),
             )
+            test_subject_datasets = []
+            for subject_index, subject_data, subject_label in zip(test_indexes, test_data_keep, test_label_keep):
+                sub_test_x, sub_test_y, sub_test_sid = _collect_samples(
+                    [subject_index],
+                    [subject_data],
+                    [subject_label],
+                    num_classes,
+                )
+                if len(sub_test_x) == 0:
+                    continue
+                test_subject_datasets.append((
+                    int(subject_index),
+                    TensorDataset(
+                        torch.from_numpy(sub_test_x).float(),
+                        torch.from_numpy(sub_test_y).float(),
+                        torch.from_numpy(sub_test_sid).long(),
+                    ),
+                ))
 
             model_params = {
                 "DEVICE": device,
@@ -451,16 +651,12 @@ def main(args):
                 "cross_scale_heads": int(params_cfg.get("cross_scale_heads", 4)),
                 "dropout": float(params_cfg.get("dropout", 0.2)),
                 "temperature": float(params_cfg.get("temperature", 0.2)),
-                "ugfcda_warmup_epochs": int(train_cfg.get("ugfcda_warmup_epochs", params_cfg.get("ugfcda_warmup_epochs", 10))),
-                "ugfcda_eps": float(params_cfg.get("ugfcda_eps", 1e-6)),
-                "ugfcda_keep_ratio_start": float(params_cfg.get("ugfcda_keep_ratio_start", 0.2)),
-                "ugfcda_keep_ratio_end": float(params_cfg.get("ugfcda_keep_ratio_end", 0.6)),
-                "ugfcda_keep_ratio_step": float(params_cfg.get("ugfcda_keep_ratio_step", 0.1)),
-                "ugfcda_keep_ratio_step_epochs": int(params_cfg.get("ugfcda_keep_ratio_step_epochs", 20)),
-                "ugfcda_subject_weight": float(params_cfg.get("ugfcda_subject_weight", 0.5)),
-                "ugfcda_proto_align_weight": float(params_cfg.get("ugfcda_proto_align_weight", 0.1)),
-                "node_drop_rate": float(params_cfg.get("node_drop_rate", 0.15)),
-                "edge_drop_rate": float(params_cfg.get("edge_drop_rate", 0.10)),
+            "ugfcda_warmup_epochs": int(train_cfg.get("ugfcda_warmup_epochs", params_cfg.get("ugfcda_warmup_epochs", 15))),
+            "ugfcda_eps": float(params_cfg.get("ugfcda_eps", 1e-6)),
+            "ugfcda_reliability_threshold": float(params_cfg.get("ugfcda_reliability_threshold", 0.6)),
+            "ugfcda_proto_align_weight": float(params_cfg.get("ugfcda_proto_align_weight", 0.1)),
+            "node_drop_rate": float(params_cfg.get("node_drop_rate", 0.15)),
+            "edge_drop_rate": float(params_cfg.get("edge_drop_rate", 0.10)),
                 "gcl_importance_protect": params_cfg.get("gcl_importance_protect", True),
                 "gcl_importance_centrality_weight": float(params_cfg.get("gcl_importance_centrality_weight", 0.5)),
                 "gcl_importance_feature_weight": float(params_cfg.get("gcl_importance_feature_weight", 0.5)),
@@ -481,8 +677,8 @@ def main(args):
                 "w_subject": float(train_cfg.get("loss_subject", 0.3)),
             }
 
-            output_dir = make_output_dir(args, "FDGCL")
-            round_metric = _train_one_round(
+            output_dir = make_output_dir(args, "DMS_SGPAN")
+            round_metric, round_subject_metrics = _train_one_round(
                 args=args,
                 model_params=model_params,
                 train_cfg=train_cfg,
@@ -490,21 +686,54 @@ def main(args):
                 target_loader=target_loader,
                 val_dataset=val_dataset,
                 test_dataset=test_dataset,
+                test_subject_datasets=test_subject_datasets,
                 output_dir=output_dir,
                 device=device,
             )
 
             best_metrics.append(round_metric)
+            if len(round_subject_metrics) > 0:
+                for subject_index, subject_metric in round_subject_metrics:
+                    test_subject_records.append({
+                        "round": ridx if len(data) == 1 else f"{rridx}-{ridx}",
+                        "test_indexes": [subject_index],
+                        "metric": dict(subject_metric),
+                    })
+            else:
+                test_subject_records.append({
+                    "round": ridx if len(data) == 1 else f"{rridx}-{ridx}",
+                    "test_indexes": list(test_indexes),
+                    "metric": dict(round_metric),
+                })
+            print(
+                f"DMS_SGPAN round {ridx}: test subject(s) "
+                f"{_format_subject_indexes(test_indexes)} result "
+                f"{_format_metric_values(round_metric, args.metrics)}"
+            )
             if setting.experiment_mode == "subject-dependent":
                 subjects_metrics[rridx - 1].append(round_metric)
+
+    _print_test_subject_summary(args, test_subject_records)
+
+    if len(best_metrics) == 0:
+        print("DMS_SGPAN finished without valid round metrics; check split/loader diagnostics above.")
+        return
 
     if setting.experiment_mode == "subject-dependent":
         sub_result_log(args, subjects_metrics)
     else:
-        result_log(args, best_metrics)
+        if len(test_subject_records) > 1:
+            print(
+                "FDGCL final result_log uses per-test-subject metrics "
+                "so train-val-test std is computed like LOSO subject std."
+            )
+            result_log(args, _subject_records_to_metrics(test_subject_records))
+        else:
+            result_log(args, best_metrics)
 
 
 if __name__ == "__main__":
     args = get_args_parser()
     args = args.parse_args()
     main(args)
+    

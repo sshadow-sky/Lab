@@ -1,0 +1,27 @@
+params:
+  graph_hidden: 64
+  spectral_hidden: 128
+  disentangle_dim: 128
+  cross_scale_heads: 4
+  dropout: 0.2
+  temperature: 0.2
+  frequency_band_groups: null
+  graph_band_indices: null
+  ugfcda_warmup_epochs: 15
+  ugfcda_eps: 0.000001
+  ugfcda_reliability_threshold: 0.6
+  ugfcda_proto_align_weight: 0.1
+  grl_max_iters: 2000
+  hyperbolic_curvature: 1.0
+  hyperbolic_tangent_scale: 0.5
+  hyperbolic_ball_eps: 0.00001
+
+train:
+  optimizer: adamw
+  weight_decay: 0.0001
+  eval_interval: 1
+  loss_ce: 1.0
+  loss_aj: 0.2
+  loss_align: 0.2
+  loss_orth: 0.5
+  loss_subject: 0.3

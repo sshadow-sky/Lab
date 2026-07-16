@@ -54,6 +54,20 @@ def get_split_index(data, label, setting=None):
         loo = LeaveOneOut()
         tts['train'] = [list(train_index) for train_index, _ in loo.split(label)]
         tts['test'] = [list(test_index) for _, test_index in loo.split(label)]
+    elif setting.split_type == "leave-one-out-train-val-test":
+        if len(label) < 3:
+            print("leave-one-out-train-val-test requires at least 3 split parts")
+            exit(1)
+        tts['test'] = []
+        tts['val'] = []
+        tts['train'] = []
+        indexes = list(range(len(label)))
+        for test_index in indexes:
+            val_index = (test_index + 1) % len(label)
+            train_indexes = [idx for idx in indexes if idx not in (test_index, val_index)]
+            tts['test'].append([test_index])
+            tts['val'].append([val_index])
+            tts['train'].append(train_indexes)
     elif setting.split_type == "front-back":
         if setting.front >= len(label):
             print(f"using front-back split type and {setting.experiment_mode} experiment mode")
