@@ -47,6 +47,7 @@ class DAANLoss(nn.Module):
         self.reduction = reduction
         self.domain_classifier = domain_classifier
         self.grl = WarmStartGradientReverseLayer(alpha=1.0, lo=0.0, hi=1.0, max_iters=max_iter, auto_step=True)
+        self.bce = nn.BCEWithLogitsLoss(reduction=reduction)
         self.local_classifiers = torch.nn.ModuleList()
         self.global_classifiers = domain_classifier
         for _ in range(num_class):
@@ -63,14 +64,14 @@ class DAANLoss(nn.Module):
     def get_global_adversarial_result(self, f_s, f_t):
         f = self.grl(torch.cat((f_s, f_t), dim=0))
         d = self.global_classifiers(f)
-        d_s, d_t = d.chunk(2, dim=0)
+        source_batch_size = f_s.size(0)
+        d_s = d[:source_batch_size]
+        d_t = d[source_batch_size:]
 
         d_label_s = torch.ones((f_s.size(0), 1), device=f_s.device)
         d_label_t = torch.zeros((f_t.size(0), 1), device=f_t.device)
 
-        loss_s = F.binary_cross_entropy(d_s, d_label_s, reduction=self.reduction)
-        loss_t = F.binary_cross_entropy(d_t, d_label_t, reduction=self.reduction)
-        return 0.5 * (loss_s + loss_t)
+        return 0.5 * (self.bce(d_s, d_label_s) + self.bce(d_t, d_label_t))
 
     def get_local_adversarial_result(self, feat, logits, source=True):
         loss_adv = 0.0
@@ -86,7 +87,7 @@ class DAANLoss(nn.Module):
                 domain_label = torch.ones(x.size(0), 1).to(device)
             else:
                 domain_label = torch.zeros(x.size(0), 1).to(device)
-            loss_adv = loss_adv + F.binary_cross_entropy(domain_pred, domain_label, reduction=self.reduction)
+            loss_adv = loss_adv + self.bce(domain_pred, domain_label)
         return 0.5 * loss_adv
 
     def update_dynamic_factor(self, epoch_length):

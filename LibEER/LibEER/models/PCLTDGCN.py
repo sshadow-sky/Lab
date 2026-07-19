@@ -131,9 +131,9 @@ class Graph_Generator(nn.Module):
         )
 
         adj_f = torch.cat([adj_dyn_1.unsqueeze(-1), adj_dyn_2.unsqueeze(-1)], dim=-1)
-        adj_f = torch.softmax(self.fc(adj_f).squeeze(-1), -1)
+        adj_f = torch.softmax(self.fc(adj_f).squeeze(), -1)
 
-        k = max(int(adj_f.shape[1] * self.topk_ratio), 1)
+        k = int(adj_f.shape[1] * self.topk_ratio)
         _, topk_indices = torch.topk(adj_f, k=k, dim=-1)
         mask = torch.zeros_like(adj_f)
         mask.scatter_(-1, topk_indices, 1)
@@ -155,14 +155,71 @@ class DGCN(nn.Module):
         return x + skip, adj_dyn
 
 
-class MHGCN(nn.Module):
-    def __init__(self, layers, chan_num, band_num, diffusion_step=1, dropout=0.1, topk_ratio=0.8):
+class GATENet(nn.Module):
+    def __init__(self, inc, chan, hidden, reduction_ratio=128):
         super().__init__()
-        self.HGCN_layers = nn.ModuleList()
-        for _ in range(layers):
-            self.HGCN_layers.append(
-                DGCN(channels=band_num, num_nodes=chan_num, diffusion_step=diffusion_step, dropout=dropout, topk_ratio=topk_ratio)
-            )
+        self.fc = nn.Sequential(
+            nn.Linear(inc, inc // reduction_ratio, bias=False),
+            nn.ELU(inplace=False),
+            nn.Linear(inc // reduction_ratio, chan * hidden, bias=False),
+            nn.Tanh(),
+            nn.ReLU(inplace=False),
+        )
+
+    def forward(self, x):
+        return self.fc(x)
+
+
+class MHGCN(nn.Module):
+    def __init__(
+        self,
+        layers,
+        chan_num,
+        band_num,
+        diffusion_step=1,
+        graph_dropout=0.1,
+        topk_ratio=0.8,
+    ):
+        super().__init__()
+        self.chan_num = chan_num
+        self.band_num = band_num
+        self.hidden = 5
+        self.A = torch.rand(
+            (1, self.chan_num * self.chan_num),
+            dtype=torch.float32,
+            requires_grad=False,
+        )
+        self.GATENet = GATENet(
+            self.chan_num * self.chan_num,
+            self.chan_num,
+            self.hidden,
+            reduction_ratio=128,
+        )
+        self.HGCN_layers = nn.ModuleList(
+            [
+                DGCN(
+                    channels=band_num,
+                    num_nodes=chan_num,
+                    diffusion_step=diffusion_step,
+                    dropout=graph_dropout,
+                    topk_ratio=topk_ratio,
+                )
+                for _ in range(layers)
+            ]
+        )
+        self.initialize()
+
+    def initialize(self):
+        for module in self.modules():
+            if isinstance(module, nn.Conv2d):
+                nn.init.xavier_uniform_(module.weight, gain=1)
+            elif isinstance(module, nn.BatchNorm2d):
+                nn.init.constant_(module.weight, 1)
+                nn.init.constant_(module.bias, 0)
+            elif isinstance(module, nn.Sequential):
+                for layer in module:
+                    if isinstance(layer, nn.Linear):
+                        nn.init.xavier_uniform_(layer.weight, gain=1)
 
     def forward(self, x):
         output = [x]
@@ -183,7 +240,8 @@ class Encoder(nn.Module):
         layers=2,
         hidden_2=64,
         diffusion_step=1,
-        dropout=0.25,
+        graph_dropout=0.1,
+        classifier_dropout=0.25,
         cbam_reduction=4,
         cbam_kernel_size=3,
         topk_ratio=0.8,
@@ -197,14 +255,14 @@ class Encoder(nn.Module):
             chan_num=self.chan_num,
             band_num=self.band_num,
             diffusion_step=diffusion_step,
-            dropout=dropout,
+            graph_dropout=graph_dropout,
             topk_ratio=topk_ratio,
         )
         self.CBAM = CBAMBlock(channel=(layers + 1) * self.band_num, reduction=cbam_reduction, kernel_size=cbam_kernel_size)
         self.fc1 = nn.Linear(self.chan_num * (layers + 1) * self.band_num, hidden_2)
         self.fc2 = nn.Linear(hidden_2, hidden_2)
-        self.dropout1 = nn.Dropout(p=dropout)
-        self.dropout2 = nn.Dropout(p=dropout)
+        self.dropout1 = nn.Dropout(p=classifier_dropout)
+        self.dropout2 = nn.Dropout(p=classifier_dropout)
 
     def forward(self, x):
         # Accept inputs with shape either:
@@ -272,7 +330,10 @@ class DomainAdaptationModel(nn.Module):
         self.hidden_1 = int(model_param.get("hidden_1", hidden_1))
         self.hidden_2 = int(model_param.get("hidden_2", hidden_2))
         self.diffusion_step = int(model_param.get("diffusion_step", 1))
-        self.dropout = float(model_param.get("dropout", 0.25))
+        self.graph_dropout = float(model_param.get("graph_dropout", 0.1))
+        self.classifier_dropout = float(
+            model_param.get("classifier_dropout", model_param.get("dropout", 0.25))
+        )
         self.cbam_reduction = int(model_param.get("cbam_reduction", 4))
         self.cbam_kernel_size = int(model_param.get("cbam_kernel_size", 3))
         self.topk_ratio = float(model_param.get("topk_ratio", 0.8))
@@ -285,7 +346,8 @@ class DomainAdaptationModel(nn.Module):
             layers=self.layers,
             hidden_2=self.hidden_2,
             diffusion_step=self.diffusion_step,
-            dropout=self.dropout,
+            graph_dropout=self.graph_dropout,
+            classifier_dropout=self.classifier_dropout,
             cbam_reduction=self.cbam_reduction,
             cbam_kernel_size=self.cbam_kernel_size,
             topk_ratio=self.topk_ratio,
@@ -296,6 +358,7 @@ class DomainAdaptationModel(nn.Module):
         self.target_f_bank = torch.zeros(target_num, self.hidden_2)
         self.source_score_bank = torch.zeros(source_num, num_of_class).to(device)
         self.target_score_bank = torch.zeros(target_num, num_of_class).to(device)
+        self.source_label_bank = torch.full((source_num,), -1, dtype=torch.long)
 
         self.num_of_class = num_of_class
         self.device = device
@@ -369,18 +432,13 @@ class DomainAdaptationModel(nn.Module):
         aggregated_scores = scores.max(dim=1)[0]
         num_samples = len(aggregated_scores)
 
-        k = max(int(num_samples * self.target_topk_ratio), 1)
+        k = int(num_samples * self.target_topk_ratio)
         _, top_indices = torch.topk(aggregated_scores, k)
         output_f = output[top_indices]
 
-        n_clusters = min(self.num_of_class, max(output_f.shape[0], 1))
-        if n_clusters < self.num_of_class:
-            pad = torch.zeros((self.num_of_class - n_clusters, output_f.shape[1]), device=self.device)
-            prototype = torch.cat([output_f[:n_clusters], pad], dim=0)
-        else:
-            kmeans = KMeans(n_clusters=self.num_of_class, random_state=0)
-            kmeans.fit(output_f.cpu().detach().numpy())
-            prototype = torch.tensor(kmeans.cluster_centers_, device=self.device)
+        kmeans = KMeans(n_clusters=self.num_of_class, random_state=0)
+        kmeans.fit(output_f.cpu().detach().numpy())
+        prototype = torch.tensor(kmeans.cluster_centers_, device=self.device)
 
         tgt_sim = torch.mm(F.normalize(f, p=2, dim=1), F.normalize(prototype, p=2, dim=1).T) / self.tem
         target_predict = F.softmax(tgt_sim, dim=1)

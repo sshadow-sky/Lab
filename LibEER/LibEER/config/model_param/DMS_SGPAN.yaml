@@ -18,13 +18,6 @@ params:
   # Graph learning and graph contrastive augmentation
   node_drop_rate: 0.10
   edge_drop_rate: 0.10
-  gcl_importance_protect: false
-  gcl_importance_centrality_weight: 0.5
-  gcl_importance_feature_weight: 0.5
-  gcl_node_sample_temperature: 1.5
-  gcl_node_sample_eps: 0.000001
-  gcl_edge_protect_strength: 0.3
-  gcl_edge_min_drop_scale: 0.3
   temperature: 0.2
   GLalpha: 0.01
   K: 3

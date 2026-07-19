@@ -20,13 +20,13 @@ train:
 
   # Optimization
   optimizer: rmsprop
-  init_lr: 0.001
   weight_decay: 0.00001
 
   # Semi setting in original implementation
   threshold: 30
   num_of_U: 2
-  seed_fix: 20
+  seed_fix: 2024
+  patience: 15
 
   # Runtime
   eval_interval: 1

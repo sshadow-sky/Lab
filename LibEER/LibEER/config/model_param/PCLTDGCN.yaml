@@ -6,7 +6,8 @@ params:
   hidden_1: 256
   hidden_2: 64
   diffusion_step: 1
-  dropout: 0.25
+  graph_dropout: 0.1
+  classifier_dropout: 0.25
   cbam_reduction: 4
   cbam_kernel_size: 3
   topk_ratio: 0.8
@@ -29,4 +30,4 @@ train:
 
   # Runtime
   eval_interval: 10
-  patience: 40
+  patience: 10

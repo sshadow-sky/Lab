@@ -294,28 +294,6 @@ class DMS_SGPAN(nn.Module):
         self.ugfcda_proto_align_weight = max(0.0, float(net_params.get("ugfcda_proto_align_weight", 0.1)))
         self.node_drop_rate = float(net_params.get("node_drop_rate", 0.15))
         self.edge_drop_rate = float(net_params.get("edge_drop_rate", 0.10))
-        self.gcl_importance_protect = net_params.get("gcl_importance_protect", True)
-        self.gcl_importance_centrality_weight = max(
-            0.0,
-            float(net_params.get("gcl_importance_centrality_weight", 0.5)),
-        )
-        self.gcl_importance_feature_weight = max(
-            0.0,
-            float(net_params.get("gcl_importance_feature_weight", 0.5)),
-        )
-        self.gcl_node_sample_temperature = max(
-            1e-6,
-            float(net_params.get("gcl_node_sample_temperature", 0.7)),
-        )
-        self.gcl_node_sample_eps = max(1e-12, float(net_params.get("gcl_node_sample_eps", 1e-6)))
-        self.gcl_edge_protect_strength = max(
-            0.0,
-            min(1.0, float(net_params.get("gcl_edge_protect_strength", 0.7))),
-        )
-        self.gcl_edge_min_drop_scale = max(
-            0.0,
-            min(1.0, float(net_params.get("gcl_edge_min_drop_scale", 0.3))),
-        )
         self.GLalpha = float(net_params.get("GLalpha", 0.01))
         self.cheb_k = int(net_params.get("K", 3))
         self.cross_scale_heads = int(net_params.get("cross_scale_heads", 4))
@@ -494,42 +472,13 @@ class DMS_SGPAN(nn.Module):
             fused.append(self.graph_feature_fuses[scale_idx](torch.cat([feature_scale, graph_step_feat], dim=-1)))
         return fused
 
-    def _normalize_node_score(self, score: torch.Tensor) -> torch.Tensor:
-        score_min = score.min(dim=-1, keepdim=True).values
-        score_max = score.max(dim=-1, keepdim=True).values
-        return (score - score_min) / (score_max - score_min + self.gcl_node_sample_eps)
-
-    def _gcl_node_importance(self, graph_feat: torch.Tensor, adj: torch.Tensor) -> torch.Tensor:
-        adj_sym = 0.5 * (adj + adj.transpose(1, 2))
-        centrality = self._normalize_node_score(adj_sym.sum(dim=-1))
-        feature_energy = self._normalize_node_score(torch.norm(graph_feat, p=2, dim=-1))
-
-        weight_sum = self.gcl_importance_centrality_weight + self.gcl_importance_feature_weight
-        if weight_sum <= self.gcl_node_sample_eps:
-            importance = 0.5 * (centrality + feature_energy)
-        else:
-            importance = (
-                self.gcl_importance_centrality_weight * centrality
-                + self.gcl_importance_feature_weight * feature_energy
-            ) / weight_sum
-        return importance.clamp(0.0, 1.0).detach()
-
     def _graph_aug_view(self, graph_feat: torch.Tensor, adj: torch.Tensor) -> torch.Tensor:
         # graph_feat: [B, C, H], adj: [B, C, C]
         bsz, chn, hidden = graph_feat.shape
         keep_nodes = self.gcl_keep_nodes
 
-        if self.gcl_importance_protect:
-            node_importance = self._gcl_node_importance(graph_feat, adj)
-            sample_prob = F.softmax(node_importance / self.gcl_node_sample_temperature, dim=-1)
-            sample_prob = sample_prob.clamp_min(self.gcl_node_sample_eps)
-            sample_prob = sample_prob / sample_prob.sum(dim=-1, keepdim=True)
-            keep_idx = torch.multinomial(sample_prob, num_samples=keep_nodes, replacement=False)
-            kept_importance = torch.gather(node_importance, dim=1, index=keep_idx)
-        else:
-            rand_score = torch.rand(bsz, chn, device=graph_feat.device)
-            keep_idx = torch.topk(rand_score, k=keep_nodes, dim=-1).indices
-            kept_importance = None
+        rand_score = torch.rand(bsz, chn, device=graph_feat.device)
+        keep_idx = torch.topk(rand_score, k=keep_nodes, dim=-1).indices
 
         feat_idx = keep_idx.unsqueeze(-1).expand(-1, -1, hidden)
         aug_feat = torch.gather(graph_feat, dim=1, index=feat_idx)  # [B, K, H]
@@ -540,15 +489,7 @@ class DMS_SGPAN(nn.Module):
         aug_adj = torch.gather(aug_adj, dim=2, index=adj_col_idx)  # [B, K, K]
 
         # Edge perturbation on the augmented graph: random drop + random weight jitter, then renormalize.
-        if self.gcl_importance_protect and kept_importance is not None:
-            edge_importance = torch.maximum(kept_importance.unsqueeze(1), kept_importance.unsqueeze(2))
-            edge_drop_scale = (1.0 - self.gcl_edge_protect_strength * edge_importance).clamp(
-                min=self.gcl_edge_min_drop_scale,
-                max=1.0,
-            )
-            edge_drop_prob = self.edge_drop_rate * edge_drop_scale
-        else:
-            edge_drop_prob = self.edge_drop_rate
+        edge_drop_prob = self.edge_drop_rate
         edge_keep = (torch.rand_like(aug_adj) > edge_drop_prob).float()
         edge_scale = 1.0 + self.edge_drop_rate * (2.0 * torch.rand_like(aug_adj) - 1.0)
         aug_adj = aug_adj * edge_keep * edge_scale.clamp(min=0.0)
