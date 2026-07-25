@@ -1,0 +1,33 @@
+{
+  "variant": "baseline",
+  "model_ablation_variant": "baseline",
+  "fit": true,
+  "checkpoint": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260725_021130/baseline/checkpoint-bestmacro-f1",
+  "best_epoch": 82,
+  "reliability_threshold": 0.95,
+  "warmup_epochs": 15,
+  "source_samples": 30546,
+  "target_samples": 10182,
+  "test_samples": 10182,
+  "train_subject_indexes": [
+    14,
+    10,
+    6,
+    3,
+    4,
+    9,
+    11,
+    2,
+    7
+  ],
+  "validation_subject_indexes": [
+    13,
+    12,
+    1
+  ],
+  "test_subject_indexes": [
+    8,
+    0,
+    5
+  ]
+}
