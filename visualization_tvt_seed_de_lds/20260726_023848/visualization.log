@@ -1,0 +1,228 @@
+Using train-val-test SEED subject independent experiment mode,
+The random nine subjects' data are taken as training set, random three subjects' data are taken as validation set, random three subject's data are taken as test set. We choose the best results in validation set,and test it in test set
+15
+235
+62
+Preparing visualization variant: baseline
+visualization fit baseline: epoch=1/100 val_macro_f1=0.4723 reliability=0.2673
+visualization fit baseline: epoch=2/100 val_macro_f1=0.4590 reliability=0.6459
+visualization fit baseline: epoch=3/100 val_macro_f1=0.5464 reliability=0.6015
+visualization fit baseline: epoch=4/100 val_macro_f1=0.5794 reliability=0.6307
+visualization fit baseline: epoch=5/100 val_macro_f1=0.6352 reliability=0.8497
+visualization fit baseline: epoch=6/100 val_macro_f1=0.6953 reliability=0.8871
+visualization fit baseline: epoch=7/100 val_macro_f1=0.7040 reliability=0.8812
+visualization fit baseline: epoch=8/100 val_macro_f1=0.7076 reliability=0.9169
+visualization fit baseline: epoch=9/100 val_macro_f1=0.6958 reliability=0.9212
+visualization fit baseline: epoch=10/100 val_macro_f1=0.7057 reliability=0.9062
+visualization fit baseline: epoch=11/100 val_macro_f1=0.6903 reliability=0.8912
+visualization fit baseline: epoch=12/100 val_macro_f1=0.7049 reliability=0.8926
+visualization fit baseline: epoch=13/100 val_macro_f1=0.7059 reliability=0.8963
+visualization fit baseline: epoch=14/100 val_macro_f1=0.7060 reliability=0.9050
+visualization fit baseline: epoch=15/100 val_macro_f1=0.6872 reliability=0.9122
+visualization fit baseline: epoch=16/100 val_macro_f1=0.7178 reliability=0.9290
+visualization fit baseline: epoch=17/100 val_macro_f1=0.6875 reliability=0.9359
+visualization fit baseline: epoch=18/100 val_macro_f1=0.6459 reliability=0.9261
+visualization fit baseline: epoch=19/100 val_macro_f1=0.6152 reliability=0.8929
+visualization fit baseline: epoch=20/100 val_macro_f1=0.6886 reliability=0.9158
+visualization fit baseline: epoch=21/100 val_macro_f1=0.7008 reliability=0.9305
+visualization fit baseline: epoch=22/100 val_macro_f1=0.6766 reliability=0.9264
+visualization fit baseline: epoch=23/100 val_macro_f1=0.6823 reliability=0.9199
+visualization fit baseline: epoch=24/100 val_macro_f1=0.6788 reliability=0.9303
+visualization fit baseline: epoch=25/100 val_macro_f1=0.6540 reliability=0.9493
+visualization fit baseline: epoch=26/100 val_macro_f1=0.6458 reliability=0.9579
+visualization fit baseline: epoch=27/100 val_macro_f1=0.6773 reliability=0.9656
+visualization fit baseline: epoch=28/100 val_macro_f1=0.6990 reliability=0.9434
+visualization fit baseline: epoch=29/100 val_macro_f1=0.6894 reliability=0.9538
+visualization fit baseline: epoch=30/100 val_macro_f1=0.6852 reliability=0.9501
+visualization fit baseline: epoch=31/100 val_macro_f1=0.6831 reliability=0.9482
+visualization fit baseline: epoch=32/100 val_macro_f1=0.6971 reliability=0.9486
+visualization fit baseline: epoch=33/100 val_macro_f1=0.6901 reliability=0.9451
+visualization fit baseline: epoch=34/100 val_macro_f1=0.6657 reliability=0.9551
+visualization fit baseline: epoch=35/100 val_macro_f1=0.6518 reliability=0.9765
+visualization fit baseline: epoch=36/100 val_macro_f1=0.7131 reliability=0.9708
+visualization fit baseline: epoch=37/100 val_macro_f1=0.7081 reliability=0.9575
+visualization fit baseline: epoch=38/100 val_macro_f1=0.7214 reliability=0.9541
+visualization fit baseline: epoch=39/100 val_macro_f1=0.6679 reliability=0.9594
+visualization fit baseline: epoch=40/100 val_macro_f1=0.7000 reliability=0.9520
+visualization fit baseline: epoch=41/100 val_macro_f1=0.6377 reliability=0.9463
+visualization fit baseline: epoch=42/100 val_macro_f1=0.6905 reliability=0.9221
+visualization fit baseline: epoch=43/100 val_macro_f1=0.6683 reliability=0.9589
+visualization fit baseline: epoch=44/100 val_macro_f1=0.6662 reliability=0.9491
+visualization fit baseline: epoch=45/100 val_macro_f1=0.6838 reliability=0.9493
+visualization fit baseline: epoch=46/100 val_macro_f1=0.6830 reliability=0.9376
+visualization fit baseline: epoch=47/100 val_macro_f1=0.6814 reliability=0.9424
+visualization fit baseline: epoch=48/100 val_macro_f1=0.6291 reliability=0.9414
+visualization fit baseline: epoch=49/100 val_macro_f1=0.6143 reliability=0.9845
+visualization fit baseline: epoch=50/100 val_macro_f1=0.6436 reliability=0.9680
+visualization fit baseline: epoch=51/100 val_macro_f1=0.6440 reliability=0.9809
+visualization fit baseline: epoch=52/100 val_macro_f1=0.6463 reliability=0.9700
+visualization fit baseline: epoch=53/100 val_macro_f1=0.6699 reliability=0.9535
+visualization fit baseline: epoch=54/100 val_macro_f1=0.6828 reliability=0.9430
+visualization fit baseline: epoch=55/100 val_macro_f1=0.6715 reliability=0.9701
+visualization fit baseline: epoch=56/100 val_macro_f1=0.6063 reliability=0.9495
+visualization fit baseline: epoch=57/100 val_macro_f1=0.6324 reliability=0.9599
+visualization fit baseline: epoch=58/100 val_macro_f1=0.6802 reliability=0.9590
+visualization fit baseline: epoch=59/100 val_macro_f1=0.6762 reliability=0.9750
+visualization fit baseline: epoch=60/100 val_macro_f1=0.6660 reliability=0.9639
+visualization fit baseline: epoch=61/100 val_macro_f1=0.6407 reliability=0.9656
+visualization fit baseline: epoch=62/100 val_macro_f1=0.6460 reliability=0.9591
+visualization fit baseline: epoch=63/100 val_macro_f1=0.6512 reliability=0.9573
+visualization fit baseline: epoch=64/100 val_macro_f1=0.6502 reliability=0.9434
+visualization fit baseline: epoch=65/100 val_macro_f1=0.5716 reliability=0.9523
+visualization fit baseline: epoch=66/100 val_macro_f1=0.6656 reliability=0.9716
+visualization fit baseline: epoch=67/100 val_macro_f1=0.6574 reliability=0.9676
+visualization fit baseline: epoch=68/100 val_macro_f1=0.6646 reliability=0.9800
+visualization fit baseline: epoch=69/100 val_macro_f1=0.6984 reliability=0.9689
+visualization fit baseline: epoch=70/100 val_macro_f1=0.7120 reliability=0.9703
+visualization fit baseline: epoch=71/100 val_macro_f1=0.7061 reliability=0.9751
+visualization fit baseline: epoch=72/100 val_macro_f1=0.6972 reliability=0.9757
+visualization fit baseline: epoch=73/100 val_macro_f1=0.7197 reliability=0.9723
+visualization fit baseline: epoch=74/100 val_macro_f1=0.7123 reliability=0.9612
+visualization fit baseline: epoch=75/100 val_macro_f1=0.6916 reliability=0.9742
+visualization fit baseline: epoch=76/100 val_macro_f1=0.6541 reliability=0.9235
+visualization fit baseline: epoch=77/100 val_macro_f1=0.6542 reliability=0.9646
+visualization fit baseline: epoch=78/100 val_macro_f1=0.6848 reliability=0.9484
+visualization fit baseline: epoch=79/100 val_macro_f1=0.7239 reliability=0.9666
+visualization fit baseline: epoch=80/100 val_macro_f1=0.6902 reliability=0.9477
+visualization fit baseline: epoch=81/100 val_macro_f1=0.6936 reliability=0.9182
+visualization fit baseline: epoch=82/100 val_macro_f1=0.7273 reliability=0.9545
+visualization fit baseline: epoch=83/100 val_macro_f1=0.6923 reliability=0.9586
+visualization fit baseline: epoch=84/100 val_macro_f1=0.7041 reliability=0.9785
+visualization fit baseline: epoch=85/100 val_macro_f1=0.6819 reliability=0.9818
+visualization fit baseline: epoch=86/100 val_macro_f1=0.6789 reliability=0.9909
+visualization fit baseline: epoch=87/100 val_macro_f1=0.6886 reliability=0.9886
+visualization fit baseline: epoch=88/100 val_macro_f1=0.6517 reliability=0.9862
+visualization fit baseline: epoch=89/100 val_macro_f1=0.6506 reliability=0.9859
+visualization fit baseline: epoch=90/100 val_macro_f1=0.6699 reliability=0.9855
+visualization fit baseline: epoch=91/100 val_macro_f1=0.6674 reliability=0.9877
+visualization fit baseline: epoch=92/100 val_macro_f1=0.6965 reliability=0.9624
+visualization fit baseline: epoch=93/100 val_macro_f1=0.6765 reliability=0.9594
+visualization fit baseline: epoch=94/100 val_macro_f1=0.7246 reliability=0.9542
+visualization fit baseline: epoch=95/100 val_macro_f1=0.7087 reliability=0.9547
+visualization fit baseline: epoch=96/100 val_macro_f1=0.6898 reliability=0.9545
+visualization fit baseline: epoch=97/100 val_macro_f1=0.7011 reliability=0.9521
+visualization fit baseline: epoch=98/100 val_macro_f1=0.7257 reliability=0.9657
+visualization fit baseline: epoch=99/100 val_macro_f1=0.7181 reliability=0.9703
+visualization fit baseline: epoch=100/100 val_macro_f1=0.7118 reliability=0.9780
+baseline: checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/baseline/checkpoint-bestmacro-f1; threshold=0.95; target_coverage=0.812
+Preparing visualization variant: standard_norm
+standard_norm: checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seed_de_lds_ablation/20260718_225249/standard_norm/output/seed_de_lds/DMS_SGPAN_standard_norm/seed_sub_independent_train_val_test_setting/run-batch_size=5120__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__59bd2e2dc8aa/checkpoint-bestmacro-f1; threshold=0.95; target_coverage=0.922
+Preparing visualization variant: no_spectral
+no_spectral: checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seed_de_lds_ablation/20260718_225249/no_spectral/output/seed_de_lds/DMS_SGPAN_no_spectral/seed_sub_independent_train_val_test_setting/run-batch_size=5120__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__99f4af1d990b/checkpoint-bestmacro-f1; threshold=0.95; target_coverage=0.979
+Preparing visualization variant: no_graph
+no_graph: checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seed_de_lds_ablation/20260718_225249/no_graph/output/seed_de_lds/DMS_SGPAN_no_graph/seed_sub_independent_train_val_test_setting/run-batch_size=5120__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__d2a33994f692/checkpoint-bestmacro-f1; threshold=0.95; target_coverage=0.970
+Preparing visualization variant: no_gcl
+no_gcl: checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seed_de_lds_ablation/20260718_225249/no_gcl/output/seed_de_lds/DMS_SGPAN_no_gcl/seed_sub_independent_train_val_test_setting/run-batch_size=5120__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__c4cef73594d8/checkpoint-bestmacro-f1; threshold=0.95; target_coverage=0.945
+Preparing visualization variant: no_disentangle
+no_disentangle: checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seed_de_lds_ablation/20260718_225249/no_disentangle/output/seed_de_lds/DMS_SGPAN_no_disentangle/seed_sub_independent_train_val_test_setting/run-batch_size=5120__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__2abfd3f86f7d/checkpoint-bestmacro-f1; threshold=0.95; target_coverage=0.245
+Preparing visualization variant: no_subject
+no_subject: checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seed_de_lds_ablation/20260718_225249/no_subject/output/seed_de_lds/DMS_SGPAN_no_subject/seed_sub_independent_train_val_test_setting/run-batch_size=5120__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__4980d97845f9/checkpoint-bestmacro-f1; threshold=0.95; target_coverage=0.933
+Preparing visualization variant: no_orth
+no_orth: checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seed_de_lds_ablation/20260718_225249/no_orth/output/seed_de_lds/DMS_SGPAN_no_orth/seed_sub_independent_train_val_test_setting/run-batch_size=5120__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__3269115d0b6b/checkpoint-bestmacro-f1; threshold=0.95; target_coverage=0.945
+Preparing visualization variant: no_prototype
+no_prototype: checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seed_de_lds_ablation/20260718_225249/no_prototype/output/seed_de_lds/DMS_SGPAN_no_prototype/seed_sub_independent_train_val_test_setting/run-batch_size=5120__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__75cf4480a726/checkpoint-bestmacro-f1; threshold=0.95; target_coverage=0.774
+Preparing visualization variant: classifier_pseudo
+classifier_pseudo: checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seed_de_lds_ablation/20260718_225249/classifier_pseudo/output/seed_de_lds/DMS_SGPAN_classifier_pseudo/seed_sub_independent_train_val_test_setting/run-batch_size=5120__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__3087e309860d/checkpoint-bestmacro-f1; threshold=0.95; target_coverage=0.827
+Preparing visualization variant: threshold_zero
+visualization fit threshold_zero: epoch=1/100 val_macro_f1=0.4723 reliability=0.2673
+visualization fit threshold_zero: epoch=2/100 val_macro_f1=0.4590 reliability=0.6459
+visualization fit threshold_zero: epoch=3/100 val_macro_f1=0.5464 reliability=0.6015
+visualization fit threshold_zero: epoch=4/100 val_macro_f1=0.5794 reliability=0.6307
+visualization fit threshold_zero: epoch=5/100 val_macro_f1=0.6352 reliability=0.8497
+visualization fit threshold_zero: epoch=6/100 val_macro_f1=0.6953 reliability=0.8871
+visualization fit threshold_zero: epoch=7/100 val_macro_f1=0.7040 reliability=0.8812
+visualization fit threshold_zero: epoch=8/100 val_macro_f1=0.7076 reliability=0.9169
+visualization fit threshold_zero: epoch=9/100 val_macro_f1=0.6958 reliability=0.9212
+visualization fit threshold_zero: epoch=10/100 val_macro_f1=0.7057 reliability=0.9062
+visualization fit threshold_zero: epoch=11/100 val_macro_f1=0.6903 reliability=0.8912
+visualization fit threshold_zero: epoch=12/100 val_macro_f1=0.7049 reliability=0.8926
+visualization fit threshold_zero: epoch=13/100 val_macro_f1=0.7059 reliability=0.8963
+visualization fit threshold_zero: epoch=14/100 val_macro_f1=0.7060 reliability=0.9050
+visualization fit threshold_zero: epoch=15/100 val_macro_f1=0.6872 reliability=0.9122
+visualization fit threshold_zero: epoch=16/100 val_macro_f1=0.7119 reliability=0.9771
+visualization fit threshold_zero: epoch=17/100 val_macro_f1=0.6869 reliability=0.9951
+visualization fit threshold_zero: epoch=18/100 val_macro_f1=0.6853 reliability=0.9951
+visualization fit threshold_zero: epoch=19/100 val_macro_f1=0.6874 reliability=0.9968
+visualization fit threshold_zero: epoch=20/100 val_macro_f1=0.6827 reliability=0.9975
+visualization fit threshold_zero: epoch=21/100 val_macro_f1=0.7068 reliability=0.9963
+visualization fit threshold_zero: epoch=22/100 val_macro_f1=0.7016 reliability=0.9962
+visualization fit threshold_zero: epoch=23/100 val_macro_f1=0.7322 reliability=0.9939
+visualization fit threshold_zero: epoch=24/100 val_macro_f1=0.7229 reliability=0.9922
+visualization fit threshold_zero: epoch=25/100 val_macro_f1=0.7275 reliability=0.9939
+visualization fit threshold_zero: epoch=26/100 val_macro_f1=0.7273 reliability=0.9935
+visualization fit threshold_zero: epoch=27/100 val_macro_f1=0.7255 reliability=0.9970
+visualization fit threshold_zero: epoch=28/100 val_macro_f1=0.7199 reliability=0.9980
+visualization fit threshold_zero: epoch=29/100 val_macro_f1=0.6962 reliability=0.9950
+visualization fit threshold_zero: epoch=30/100 val_macro_f1=0.6884 reliability=0.9958
+visualization fit threshold_zero: epoch=31/100 val_macro_f1=0.6648 reliability=0.9948
+visualization fit threshold_zero: epoch=32/100 val_macro_f1=0.6753 reliability=0.9948
+visualization fit threshold_zero: epoch=33/100 val_macro_f1=0.6747 reliability=0.9935
+visualization fit threshold_zero: epoch=34/100 val_macro_f1=0.6735 reliability=0.9936
+visualization fit threshold_zero: epoch=35/100 val_macro_f1=0.6865 reliability=0.9958
+visualization fit threshold_zero: epoch=36/100 val_macro_f1=0.6607 reliability=0.9977
+visualization fit threshold_zero: epoch=37/100 val_macro_f1=0.6708 reliability=0.9980
+visualization fit threshold_zero: epoch=38/100 val_macro_f1=0.6905 reliability=0.9981
+visualization fit threshold_zero: epoch=39/100 val_macro_f1=0.6809 reliability=0.9946
+visualization fit threshold_zero: epoch=40/100 val_macro_f1=0.6523 reliability=0.9922
+visualization fit threshold_zero: epoch=41/100 val_macro_f1=0.6446 reliability=0.9949
+visualization fit threshold_zero: epoch=42/100 val_macro_f1=0.6597 reliability=0.9985
+visualization fit threshold_zero: epoch=43/100 val_macro_f1=0.6388 reliability=0.9955
+visualization fit threshold_zero: epoch=44/100 val_macro_f1=0.6288 reliability=0.9906
+visualization fit threshold_zero: epoch=45/100 val_macro_f1=0.6097 reliability=0.9960
+visualization fit threshold_zero: epoch=46/100 val_macro_f1=0.6025 reliability=0.9969
+visualization fit threshold_zero: epoch=47/100 val_macro_f1=0.6193 reliability=0.9977
+visualization fit threshold_zero: epoch=48/100 val_macro_f1=0.5937 reliability=0.9951
+visualization fit threshold_zero: epoch=49/100 val_macro_f1=0.4969 reliability=0.9949
+visualization fit threshold_zero: epoch=50/100 val_macro_f1=0.4843 reliability=0.9988
+visualization fit threshold_zero: epoch=51/100 val_macro_f1=0.4755 reliability=0.9984
+visualization fit threshold_zero: epoch=52/100 val_macro_f1=0.4488 reliability=0.9993
+visualization fit threshold_zero: epoch=53/100 val_macro_f1=0.4719 reliability=0.9980
+visualization fit threshold_zero: epoch=54/100 val_macro_f1=0.4415 reliability=0.9996
+visualization fit threshold_zero: epoch=55/100 val_macro_f1=0.4919 reliability=0.9988
+visualization fit threshold_zero: epoch=56/100 val_macro_f1=0.4643 reliability=0.9990
+visualization fit threshold_zero: epoch=57/100 val_macro_f1=0.5025 reliability=0.9990
+visualization fit threshold_zero: epoch=58/100 val_macro_f1=0.5326 reliability=0.9984
+visualization fit threshold_zero: epoch=59/100 val_macro_f1=0.5347 reliability=0.9977
+visualization fit threshold_zero: epoch=60/100 val_macro_f1=0.5467 reliability=0.9988
+visualization fit threshold_zero: epoch=61/100 val_macro_f1=0.4415 reliability=0.9993
+visualization fit threshold_zero: epoch=62/100 val_macro_f1=0.4131 reliability=0.9979
+visualization fit threshold_zero: epoch=63/100 val_macro_f1=0.4446 reliability=0.9986
+visualization fit threshold_zero: epoch=64/100 val_macro_f1=0.4599 reliability=0.9980
+visualization fit threshold_zero: epoch=65/100 val_macro_f1=0.4714 reliability=0.9959
+visualization fit threshold_zero: epoch=66/100 val_macro_f1=0.5112 reliability=0.9958
+visualization fit threshold_zero: epoch=67/100 val_macro_f1=0.4709 reliability=0.9977
+visualization fit threshold_zero: epoch=68/100 val_macro_f1=0.4657 reliability=0.9989
+visualization fit threshold_zero: epoch=69/100 val_macro_f1=0.4711 reliability=0.9990
+visualization fit threshold_zero: epoch=70/100 val_macro_f1=0.4902 reliability=0.9990
+visualization fit threshold_zero: epoch=71/100 val_macro_f1=0.4946 reliability=0.9992
+visualization fit threshold_zero: epoch=72/100 val_macro_f1=0.4531 reliability=0.9982
+visualization fit threshold_zero: epoch=73/100 val_macro_f1=0.4810 reliability=0.9987
+visualization fit threshold_zero: epoch=74/100 val_macro_f1=0.5822 reliability=0.9962
+visualization fit threshold_zero: epoch=75/100 val_macro_f1=0.5575 reliability=0.9980
+visualization fit threshold_zero: epoch=76/100 val_macro_f1=0.6434 reliability=0.9986
+visualization fit threshold_zero: epoch=77/100 val_macro_f1=0.5814 reliability=0.9956
+visualization fit threshold_zero: epoch=78/100 val_macro_f1=0.5813 reliability=0.9967
+visualization fit threshold_zero: epoch=79/100 val_macro_f1=0.5856 reliability=0.9980
+visualization fit threshold_zero: epoch=80/100 val_macro_f1=0.6123 reliability=0.9972
+visualization fit threshold_zero: epoch=81/100 val_macro_f1=0.5981 reliability=0.9982
+visualization fit threshold_zero: epoch=82/100 val_macro_f1=0.5372 reliability=0.9982
+visualization fit threshold_zero: epoch=83/100 val_macro_f1=0.5397 reliability=0.9981
+visualization fit threshold_zero: epoch=84/100 val_macro_f1=0.5295 reliability=0.9984
+visualization fit threshold_zero: epoch=85/100 val_macro_f1=0.5168 reliability=0.9983
+visualization fit threshold_zero: epoch=86/100 val_macro_f1=0.5275 reliability=0.9974
+visualization fit threshold_zero: epoch=87/100 val_macro_f1=0.5923 reliability=0.9984
+visualization fit threshold_zero: epoch=88/100 val_macro_f1=0.5778 reliability=0.9977
+visualization fit threshold_zero: epoch=89/100 val_macro_f1=0.5684 reliability=0.9988
+visualization fit threshold_zero: epoch=90/100 val_macro_f1=0.5409 reliability=0.9987
+visualization fit threshold_zero: epoch=91/100 val_macro_f1=0.5294 reliability=0.9981
+visualization fit threshold_zero: epoch=92/100 val_macro_f1=0.5151 reliability=0.9961
+visualization fit threshold_zero: epoch=93/100 val_macro_f1=0.5173 reliability=0.9942
+visualization fit threshold_zero: epoch=94/100 val_macro_f1=0.5333 reliability=0.9837
+visualization fit threshold_zero: epoch=95/100 val_macro_f1=0.5816 reliability=0.9925
+visualization fit threshold_zero: epoch=96/100 val_macro_f1=0.5211 reliability=0.9959
+visualization fit threshold_zero: epoch=97/100 val_macro_f1=0.5461 reliability=0.9913
+visualization fit threshold_zero: epoch=98/100 val_macro_f1=0.6206 reliability=0.9953
+visualization fit threshold_zero: epoch=99/100 val_macro_f1=0.6762 reliability=0.9834
+visualization fit threshold_zero: epoch=100/100 val_macro_f1=0.6509 reliability=0.9879
+threshold_zero: checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/threshold_zero/checkpoint-bestmacro-f1; threshold=0.00; target_coverage=1.000
+Visualization outputs written to /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848

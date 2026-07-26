@@ -1,0 +1,36 @@
+{
+  "input_root": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848",
+  "output_files": [
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/comparison/introduction_concept.png",
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/comparison/introduction_concept.pdf",
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/comparison/introduction_concept.svg"
+  ],
+  "sources": {
+    "normalization": {
+      "path": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/normalization/normalization_metrics.csv",
+      "available": true,
+      "row_count": 2
+    },
+    "frequency_weights": {
+      "path": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/baseline/frequency/frequency_band_weight_deviation.csv",
+      "available": true,
+      "row_count": 3
+    },
+    "subject_ablation": {
+      "path": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/comparison/subject_ablation_metrics.csv",
+      "available": true,
+      "row_count": 4
+    },
+    "rgpa_ablation": {
+      "path": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/comparison/rgpa_ablation_metrics.csv",
+      "available": true,
+      "row_count": 4
+    },
+    "comparison_summary": {
+      "path": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/comparison/comparison_summary.csv",
+      "available": true,
+      "row_count": 11
+    }
+  },
+  "interpretation_guardrail": "The concept figure is evidence-linked but descriptive. Target labels are used only for offline diagnostics; causal or neuroscientific claims require repeated-run statistics and explicit hypotheses."
+}

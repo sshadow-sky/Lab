@@ -1,9 +1,0 @@
-[2026-07-25 02:11:35] START DMS-SGPAN visualization
-Run root: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260725_021130
-GPU: 0
-Command record: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260725_021130/command.txt
-[2026-07-25 02:22:47] visualization command completed
-[2026-07-25 02:22:47] DONE DMS-SGPAN visualization
-Verified 26 required PNG/CSV/JSON outputs.
-Output root: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260725_021130
-Detailed log: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260725_021130/visualization.log

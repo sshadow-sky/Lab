@@ -1,0 +1,11 @@
+[2026-07-26 02:38:57] START DMS-SGPAN visualization
+Run root: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848
+GPU: 0
+Command record: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/command.txt
+[2026-07-26 03:02:16] visualization command completed
+[2026-07-26 03:02:24] Introduction concept figure completed
+[2026-07-26 03:02:24] DONE DMS-SGPAN visualization
+Verified 47 required PNG/CSV/JSON outputs.
+Output root: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848
+Detailed log: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/visualization.log
+Concept figure log: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/concept_figure.log

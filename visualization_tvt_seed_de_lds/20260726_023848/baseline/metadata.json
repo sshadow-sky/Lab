@@ -1,0 +1,59 @@
+{
+  "variant": "baseline",
+  "model_ablation_variant": "baseline",
+  "fit": true,
+  "checkpoint": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/baseline/checkpoint-bestmacro-f1",
+  "best_epoch": 82,
+  "reliability_threshold": 0.95,
+  "warmup_epochs": 15,
+  "source_samples": 30546,
+  "target_samples": 10182,
+  "test_samples": 10182,
+  "train_subject_indexes": [
+    14,
+    10,
+    6,
+    3,
+    4,
+    9,
+    11,
+    2,
+    7
+  ],
+  "validation_subject_indexes": [
+    13,
+    12,
+    1
+  ],
+  "test_subject_indexes": [
+    8,
+    0,
+    5
+  ],
+  "retained_after_encoding_keys": [
+    "source_x_norm",
+    "target_x_norm",
+    "test_x_norm",
+    "source_final_feat",
+    "target_final_feat",
+    "test_final_feat",
+    "source_logits",
+    "target_logits",
+    "test_logits",
+    "source_scale_weights",
+    "target_scale_weights",
+    "test_scale_weights",
+    "source_shared_scales",
+    "target_shared_scales",
+    "test_shared_scales",
+    "source_private_scales",
+    "target_private_scales",
+    "test_private_scales",
+    "source_spectral_scales",
+    "target_spectral_scales",
+    "source_graph_feat",
+    "target_graph_feat",
+    "source_adj",
+    "target_adj"
+  ]
+}

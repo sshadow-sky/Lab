@@ -1,0 +1,4 @@
+completed_at=2026-07-26T03:02:24+08:00
+verified_core_files=47
+baseline_checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/baseline/checkpoint-bestmacro-f1
+threshold_zero_checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seed_de_lds/20260726_023848/threshold_zero/checkpoint-bestmacro-f1

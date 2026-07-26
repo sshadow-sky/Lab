@@ -1,0 +1,3 @@
+variant,representation,partition,subject_separation_full,emotion_separation_full,subject_separation_pca,emotion_separation_pca
+baseline,shared,target,0.0068508738796144225,5.062667642591208,0.005221250618275226,7.264274475063348
+baseline,private,target,68.06224707504032,0.0005227975692823354,34.98849789326077,0.0034221117425601725

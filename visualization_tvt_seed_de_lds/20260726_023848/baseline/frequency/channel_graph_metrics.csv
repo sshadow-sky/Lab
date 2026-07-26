@@ -1,0 +1,5 @@
+metric,value
+raw_normalized_entropy_mean,0.999429525164769
+raw_diagonal_mean,0.021960241720080376
+raw_off_diagonal_mean,0.016033440828323364
+effective_off_diagonal_center,0.007997195236384869

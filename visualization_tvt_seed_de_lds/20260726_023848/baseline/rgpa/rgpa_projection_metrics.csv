@@ -1,0 +1,2 @@
+variant,threshold,coverage,selected_pseudo_accuracy,selected_count,target_count,pc1_explained_variance,pc2_explained_variance
+baseline,0.95,0.8121194264388136,0.7363647357600677,8269,10182,0.6743906140327454,0.3236498236656189

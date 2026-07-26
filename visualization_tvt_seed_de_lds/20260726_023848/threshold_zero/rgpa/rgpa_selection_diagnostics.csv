@@ -1,0 +1,4 @@
+true_class,class_name,sample_count,selected_count,coverage,selected_pseudo_accuracy,mean_reliability
+0,Negative,3360,3360,1.0,0.6416666666666667,0.9902340234390327
+1,Neutral,3312,3312,1.0,0.654891304347826,0.9947351575446661
+2,Positive,3510,3510,1.0,0.9071225071225071,0.9967218970216577
