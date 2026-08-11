@@ -1,0 +1,3 @@
+selection,threshold,sample_count,selected_count,rejected_count,wrong_pseudo_count,coverage,selected_pseudo_precision,rejected_error_recall,rejected_error_precision
+tau_zero,0.0,10182,10182,0,1869,1.0,0.8164407778432528,0.0,nan
+configured,0.95,10182,2261,7921,1869,0.22205853466902375,0.9562140645731977,0.9470304975922953,0.22345663426335058
