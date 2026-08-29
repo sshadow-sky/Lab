@@ -1,0 +1,5 @@
+protocol=selected-subject non-strict leave-one-out
+scope=qualitative selected folds, not a LOSO average
+seed=subject-15,acc-0.990277,macro-f1-0.990103,epoch-100
+seediv=subject-13,acc-0.840188,macro-f1-0.835882,epoch-38
+seedv=subject-13,acc-0.864382,macro-f1-0.842892,epoch-79

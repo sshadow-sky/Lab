@@ -1,0 +1,114 @@
+{
+  "profile": {
+    "key": "seedv",
+    "dataset": "seedv_de",
+    "label": "SEED-V",
+    "setting": "seedv_sub_independent_leave_one_out_setting",
+    "default_dataset_path": "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED-V/SEED-V",
+    "test_subject_1_based": 13,
+    "class_names": [
+      "Disgust",
+      "Fear",
+      "Sad",
+      "Neutral",
+      "Happy"
+    ],
+    "batch_size": 2048,
+    "lr": 0.01,
+    "epochs": 100,
+    "dropout": 0.3,
+    "loss_align": 0.3,
+    "loss_subject": 0.6,
+    "loss_gcl": 0.3,
+    "loss_orth": 0.6,
+    "temperature": 0.1,
+    "reliability_threshold": 0.6,
+    "warmup_epochs": 15,
+    "seed": 2024
+  },
+  "dataset_path": "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED-V/SEED-V",
+  "checkpoint": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/selected_loso_tsne/20260808_142915/seedv/training/checkpoint-bestmacro-f1",
+  "selected_epoch": 79,
+  "train_subject_ids_1_based": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    14,
+    15,
+    16
+  ],
+  "test_subject_id_1_based": 13,
+  "source_sample_count": 41145,
+  "target_test_sample_count": 2743,
+  "accuracy": 0.8643820634341961,
+  "macro_f1": 0.8428920757916292,
+  "protocol": {
+    "name": "selected-subject non-strict leave-one-out",
+    "test_subject_used_as_unlabeled_target": true,
+    "test_labels_used_for_checkpoint_selection": true,
+    "test_labels_used_for_balanced_plot_sampling": true,
+    "plot_sampling_is_offline_only": true,
+    "sessions": [
+      1
+    ],
+    "warning": "Selected-fold qualitative evidence only. Accuracy is optimistic because the same test subject selects the checkpoint; it is not an unbiased LOSO average and is not protocol-comparable to TVT headline results."
+  },
+  "model_parameter_snapshot": {
+    "num_of_vertices": 62,
+    "num_of_features": 5,
+    "category_number": 5,
+    "num_subjects": 16,
+    "graph_hidden": 32,
+    "graph_readout_hidden": 64,
+    "gcl_readout_hidden": 64,
+    "spectral_hidden": 64,
+    "disentangle_dim": 64,
+    "projection_dim": 32,
+    "frequency_band_groups": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        2
+      ],
+      [
+        3
+      ],
+      [
+        4
+      ]
+    ],
+    "cross_scale_heads": 4,
+    "dropout": 0.3,
+    "temperature": 0.1,
+    "ugfcda_warmup_epochs": 15,
+    "ugfcda_eps": 1e-06,
+    "ugfcda_reliability_threshold": 0.6,
+    "ugfcda_proto_align_weight": 0.5,
+    "node_drop_rate": 0.1,
+    "edge_drop_rate": 0.1,
+    "GLalpha": 0.01,
+    "K": 3,
+    "ssbn_eps": 1e-05,
+    "sin_min_count": 2,
+    "grl_max_iters": 2000.0,
+    "w_ce": 1.0,
+    "w_aj": 0.2,
+    "w_gcl": 0.3,
+    "w_align": 0.3,
+    "w_orth": 0.6,
+    "w_subject": 0.6
+  }
+}

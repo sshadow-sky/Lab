@@ -1,0 +1,7 @@
+protocol=selected-subject non-strict leave-one-out
+selected_subjects=SEED:S15,SEED-IV:S13,SEED-V:S13
+datasets=seed,seediv,seedv
+gpu_id=0
+output_root=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/selected_loso_tsne/20260808_142915
+warning=test subject is reused as target and checkpoint-selection set; selected-fold qualitative analysis only
+command: CUDA_VISIBLE_DEVICES=0 python3 -u /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/DMS_SGPAN_selected_loso_tsne.py --datasets seed\,seediv\,seedv --seed-dataset-path /mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED/SEED_EEG --seediv-dataset-path /mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED_IV --seedv-dataset-path /mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED-V/SEED-V --output-root /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/selected_loso_tsne/20260808_142915 --device cuda --points-per-class 50 --perplexity 20 --iterations 1500 --reuse-existing

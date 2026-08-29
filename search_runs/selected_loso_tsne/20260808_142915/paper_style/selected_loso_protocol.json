@@ -1,0 +1,109 @@
+{
+  "protocol": "selected-subject non-strict leave-one-out",
+  "profiles": {
+    "seed": {
+      "key": "seed",
+      "dataset": "seed_de_lds",
+      "label": "SEED",
+      "setting": "seed_sub_independent_leave_one_out_setting",
+      "default_dataset_path": "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED/SEED_EEG",
+      "test_subject_1_based": 15,
+      "class_names": [
+        "Negative",
+        "Neutral",
+        "Positive"
+      ],
+      "batch_size": 4608,
+      "lr": 0.01,
+      "epochs": 100,
+      "dropout": 0.35,
+      "loss_align": 0.25,
+      "loss_subject": 0.25,
+      "loss_gcl": 0.25,
+      "loss_orth": 0.45,
+      "temperature": 0.2,
+      "reliability_threshold": 0.95,
+      "warmup_epochs": 15,
+      "seed": 2024
+    },
+    "seediv": {
+      "key": "seediv",
+      "dataset": "seediv_de_lds",
+      "label": "SEED-IV",
+      "setting": "seediv_sub_independent_leave_one_out_setting",
+      "default_dataset_path": "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED_IV",
+      "test_subject_1_based": 13,
+      "class_names": [
+        "Neutral",
+        "Sad",
+        "Fear",
+        "Happy"
+      ],
+      "batch_size": 3072,
+      "lr": 0.01,
+      "epochs": 100,
+      "dropout": 0.5,
+      "loss_align": 0.25,
+      "loss_subject": 0.25,
+      "loss_gcl": 0.25,
+      "loss_orth": 0.5,
+      "temperature": 0.1,
+      "reliability_threshold": 0.95,
+      "warmup_epochs": 15,
+      "seed": 2024
+    },
+    "seedv": {
+      "key": "seedv",
+      "dataset": "seedv_de",
+      "label": "SEED-V",
+      "setting": "seedv_sub_independent_leave_one_out_setting",
+      "default_dataset_path": "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED-V/SEED-V",
+      "test_subject_1_based": 13,
+      "class_names": [
+        "Disgust",
+        "Fear",
+        "Sad",
+        "Neutral",
+        "Happy"
+      ],
+      "batch_size": 2048,
+      "lr": 0.01,
+      "epochs": 100,
+      "dropout": 0.3,
+      "loss_align": 0.3,
+      "loss_subject": 0.6,
+      "loss_gcl": 0.3,
+      "loss_orth": 0.6,
+      "temperature": 0.1,
+      "reliability_threshold": 0.6,
+      "warmup_epochs": 15,
+      "seed": 2024
+    }
+  },
+  "dataset_paths": {
+    "seed": "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED/SEED_EEG",
+    "seediv": "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED_IV",
+    "seedv": "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED-V/SEED-V"
+  },
+  "explicit_checkpoints": {
+    "seed": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/selected_loso_tsne/20260808_142915/seed/training/checkpoint-bestmacro-f1",
+    "seediv": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/selected_loso_tsne/20260808_142915/seediv/training/checkpoint-bestmacro-f1",
+    "seedv": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/selected_loso_tsne/20260808_142915/seedv/training/checkpoint-bestmacro-f1"
+  },
+  "output_root": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/selected_loso_tsne/20260808_142915/paper_style",
+  "device": "cuda",
+  "epochs_override": null,
+  "points_per_class": 50,
+  "perplexity": 30.0,
+  "iterations": 3000,
+  "reuse_existing": false,
+  "checkpoint_only": true,
+  "tsne": {
+    "same_sample_indices_for_raw_and_model": true,
+    "sampling": "class-balanced from every selected target sample; incorrect predictions are not removed",
+    "preprocessing": "feature-wise standardization, then PCA to at most 50 dimensions",
+    "initialization": "random",
+    "coordinate_warning": "Raw and DMS-SGPAN t-SNE panels are fitted independently; axes and absolute distances are not directly comparable."
+  },
+  "warning": "The selected test subject is reused as target/validation and its labels select the checkpoint. This is a deliberately non-strict, optimistic, selected-fold qualitative analysis."
+}
