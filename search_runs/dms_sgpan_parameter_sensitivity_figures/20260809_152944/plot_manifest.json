@@ -1,0 +1,30 @@
+{
+  "run_roots": {
+    "seed": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/dms_sgpan_parameter_sensitivity_seed/20260807_174956",
+    "seediv": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/dms_sgpan_parameter_sensitivity_seediv/20260807_175000"
+  },
+  "selected_datasets": [
+    "seed",
+    "seediv"
+  ],
+  "allow_incomplete": false,
+  "dpi": 300,
+  "generated_files": [
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/dms_sgpan_parameter_sensitivity_figures/20260809_152944/parameter_sensitivity_summary.csv",
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/dms_sgpan_parameter_sensitivity_figures/20260809_152944/seed_reliability_threshold.png",
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/dms_sgpan_parameter_sensitivity_figures/20260809_152944/seed_alignment_weight.png",
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/dms_sgpan_parameter_sensitivity_figures/20260809_152944/seediv_reliability_threshold.png",
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/dms_sgpan_parameter_sensitivity_figures/20260809_152944/seediv_alignment_weight.png",
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/dms_sgpan_parameter_sensitivity_figures/20260809_152944/parameter_sensitivity_selected_datasets.png"
+  ],
+  "sota_settings": {
+    "seed": {
+      "reliability_threshold": 0.95,
+      "alignment_weight": 0.2
+    },
+    "seediv": {
+      "reliability_threshold": 0.7,
+      "alignment_weight": 0.6
+    }
+  }
+}
