@@ -1,0 +1,5 @@
+dataset,dataset_label,variant,display_name,class_id,class_name,subject_mean_accuracy,subject_std_accuracy,pooled_accuracy,test_subject_count,sample_count
+seediv_de_lds,SEED-IV,baseline,DMS-SGPAN,0,Neutral,0.7004608294930875,0.23410259201158326,0.7004608294930875,3,651
+seediv_de_lds,SEED-IV,baseline,DMS-SGPAN,1,Sad,0.45045045045045046,0.12476612919842638,0.45045045045045046,3,777
+seediv_de_lds,SEED-IV,baseline,DMS-SGPAN,2,Fear,0.4780219780219781,0.1615048182054843,0.47802197802197804,3,546
+seediv_de_lds,SEED-IV,baseline,DMS-SGPAN,3,Happy,0.7340241796200345,0.11968301305057283,0.7340241796200345,3,579

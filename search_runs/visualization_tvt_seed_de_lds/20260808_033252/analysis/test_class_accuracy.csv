@@ -1,0 +1,4 @@
+dataset,dataset_label,variant,display_name,class_id,class_name,subject_mean_accuracy,subject_std_accuracy,pooled_accuracy,test_subject_count,sample_count
+seed_de_lds,SEED,baseline,DMS-SGPAN,0,Negative,0.643154761904762,0.04602233757161356,0.643154761904762,3,3360
+seed_de_lds,SEED,baseline,DMS-SGPAN,1,Neutral,0.6708937198067632,0.04598698570475094,0.6708937198067633,3,3312
+seed_de_lds,SEED,baseline,DMS-SGPAN,2,Positive,0.9393162393162392,0.021384608552473178,0.9393162393162393,3,3510

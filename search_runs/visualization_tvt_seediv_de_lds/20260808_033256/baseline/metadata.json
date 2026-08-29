@@ -1,0 +1,53 @@
+{
+  "variant": "baseline",
+  "model_ablation_variant": "baseline",
+  "fit": false,
+  "checkpoint": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seediv_de_lds_plus_test/0071/batch_size=1536/dataset=seediv_de_lds/device=cuda/dms_sgpan_dropout=0.3/dms_sgpan_frequency_band_groups=[0]-[1]-[2]-[3]-[4]/dms_sgpan_loss_align=0.6/dms_sgpan_loss_gcl=0.6/dms_sgpan_loss_orth=0.4/dms_sgpan_loss_subject=0.4/dms_sgpan_temperature=0.1/dms_sgpan_ugfcda_eps=1e-06/dms_sgpan_ugfcda_keep_ratio_step_epochs=20/dms_sgpan_ugfcda_reliability_threshold=0.7/dms_sgpan_ugfcda_warmup_epochs=15/epochs=100/feature_type=de_lds/lr=0.01/metric_choose=macro-f1/metrics=acc-macro-f1/model=DMS_SGPAN/num_workers=16/onehot=True/sample_length=1/seed=2024/setting=seediv_sub_independent_train_val_test_setting/stride=1/time_window=1.0/output/seediv_de_lds/DMS_SGPAN/seediv_sub_independent_train_val_test_setting/run-batch_size=1536__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__c25fef908bdd/checkpoint-bestmacro-f1-c25fef908bdd",
+  "best_epoch": 97,
+  "reliability_threshold": 0.7,
+  "warmup_epochs": 15,
+  "source_samples": 7659,
+  "target_samples": 2553,
+  "test_samples": 2553,
+  "train_subject_indexes": [
+    14,
+    10,
+    6,
+    3,
+    4,
+    9,
+    11,
+    2,
+    7
+  ],
+  "validation_subject_indexes": [
+    13,
+    12,
+    1
+  ],
+  "test_subject_indexes": [
+    8,
+    0,
+    5
+  ],
+  "retained_after_encoding_keys": [
+    "source_x_norm",
+    "target_x_norm",
+    "test_x_norm",
+    "source_final_feat",
+    "target_final_feat",
+    "test_final_feat",
+    "source_logits",
+    "target_logits",
+    "test_logits",
+    "source_scale_weights",
+    "target_scale_weights",
+    "test_scale_weights",
+    "source_shared_scales",
+    "target_shared_scales",
+    "test_shared_scales",
+    "source_private_scales",
+    "target_private_scales",
+    "test_private_scales"
+  ]
+}

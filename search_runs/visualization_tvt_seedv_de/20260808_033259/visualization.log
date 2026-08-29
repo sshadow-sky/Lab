@@ -1,0 +1,1709 @@
+Using SeedV subject independent train val test experiment mode, 
+For each subject, 10 random subjects were used as training set, 3 random trails were used as verification set, last 3 trails were used as test, we choose best results in verification set and test results in test
+Total Progress for seedV processing:   0%|          | 0/48 [00:00<?, ?it/s]
+Session 1:   0%|          | 0/16 [00:00<?, ?it/s][A
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  9.54it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  7.58it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.17it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  3.74it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.88it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.18it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:02,  2.70it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.44it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.98it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.34it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.38it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.45it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.10it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.88it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.12it/s][A[A
+
+                                                                  [A[A
+Session 1:   6%|▋         | 1/16 [00:22<05:39, 22.62s/it][ATotal Progress for seedV processing:   2%|▏         | 1/48 [00:22<17:42, 22.62s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  7.84it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  6.83it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.94it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:03,  3.62it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.66it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.06it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:03,  2.61it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.41it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.01it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.34it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.39it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.42it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.10it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.89it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.13it/s][A[A
+
+                                                                  [A[A
+Session 1:  12%|█▎        | 2/16 [00:44<05:07, 21.94s/it][ATotal Progress for seedV processing:   4%|▍         | 2/48 [00:44<16:49, 21.94s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  7.76it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  6.95it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.02it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:03,  3.61it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.77it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.05it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:03,  2.60it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.36it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.80it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:03<00:01,  3.11it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.04it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.15it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:04<00:00,  2.96it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.77it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.06it/s][A[A
+
+                                                                  [A[A
+Session 1:  19%|█▉        | 3/16 [01:05<04:40, 21.60s/it][ATotal Progress for seedV processing:   6%|▋         | 3/48 [01:05<16:12, 21.60s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  7.13it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:02,  6.15it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.46it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:03,  3.21it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.44it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.11it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:03,  2.58it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.36it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.86it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:03<00:01,  3.24it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.38it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.51it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.25it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  3.03it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.23it/s][A[A
+
+                                                                  [A[A
+Session 1:  25%|██▌       | 4/16 [01:26<04:17, 21.47s/it][ATotal Progress for seedV processing:   8%|▊         | 4/48 [01:26<15:44, 21.47s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  8.35it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  7.82it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.99it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  3.71it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.93it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.24it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:02,  2.70it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.49it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.93it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.22it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.29it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.31it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.10it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.99it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.23it/s][A[A
+
+                                                                  [A[A
+Session 1:  31%|███▏      | 5/16 [01:47<03:56, 21.46s/it][ATotal Progress for seedV processing:  10%|█         | 5/48 [01:47<15:22, 21.46s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  8.14it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  7.14it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.91it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:03,  3.64it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.85it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.21it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:02,  2.70it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.43it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.98it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.28it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.32it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.35it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.06it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.86it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.11it/s][A[A
+
+                                                                  [A[A
+Session 1:  38%|███▊      | 6/16 [02:09<03:33, 21.34s/it][ATotal Progress for seedV processing:  12%|█▎        | 6/48 [02:09<14:56, 21.34s/it]Using repaired SEED-V CNT file for 7_1_20180411.cnt: 7_1_20180411_repaired.cnt
+SEED-V 7_1_20180411.cnt: filled missing channels ['FC4'] from neighbor fallback
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  8.07it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  7.04it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.91it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  3.70it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.81it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.22it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:02,  2.68it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.21it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.88it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.20it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.28it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.34it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.06it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.93it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.25it/s][A[A
+
+                                                                  [A[A
+Session 1:  44%|████▍     | 7/16 [02:30<03:12, 21.38s/it][ATotal Progress for seedV processing:  15%|█▍        | 7/48 [02:30<14:36, 21.38s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:02,  5.69it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:02,  6.19it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.04it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  3.74it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.76it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.01it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:03,  2.53it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.28it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.51it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:03<00:01,  2.86it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  2.95it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.03it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:04<00:00,  2.83it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.63it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  2.98it/s][A[A
+
+                                                                  [A[A
+Session 1:  50%|█████     | 8/16 [02:53<02:54, 21.77s/it][ATotal Progress for seedV processing:  17%|█▋        | 8/48 [02:53<14:30, 21.77s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  8.07it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  6.95it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.64it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:03,  3.45it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.67it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.13it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:03,  2.62it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.33it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.90it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.24it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  2.94it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.14it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:04<00:00,  3.00it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.86it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.10it/s][A[A
+
+                                                                  [A[A
+Session 1:  56%|█████▋    | 9/16 [03:14<02:31, 21.67s/it][ATotal Progress for seedV processing:  19%|█▉        | 9/48 [03:14<14:05, 21.67s/it]
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  7.60it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  6.64it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.56it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:03,  3.42it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.59it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.12it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:02,  2.71it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.50it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.05it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.41it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.37it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.44it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.13it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.93it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.17it/s][A[A
+
+                                                                  [A[A
+Session 1:  62%|██████▎   | 10/16 [03:36<02:10, 21.71s/it][ATotal Progress for seedV processing:  21%|██        | 10/48 [03:36<13:44, 21.71s/it]
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  7.78it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  6.87it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.94it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:03,  3.65it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.42it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:03,  2.87it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:03,  2.58it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.31it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.86it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:03<00:01,  3.18it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.27it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.07it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:04<00:00,  2.69it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.34it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  2.66it/s][A[A
+
+                                                                  [A[A
+Session 1:  69%|██████▉   | 11/16 [03:58<01:49, 21.85s/it][ATotal Progress for seedV processing:  23%|██▎       | 11/48 [03:58<13:28, 21.85s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  8.65it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  6.87it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.90it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  3.69it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.87it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.18it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:02,  2.73it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.36it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.95it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.26it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  2.91it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:01,  2.99it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:04<00:00,  2.93it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.85it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.13it/s][A[A
+
+                                                                  [A[A
+Session 1:  75%|███████▌  | 12/16 [04:23<01:31, 22.91s/it][ATotal Progress for seedV processing:  25%|██▌       | 12/48 [04:23<13:44, 22.91s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  8.06it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  7.40it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.04it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  3.73it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.92it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.25it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:03,  2.66it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.28it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.76it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:03<00:01,  3.02it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.04it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.04it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:04<00:00,  2.79it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.60it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  2.80it/s][A[A
+
+                                                                  [A[A
+Session 1:  81%|████████▏ | 13/16 [04:45<01:07, 22.65s/it][ATotal Progress for seedV processing:  27%|██▋       | 13/48 [04:45<13:12, 22.65s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  7.33it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:02,  6.19it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.64it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:03,  3.45it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.66it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.04it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:03,  2.60it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.32it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.85it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:03<00:01,  3.12it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.13it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.17it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:04<00:00,  2.85it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.71it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  2.96it/s][A[A
+
+                                                                  [A[A
+Session 1:  88%|████████▊ | 14/16 [05:12<00:47, 23.68s/it][ATotal Progress for seedV processing:  29%|██▉       | 14/48 [05:12<13:25, 23.68s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:02,  6.66it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  6.59it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.77it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:03,  3.44it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.58it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.02it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:03,  2.62it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.33it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.89it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:03<00:01,  3.16it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.14it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:01,  2.96it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:04<00:00,  2.77it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.63it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  2.94it/s][A[A
+
+                                                                  [A[A
+Session 1:  94%|█████████▍| 15/16 [05:37<00:24, 24.30s/it][ATotal Progress for seedV processing:  31%|███▏      | 15/48 [05:37<13:21, 24.30s/it]
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:01,  8.74it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:01,  7.21it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.99it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:03,  3.52it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.68it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.05it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:02<00:03,  2.62it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.34it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:02,  2.90it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.18it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.20it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.24it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  2.97it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  2.81it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.04it/s][A[A
+
+                                                                  [A[A
+Session 1: 100%|██████████| 16/16 [06:03<00:00, 24.74s/it][ATotal Progress for seedV processing:  33%|███▎      | 16/48 [06:03<13:11, 24.74s/it]
+                                                          [A
+Session 2:   0%|          | 0/16 [00:00<?, ?it/s][A
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.19it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:05,  2.54it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.64it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  3.82it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.95it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:01,  4.94it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:02,  3.70it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.18it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.51it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.95it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.59it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.86it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.28it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.60it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.26it/s][A[A
+
+                                                                  [A[A
+Session 2:   6%|▋         | 1/16 [00:20<05:05, 20.38s/it][ATotal Progress for seedV processing:  35%|███▌      | 17/48 [06:23<12:06, 23.43s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:05,  2.41it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  2.84it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.08it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.16it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.25it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:01,  5.19it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:02,  3.32it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  2.95it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.24it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.75it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.38it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.63it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.12it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.33it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  4.07it/s][A[A
+
+                                                                  [A[A
+Session 2:  12%|█▎        | 2/16 [00:41<04:53, 20.95s/it][ATotal Progress for seedV processing:  38%|███▊      | 18/48 [06:45<11:24, 22.80s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:05,  2.77it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  2.95it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.90it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.28it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.49it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.24it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:01,  3.65it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.00it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  4.42it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:00,  4.05it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:02<00:00,  4.41it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.54it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.84it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.55it/s][A[A
+
+                                                                  [A[A
+Session 2:  19%|█▉        | 3/16 [01:00<04:18, 19.87s/it][ATotal Progress for seedV processing:  40%|███▉      | 19/48 [07:03<10:24, 21.54s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:04,  2.86it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  3.18it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.56it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  4.65it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.16it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:01,  5.10it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:02,  3.94it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.34it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.74it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  4.20it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.89it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:02<00:00,  4.32it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.75it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.88it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.57it/s][A[A
+
+                                                                  [A[A
+Session 2:  25%|██▌       | 4/16 [01:18<03:50, 19.20s/it][ATotal Progress for seedV processing:  42%|████▏     | 20/48 [07:22<09:34, 20.53s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:05,  2.50it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  3.00it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  4.61it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.68it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.39it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:01,  3.69it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.71it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  4.04it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.51it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.68it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.15it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.57it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.17it/s][A[A
+
+                                                                  [A[A
+Session 2:  31%|███▏      | 5/16 [01:37<03:30, 19.12s/it][ATotal Progress for seedV processing:  44%|████▍     | 21/48 [07:41<09:01, 20.07s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:05,  2.74it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  2.90it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.14it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.24it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.05it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.09it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:01,  3.59it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.89it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  4.39it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:00,  4.05it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:02<00:00,  4.38it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.72it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.83it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.51it/s][A[A
+
+                                                                  [A[A
+Session 2:  38%|███▊      | 6/16 [01:56<03:12, 19.26s/it][ATotal Progress for seedV processing:  46%|████▌     | 22/48 [08:00<08:37, 19.90s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:05,  2.41it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  2.83it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.95it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.28it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.40it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:02,  3.95it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.42it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.72it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  4.21it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.81it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  4.20it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.71it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  4.02it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.69it/s][A[A
+
+                                                                  [A[A
+Session 2:  44%|████▍     | 7/16 [02:17<02:57, 19.76s/it][ATotal Progress for seedV processing:  48%|████▊     | 23/48 [08:21<08:24, 20.17s/it]
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:05,  2.60it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  2.95it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.18it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.24it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.20it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.06it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.45it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.77it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  4.09it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.76it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  4.13it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.56it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.85it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.49it/s][A[A
+
+                                                                  [A[A
+Session 2:  50%|█████     | 8/16 [02:37<02:38, 19.76s/it][ATotal Progress for seedV processing:  50%|█████     | 24/48 [08:41<08:01, 20.05s/it]
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:05,  2.49it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  2.89it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.22it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.34it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.40it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.15it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:01,  3.56it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.87it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  4.31it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.84it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  4.05it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.54it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.65it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.29it/s][A[A
+
+                                                                  [A[A
+Session 2:  56%|█████▋    | 9/16 [02:57<02:18, 19.75s/it][ATotal Progress for seedV processing:  52%|█████▏    | 25/48 [09:00<07:38, 19.95s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:05,  2.36it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  2.71it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.73it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  3.94it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.07it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:01,  5.07it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:02,  3.66it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.13it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.47it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.91it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.40it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.66it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.03it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.35it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  4.02it/s][A[A
+
+                                                                  [A[A
+Session 2:  62%|██████▎   | 10/16 [03:18<02:01, 20.20s/it][ATotal Progress for seedV processing:  54%|█████▍    | 26/48 [09:22<07:27, 20.33s/it]
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.31it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:05,  2.22it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:01<00:03,  3.36it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  3.73it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.07it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.13it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:01,  3.61it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.93it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  4.32it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.87it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  4.18it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.62it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.90it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.57it/s][A[A
+
+                                                                  [A[A
+Session 2:  69%|██████▉   | 11/16 [03:37<01:39, 19.90s/it][ATotal Progress for seedV processing:  56%|█████▋    | 27/48 [09:41<06:59, 19.99s/it]
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:04,  2.80it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  3.15it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  4.78it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.60it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:01,  5.44it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.03it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.49it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.75it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  4.15it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.73it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:02<00:00,  4.09it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.52it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.67it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.31it/s][A[A
+
+                                                                  [A[A
+Session 2:  75%|███████▌  | 12/16 [03:58<01:20, 20.10s/it][ATotal Progress for seedV processing:  58%|█████▊    | 28/48 [10:01<06:43, 20.16s/it]
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:05,  2.59it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  2.92it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.27it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  4.60it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.67it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.44it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:01,  3.87it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.05it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  4.55it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:00,  4.19it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:02<00:00,  4.52it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:02<00:00,  5.10it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  4.11it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.77it/s][A[A
+
+                                                                  [A[A
+Session 2:  81%|████████▏ | 13/16 [04:18<01:00, 20.03s/it][ATotal Progress for seedV processing:  60%|██████    | 29/48 [10:21<06:21, 20.08s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.18it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:05,  2.57it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.75it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  3.97it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.08it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:01,  5.04it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:02,  3.69it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.18it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.55it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  4.00it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.66it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.98it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.42it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.63it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.38it/s][A[A
+
+                                                                  [A[A
+Session 2:  88%|████████▊ | 14/16 [04:38<00:40, 20.09s/it][ATotal Progress for seedV processing:  62%|██████▎   | 30/48 [10:41<06:02, 20.13s/it]
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.29it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  2.74it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.94it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.06it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  3.88it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:01,  4.70it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:02,  3.44it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  2.99it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.34it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.75it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.29it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.56it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.00it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  3.39it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.96it/s][A[A
+
+                                                                  [A[A
+Session 2:  94%|█████████▍| 15/16 [05:07<00:22, 22.70s/it][ATotal Progress for seedV processing:  65%|██████▍   | 31/48 [11:10<06:26, 22.71s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:05,  2.43it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  2.77it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.97it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.25it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:02,  4.20it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:01,  5.17it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:02,  3.75it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:02<00:02,  3.16it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.55it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.96it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.57it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.91it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  4.36it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.64it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  4.37it/s][A[A
+
+                                                                  [A[A
+Session 2: 100%|██████████| 16/16 [05:30<00:00, 22.76s/it][ATotal Progress for seedV processing:  67%|██████▋   | 32/48 [11:33<06:04, 22.77s/it]
+                                                          [A
+Session 3:   0%|          | 0/16 [00:00<?, ?it/s][A
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.16it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:03,  3.93it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.78it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.54it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  4.25it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.79it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.39it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.20it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.20it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.02it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.47it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.41it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.83it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  3.70it/s][A[A
+
+                                                                  [A[A
+Session 3:   6%|▋         | 1/16 [00:22<05:40, 22.70s/it][ATotal Progress for seedV processing:  69%|██████▉   | 33/48 [11:56<05:41, 22.75s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:07,  1.99it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:03,  3.65it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.81it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.52it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  4.32it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.85it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.37it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.35it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.53it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.32it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.79it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.60it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.94it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  3.86it/s][A[A
+
+                                                                  [A[A
+Session 3:  12%|█▎        | 2/16 [00:44<05:06, 21.90s/it][ATotal Progress for seedV processing:  71%|███████   | 34/48 [12:17<05:12, 22.32s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:07,  1.78it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.47it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.17it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  4.17it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.52it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.15it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.07it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.34it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.21it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.50it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.23it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.57it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.50it/s][A[A
+
+                                                                  [A[A
+Session 3:  19%|█▉        | 3/16 [01:07<04:51, 22.39s/it][ATotal Progress for seedV processing:  73%|███████▎  | 35/48 [12:40<04:52, 22.52s/it]
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.23it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:03,  4.05it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.00it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  4.79it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  4.28it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.75it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.42it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.20it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.32it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.10it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.52it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.30it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.62it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  3.58it/s][A[A
+
+                                                                  [A[A
+Session 3:  25%|██▌       | 4/16 [01:29<04:27, 22.31s/it][ATotal Progress for seedV processing:  75%|███████▌  | 36/48 [13:02<04:29, 22.42s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.20it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:03,  3.86it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.58it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.10it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:01,  5.09it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  3.44it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.08it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  4.72it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.71it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  2.83it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  2.67it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:01,  3.00it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  2.93it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:04<00:00,  3.24it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.23it/s][A[A
+
+                                                                  [A[A
+Session 3:  31%|███▏      | 5/16 [01:52<04:09, 22.67s/it][ATotal Progress for seedV processing:  77%|███████▋  | 37/48 [13:26<04:09, 22.69s/it]
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.03it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:03,  3.71it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.77it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.44it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  4.16it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.67it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.31it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.05it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.19it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  2.97it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.31it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.15it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.41it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.36it/s][A[A
+
+                                                                  [A[A
+Session 3:  38%|███▊      | 6/16 [02:13<03:42, 22.21s/it][ATotal Progress for seedV processing:  79%|███████▉  | 38/48 [13:47<03:42, 22.28s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.13it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:03,  3.96it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.89it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  4.76it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:01,  4.53it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  5.12it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.82it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.50it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.38it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.14it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.53it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.34it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.58it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  3.60it/s][A[A
+
+                                                                  [A[A
+Session 3:  44%|████▍     | 7/16 [02:33<03:12, 21.35s/it][ATotal Progress for seedV processing:  81%|████████▏ | 39/48 [14:06<03:13, 21.47s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.21it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:03,  3.99it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.92it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  4.68it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:01,  4.51it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  5.04it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.56it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.29it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.28it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.12it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.57it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.48it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.86it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  3.84it/s][A[A
+
+                                                                  [A[A
+Session 3:  50%|█████     | 8/16 [02:52<02:45, 20.73s/it][ATotal Progress for seedV processing:  83%|████████▎ | 40/48 [14:26<02:46, 20.84s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.10it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:03,  3.81it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.66it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.45it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  4.25it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.80it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.41it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.19it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.22it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.16it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.61it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.37it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.61it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  3.62it/s][A[A
+
+                                                                  [A[A
+Session 3:  56%|█████▋    | 9/16 [03:12<02:23, 20.43s/it][ATotal Progress for seedV processing:  85%|████████▌ | 41/48 [14:46<02:23, 20.52s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.33it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:03,  4.24it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.05it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  4.73it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:01,  4.57it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  5.12it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.69it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.26it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.44it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.26it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.65it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.34it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.63it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  3.58it/s][A[A
+
+                                                                  [A[A
+Session 3:  62%|██████▎   | 10/16 [03:31<02:00, 20.01s/it][ATotal Progress for seedV processing:  88%|████████▊ | 42/48 [15:05<02:00, 20.09s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.27it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.03it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  4.75it/s][A[A
+
+Processing trials:  33%|███▎      | 5/15 [00:01<00:01,  5.71it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  4.06it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.70it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.49it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.20it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.35it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.25it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.35it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.22it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.39it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  3.48it/s][A[A
+
+                                                                  [A[A
+Session 3:  69%|██████▉   | 11/16 [03:51<01:40, 20.08s/it][ATotal Progress for seedV processing:  90%|████████▉ | 43/48 [15:25<01:40, 20.13s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:09,  1.47it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:04,  2.84it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:01<00:03,  3.17it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.05it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  4.26it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.77it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.49it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.43it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.30it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.18it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.64it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.49it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.88it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.78it/s][A[A
+
+                                                                  [A[A
+Session 3:  75%|███████▌  | 12/16 [04:12<01:20, 20.11s/it][ATotal Progress for seedV processing:  92%|█████████▏| 44/48 [15:45<01:20, 20.14s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.28it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:02,  4.16it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:00<00:02,  4.85it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  4.29it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.71it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.31it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.97it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.20it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.01it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.43it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.27it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.60it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.31it/s][A[A
+
+                                                                  [A[A
+Session 3:  81%|████████▏ | 13/16 [04:31<00:59, 19.87s/it][ATotal Progress for seedV processing:  94%|█████████▍| 45/48 [16:04<00:59, 19.90s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.13it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:03,  3.88it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.80it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.54it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  4.20it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.74it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.38it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.24it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.28it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:02<00:01,  3.11it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.53it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.35it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.67it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:03<00:00,  3.60it/s][A[A
+
+                                                                  [A[A
+Session 3:  88%|████████▊ | 14/16 [04:51<00:39, 19.87s/it][ATotal Progress for seedV processing:  96%|█████████▌| 46/48 [16:24<00:39, 19.89s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:06,  2.07it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:03,  3.77it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.67it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.46it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  4.15it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.71it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.25it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  4.20it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.20it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.07it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.49it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.30it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.61it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.54it/s][A[A
+
+                                                                  [A[A
+Session 3:  94%|█████████▍| 15/16 [05:23<00:23, 23.54s/it][ATotal Progress for seedV processing:  98%|█████████▊| 47/48 [16:56<00:23, 23.54s/it]/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/data_utils/load_data.py:457: RuntimeWarning:   Could not parse meas date from the header. Setting to None.
+  eeg_raw = mne.io.read_raw_cnt(_resolve_seedv_cnt_path(dir_path, sub_file), verbose=False)
+
+
+Processing trials:   0%|          | 0/15 [00:00<?, ?it/s][A[A
+
+Processing trials:   7%|▋         | 1/15 [00:00<00:07,  1.93it/s][A[A
+
+Processing trials:  13%|█▎        | 2/15 [00:00<00:03,  3.58it/s][A[A
+
+Processing trials:  20%|██        | 3/15 [00:00<00:03,  3.74it/s][A[A
+
+Processing trials:  27%|██▋       | 4/15 [00:01<00:02,  4.56it/s][A[A
+
+Processing trials:  40%|████      | 6/15 [00:01<00:02,  4.16it/s][A[A
+
+Processing trials:  47%|████▋     | 7/15 [00:01<00:01,  4.50it/s][A[A
+
+Processing trials:  53%|█████▎    | 8/15 [00:01<00:01,  5.08it/s][A[A
+
+Processing trials:  60%|██████    | 9/15 [00:02<00:01,  3.77it/s][A[A
+
+Processing trials:  67%|██████▋   | 10/15 [00:02<00:01,  3.16it/s][A[A
+
+Processing trials:  73%|███████▎  | 11/15 [00:03<00:01,  3.09it/s][A[A
+
+Processing trials:  80%|████████  | 12/15 [00:03<00:00,  3.29it/s][A[A
+
+Processing trials:  87%|████████▋ | 13/15 [00:03<00:00,  3.24it/s][A[A
+
+Processing trials:  93%|█████████▎| 14/15 [00:03<00:00,  3.61it/s][A[A
+
+Processing trials: 100%|██████████| 15/15 [00:04<00:00,  3.59it/s][A[A
+
+                                                                  [A[A
+Session 3: 100%|██████████| 16/16 [05:43<00:00, 22.66s/it][ATotal Progress for seedV processing: 100%|██████████| 48/48 [17:17<00:00, 22.66s/it]
+                                                          [ATotal Progress for seedV processing: 100%|██████████| 48/48 [17:17<00:00, 21.61s/it]
+15
+72
+62
+Preparing visualization variant: baseline
+baseline: checkpoint=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seedv_de_lds/0005/batch_size=1024/dataset=seedv_de/device=cuda/dms_sgpan_dropout=0.3/dms_sgpan_frequency_band_groups=[0]-[1]-[2]-[3]-[4]/dms_sgpan_loss_align=0.3/dms_sgpan_loss_gcl=0.3/dms_sgpan_loss_orth=0.3/dms_sgpan_loss_subject=0.6/dms_sgpan_temperature=0.1/dms_sgpan_ugfcda_eps=1e-06/dms_sgpan_ugfcda_keep_ratio_step_epochs=20/dms_sgpan_ugfcda_reliability_threshold=0.6/dms_sgpan_ugfcda_warmup_epochs=15/epochs=100/feature_type=de_lds/lr=0.01/metric_choose=macro-f1/metrics=acc-macro-f1/model=DMS_SGPAN/num_workers=16/onehot=True/sample_length=1/seed=2024/setting=seedv_sub_independent_train_val_test_setting/stride=1/time_window=1.0/output/seedv_de/DMS_SGPAN/seedv_sub_independent_train_val_test_setting/run-batch_size=1024__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__089e2ac9cbfc/checkpoint-bestmacro-f1-089e2ac9cbfc; threshold=0.60; target_coverage=0.997
+Visualization outputs written to /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/visualization_tvt_seedv_de/20260808_033259

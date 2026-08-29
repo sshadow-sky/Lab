@@ -1,0 +1,87 @@
+{
+  "dataset": "seed_de_lds",
+  "dataset_key": "seed",
+  "dataset_label": "SEED",
+  "setting": "seed_sub_independent_train_val_test_setting",
+  "feature_type": "de_lds",
+  "seed": 2024,
+  "batch_size": 5120,
+  "lr": 0.01,
+  "epochs": 100,
+  "loss_align": 0.2,
+  "loss_subject": 0.25,
+  "loss_gcl": 0.25,
+  "loss_orth": 0.5,
+  "dropout": 0.4,
+  "ugfcda_warmup_epochs": 15,
+  "ugfcda_reliability_threshold": 0.95,
+  "frequency_band_groups": [
+    [
+      0
+    ],
+    [
+      1
+    ],
+    [
+      2
+    ],
+    [
+      3
+    ],
+    [
+      4
+    ]
+  ],
+  "temperature": 0.2,
+  "time_window": 1.0,
+  "sample_length": 1,
+  "stride": 1,
+  "dataset_path": "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED/SEED_EEG",
+  "device": "cuda",
+  "round_index": 1,
+  "train_subject_indexes": [
+    14,
+    10,
+    6,
+    3,
+    4,
+    9,
+    11,
+    2,
+    7
+  ],
+  "validation_subject_indexes": [
+    13,
+    12,
+    1
+  ],
+  "test_subject_indexes": [
+    8,
+    0,
+    5
+  ],
+  "channels": 62,
+  "feature_dim": 5,
+  "num_classes": 3,
+  "num_subjects": 15,
+  "variants": [
+    "baseline"
+  ],
+  "plots": "analysis",
+  "analysis_variants": "baseline",
+  "viz_partition": "test",
+  "fit": false,
+  "fit_variants": [],
+  "execution_epochs": 100,
+  "effective_threshold_argument": 0.95,
+  "definitions": {
+    "before": "freshly initialized model representation on the validation target",
+    "reliability_filtered": "best-model target representation with reliability >= configured threshold",
+    "after": "best validation-selected checkpoint representation",
+    "threshold_zero": "baseline architecture with an independent checkpoint and reliability threshold set to 0",
+    "target_accuracy": "classifier accuracy on validation target, retained as an offline diagnostic only",
+    "pseudo_accuracy": "source-prototype pseudo-label accuracy on selected validation samples",
+    "rgpa_pca": "fresh and trained spaces are source-paired orthogonally aligned; PCA is fitted on trained-source shared embeddings and target is transform-only",
+    "comparison_error_bars": "standard deviation across held-out subjects, not across repeated training runs"
+  }
+}
