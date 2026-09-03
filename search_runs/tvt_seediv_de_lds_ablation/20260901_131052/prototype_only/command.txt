@@ -1,0 +1,6 @@
+dataset=seediv_de_lds
+setting=seediv_sub_independent_train_val_test_setting
+variant=prototype_only
+gpu=0
+entry=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/DMS_SGPAN_ablation_train.py
+command: CUDA_VISIBLE_DEVICES=0 python3 /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/LibEER/LibEER/DMS_SGPAN_ablation_train.py -model DMS_SGPAN -batch_size 1536 -lr 0.01 -epochs 100 -seed 2024 -dataset seediv_de_lds -dataset_path /mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED_IV -setting seediv_sub_independent_train_val_test_setting -metrics acc macro-f1 -metric_choose macro-f1 -num_workers 16 -device cuda -feature_type de_lds -time_window 1 -sample_length 1 -stride 1 -onehot -dms_sgpan_loss_align 0.6 -dms_sgpan_loss_subject 0.4 -dms_sgpan_loss_gcl 0.6 -dms_sgpan_loss_orth 0.4 -dms_sgpan_dropout 0.3 -dms_sgpan_ugfcda_warmup_epochs 15 -dms_sgpan_ugfcda_eps 0.000001 -dms_sgpan_ugfcda_reliability_threshold 0.7 -dms_sgpan_frequency_band_groups \[\[0\]\,\[1\]\,\[2\]\,\[3\]\,\[4\]\] -dms_sgpan_temperature 0.1 -output_dir /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seediv_de_lds_ablation/20260901_131052/prototype_only/output -log_dir /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/tvt_seediv_de_lds_ablation/20260901_131052/prototype_only/log -dms_sgpan_ablation prototype_only
