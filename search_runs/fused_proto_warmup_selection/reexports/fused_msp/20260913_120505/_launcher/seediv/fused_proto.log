@@ -1,0 +1,18 @@
+{
+  "variant": "fused_proto",
+  "dataset": "seediv_de_lds",
+  "checkpoint": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/fused_proto_warmup_selection/outputs/seediv/20260913_003302/fused_proto/output/seediv_de_lds/DMS_SGPAN_fused_proto/seediv_sub_independent_train_val_test_setting/run-batch_size=1536__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__b7eeeffc08f4/checkpoint-warmup15",
+  "args": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/fused_proto_warmup_selection/outputs/seediv/20260913_003302/fused_proto/output/seediv_de_lds/DMS_SGPAN_fused_proto/seediv_sub_independent_train_val_test_setting/run-batch_size=1536__lr=0.01__epochs=100__seed=2024__feature_type=de_lds__time_window=1.0__sample_length=1__stride=1__split_type=front-back__experiment_mode=subject__b7eeeffc08f4/args_full.json",
+  "config": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/fused_proto_warmup_selection/src/config/model_param/DMS_SGPAN.yaml",
+  "output_dir": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/fused_proto_warmup_selection/reexports/fused_msp/20260913_120505/seediv/fused_proto",
+  "batch_size": 1536,
+  "checkpoint_epoch": 15,
+  "fused_score": "max_posterior",
+  "check_only": false
+}
+Using SeedIV subject dependent early stopping experiment mode, 
+For each subject, sixteen random trails were used as training set, four random trails were used as verification set, last four trails were used as test, we choose best results in verification set and test results in test
+24
+42
+62
+Export completed: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/fused_proto_warmup_selection/reexports/fused_msp/20260913_120505/seediv/fused_proto

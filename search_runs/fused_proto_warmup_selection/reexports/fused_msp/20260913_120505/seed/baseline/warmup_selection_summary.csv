@@ -1,0 +1,3 @@
+rule,threshold,selected_count,coverage,pseudo_label_accuracy
+Consensus,0.95,3819,0.37507365939893933,0.8897617177271537
+Fused Proto.,0.95,8612,0.8458063248870555,0.8133999071063632
