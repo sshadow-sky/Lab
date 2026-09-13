@@ -1,0 +1,2 @@
+dataset,variant,checkpoint_epoch,acc,macro-f1
+seediv_de_lds,DMS_SGPAN,17,0.4900117508813161,0.4956994691519161

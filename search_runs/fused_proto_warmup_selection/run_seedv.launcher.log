@@ -1,0 +1,6 @@
+[2026-09-13 00:24:21] START baseline
+[2026-09-13 06:24:23] DONE baseline
+[2026-09-13 06:24:23] START fused_proto
+[2026-09-13 10:22:38] DONE fused_proto
+SEED-V warm-up comparison completed: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/fused_proto_warmup_selection/outputs/seedv/20260913_002302
+/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/fused_proto_warmup_selection/scripts/run_seediv.sh: 行 16: 寻找匹配的 `"' 时遇到了未预期的 EOF

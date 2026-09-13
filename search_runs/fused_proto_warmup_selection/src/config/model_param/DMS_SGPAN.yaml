@@ -1,0 +1,60 @@
+params:
+  # Graph and spectral encoders
+  graph_hidden: 32
+  graph_readout_hidden: 64
+  gcl_readout_hidden: 64
+  spectral_hidden: 64
+  # SEED official 5-band features are usually [delta, theta, alpha, beta, gamma].
+  # The graph branch uses the union of the configured groups. The five groups
+  # below therefore make both the graph and spectral branches use all bands.
+  frequency_band_groups:
+    - [0]     # delta
+    - [1]     # theta
+    - [2]     # alpha
+    - [3]     # beta
+    - [4]     # gamma
+  cross_scale_heads: 4
+  disentangle_dim: 64
+  projection_dim: 32
+  dropout: 0.4
+
+  # Graph learning and graph contrastive augmentation
+  node_drop_rate: 0.10
+  edge_drop_rate: 0.10
+  temperature: 0.2
+  GLalpha: 0.01
+  K: 3
+
+  # Full model / non-normalization ablations:
+  # subject-wise input Min-Max + subject-wise hidden Z-score.
+  # standard_norm instead uses source-training global Z-score + parameter-free
+  # LayerNorm at the same hidden-layer positions. The current training pipeline
+  # supplies subject IDs only, so session IDs fall back to zero.
+  ssbn_eps: 0.00001
+  sin_min_count: 2
+
+  # UGF-CDA alignment implemented by DMS_SGPAN.py:
+  # reliability is the geometric mean of prototype agreement, class margin,
+  # normalized entropy score, and cross-band prediction consistency.
+  # After warmup, samples with reliability >= the fixed threshold are aligned.
+  # The model does not implement dynamic top-k or subject-leakage weighting.
+  ugfcda_warmup_epochs: 15
+  ugfcda_eps: 0.000001
+  ugfcda_reliability_threshold: 0.95
+  ugfcda_proto_align_weight: 0.5
+  grl_max_iters: 2000
+
+train:
+  optimizer: adamw
+  weight_decay: 0.0001
+  eval_interval: 1
+
+  # Loss weights
+  loss_ce: 1.0
+  loss_aj: 0.2
+  loss_gcl: 0.25
+  loss_align: 0.2
+  # Cross-covariance decorrelation between shared/private features.
+  loss_orth: 0.5
+  # Shared subject adversarial + private subject classification.
+  loss_subject: 0.25

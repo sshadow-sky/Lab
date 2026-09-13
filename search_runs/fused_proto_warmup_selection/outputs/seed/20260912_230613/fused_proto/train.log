@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/fused_proto_warmup_selection/src/DMS_SGPAN_ablation_train.py", line 117, in <module>
+    main(parser.parse_args())
+  File "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/fused_proto_warmup_selection/src/DMS_SGPAN_ablation_train.py", line 104, in main
+    return DMS_SGPAN_ABLATION_TRAINERS[variant](args)
+  File "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/fused_proto_warmup_selection/src/DMS_SGPAN_ablation_train.py", line 76, in train_fused_proto
+    return _train_ablation(args, "fused_proto")
+  File "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/fused_proto_warmup_selection/src/DMS_SGPAN_ablation_train.py", line 5, in _train_ablation
+    model_cls = DMS_SGPAN_ABLATION_MODELS[variant]
+KeyError: 'fused_proto'

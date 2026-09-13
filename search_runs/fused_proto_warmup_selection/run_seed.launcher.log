@@ -1,0 +1,5 @@
+[2026-09-13 00:22:53] START baseline
+[2026-09-13 00:34:37] DONE baseline
+[2026-09-13 00:34:37] START fused_proto
+[2026-09-13 00:58:20] DONE fused_proto
+SEED warm-up comparison completed: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/fused_proto_warmup_selection/outputs/seed/20260913_002253

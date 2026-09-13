@@ -1,0 +1,2 @@
+dataset,variant,checkpoint_epoch,acc,macro-f1
+seed_de_lds,DMS_SGPAN,15,0.6923983500294637,0.6852844579016847

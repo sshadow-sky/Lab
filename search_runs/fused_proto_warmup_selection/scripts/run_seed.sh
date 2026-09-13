@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SPECIAL_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+LAB_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+LIBEER_DIR="${LAB_ROOT}/LibEER/LibEER"
+SRC_DIR="${SPECIAL_ROOT}/src"
+VENV_ACTIVATE="${VENV_ACTIVATE:-/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/workspace/bin/activate}"
+DATASET_PATH="${SEED_DATASET_PATH:-/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED/SEED_EEG}"
+RUN_ID="${RUN_ID:-$(date +%Y%m%d_%H%M%S)}"
+RUN_ROOT="${RUN_ROOT:-${SPECIAL_ROOT}/outputs/seed/${RUN_ID}}"
+GPU_ID="${GPU_ID:-0}"
+NUM_WORKERS="${NUM_WORKERS:-16}"
+DETACH="${DETACH:-1}"
+DRY_RUN="${DRY_RUN:-0}"
+PYTHON_BIN="${PYTHON_BIN:-python3}"
+
+mkdir -p "${RUN_ROOT}"
+if [[ "${DETACH}" == "1" && "${FUSED_WARMUP_SEED_CHILD:-0}" != "1" ]]; then
+  LAUNCH_LOG="${SPECIAL_ROOT}/run_seed.launcher.log"
+  PID_FILE="${SPECIAL_ROOT}/run_seed.pid"
+  nohup env FUSED_WARMUP_SEED_CHILD=1 DETACH=0 RUN_ID="${RUN_ID}" RUN_ROOT="${RUN_ROOT}" GPU_ID="${GPU_ID}" NUM_WORKERS="${NUM_WORKERS}" DRY_RUN="${DRY_RUN}" VENV_ACTIVATE="${VENV_ACTIVATE}" SEED_DATASET_PATH="${DATASET_PATH}" PYTHON_BIN="${PYTHON_BIN}" bash "${BASH_SOURCE[0]}" "$@" >"${LAUNCH_LOG}" 2>&1 &
+  echo $! > "${PID_FILE}"
+  echo "Started SEED warm-up comparison; pid=$(cat "${PID_FILE}"); log=${LAUNCH_LOG}"
+  exit 0
+fi
+if [[ "${DRY_RUN}" != "1" && ! -f "${VENV_ACTIVATE}" ]]; then echo "Virtualenv activate file not found: ${VENV_ACTIVATE}" >&2; exit 1; fi
+for required_file in "${SRC_DIR}/_local_models.py" "${SRC_DIR}/DMS_SGPAN_train.py" "${SRC_DIR}/DMS_SGPAN_ablation_train.py" "${SRC_DIR}/DMS_SGPAN_aba_train.py" "${SRC_DIR}/warmup_export.py"; do
+  if [[ ! -f "${required_file}" ]]; then echo "Missing isolated source file: ${required_file}" >&2; exit 1; fi
+done
+if [[ "${DRY_RUN}" != "1" && ! -d "${DATASET_PATH}" ]]; then echo "SEED dataset not found: ${DATASET_PATH}" >&2; exit 1; fi
+if [[ "${DRY_RUN}" != "1" ]]; then source "${VENV_ACTIVATE}"; fi
+export PYTHONPATH="${SRC_DIR}:${LIBEER_DIR}${PYTHONPATH:+:${PYTHONPATH}}"
+
+COMMON_ARGS=( -model DMS_SGPAN -batch_size 5120 -lr 0.01 -epochs 100 -seed 2024 -dataset seed_de_lds -dataset_path "${DATASET_PATH}" -setting seed_sub_independent_train_val_test_setting -metrics acc macro-f1 -metric_choose macro-f1 -num_workers "${NUM_WORKERS}" -device cuda -feature_type de_lds -time_window 1 -sample_length 1 -stride 1 -onehot -dms_sgpan_loss_align 0.2 -dms_sgpan_loss_subject 0.25 -dms_sgpan_loss_gcl 0.25 -dms_sgpan_loss_orth 0.5 -dms_sgpan_dropout 0.4 -dms_sgpan_ugfcda_warmup_epochs 15 -dms_sgpan_ugfcda_eps 0.000001 -dms_sgpan_ugfcda_reliability_threshold 0.95 -dms_sgpan_frequency_band_groups '[[0],[1],[2],[3],[4]]' -dms_sgpan_temperature 0.2 )
+
+run_variant() {
+  local variant="$1" entry_script
+  local output_dir="${RUN_ROOT}/${variant}/output" log_dir="${RUN_ROOT}/${variant}/log"
+  mkdir -p "${output_dir}" "${log_dir}"
+  local -a args=("${COMMON_ARGS[@]}" -output_dir "${output_dir}" -log_dir "${log_dir}")
+  if [[ "${variant}" == "baseline" ]]; then entry_script="${SRC_DIR}/DMS_SGPAN_train.py"; else entry_script="${SRC_DIR}/DMS_SGPAN_ablation_train.py"; args+=( -dms_sgpan_ablation fused_proto ); fi
+  printf 'dataset=seed_de_lds\nvariant=%s\ngpu=%s\n' "${variant}" "${GPU_ID}" > "${RUN_ROOT}/${variant}/command.txt"
+  printf 'command: CUDA_VISIBLE_DEVICES=%q %q %q' "${GPU_ID}" "${PYTHON_BIN}" "${entry_script}" >> "${RUN_ROOT}/${variant}/command.txt"
+  printf ' %q' "${args[@]}" >> "${RUN_ROOT}/${variant}/command.txt"; printf '\n' >> "${RUN_ROOT}/${variant}/command.txt"
+  echo "[$(date '+%F %T')] START ${variant}"
+  if [[ "${DRY_RUN}" == "1" ]]; then echo "[$(date '+%F %T')] DRY-RUN ${variant}"; return 0; fi
+  (cd "${LIBEER_DIR}" && CUDA_VISIBLE_DEVICES="${GPU_ID}" "${PYTHON_BIN}" "${entry_script}" "${args[@]}") >"${RUN_ROOT}/${variant}/train.log" 2>&1
+  echo "[$(date '+%F %T')] DONE ${variant}"
+}
+run_variant baseline
+run_variant fused_proto
+echo "SEED warm-up comparison completed: ${RUN_ROOT}"

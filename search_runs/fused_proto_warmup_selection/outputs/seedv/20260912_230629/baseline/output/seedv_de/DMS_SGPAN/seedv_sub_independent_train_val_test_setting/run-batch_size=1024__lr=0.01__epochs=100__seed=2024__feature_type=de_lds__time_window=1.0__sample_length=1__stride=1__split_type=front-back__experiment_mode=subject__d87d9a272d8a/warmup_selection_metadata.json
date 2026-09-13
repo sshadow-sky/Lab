@@ -1,0 +1,12 @@
+{
+  "dataset": "seedv_de",
+  "variant": "DMS_SGPAN",
+  "checkpoint_epoch": 15,
+  "warmup_epochs": 15,
+  "configured_threshold": 0.6,
+  "rules": [
+    "Consensus",
+    "Fused Proto."
+  ],
+  "interpretation": "Fixed pre-PConA checkpoint; labels are used offline only."
+}
