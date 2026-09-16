@@ -1,0 +1,5 @@
+START baseline: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/BExperiment/outputs/seediv/20260915_233432/baseline/train.log
+DONE baseline
+START fused_proto: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/BExperiment/outputs/seediv/20260915_233432/fused_proto/train.log
+DONE fused_proto
+Completed: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/BExperiment/outputs/seediv/20260915_233432

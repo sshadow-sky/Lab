@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "run_root": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/BExperiment/outputs/seed/20260915_232759",
+  "delta_direction": "baseline_minus_fused",
+  "metric_unit": "fraction",
+  "aggregation": "equal_weight_per_test_subject",
+  "std_ddof": 0,
+  "std_interpretation": "test_subject_variability_not_seed_stability",
+  "checkpoint_tags": [
+    "best",
+    "final"
+  ],
+  "test_subjects": [
+    1,
+    6,
+    9
+  ],
+  "matched_fields": [
+    "profile",
+    "split",
+    "initial_digest",
+    "warmup_digest",
+    "net_params",
+    "model_source_sha256"
+  ],
+  "prototype_spaces": {
+    "baseline": "band",
+    "fused_proto": "fused"
+  },
+  "state_parity": "training_recorded_initial_and_warmup_digests_equal",
+  "checkpoint_tensors_loaded": false,
+  "initial_digest": "660e1d126b8fee76822321920aa68c3e8ba191d4a596b97b4e0cfe3ee89de82a",
+  "warmup_digest": "590e3c85b9727b59dd76664e4f21b70b224b413b972f16685e05fab3ae97bca4",
+  "input_sha256": {
+    "baseline/tvt/manifest.json": "96af14a239e3271f105929f3e7581ec5fa8bd84b9fa4c6dd75b1b3dfaf28ab2d",
+    "fused_proto/tvt/manifest.json": "66eeb012f7d4643e189f888b48fa59fb3ba9015047512f31e60ac7cbcca92a66",
+    "baseline/tvt/metrics/test_best.csv": "82a833b4523a67e714f9a268663521880c1cfbc937edefe7bdc40f181840f614",
+    "fused_proto/tvt/metrics/test_best.csv": "ab4ccd9332870da8145682e7363519d5d08651da36a692f1b8a001ccdecb870a",
+    "baseline/tvt/metrics/test_final.csv": "e41d6a29a0aa921f72f11ab9ac4e7e5b2574265e582160f9a41b891adb6396dc",
+    "fused_proto/tvt/metrics/test_final.csv": "cade6afb1f6545370023e7aeedd333534d7b01112ecdda8a4f3c483325c45e42"
+  }
+}

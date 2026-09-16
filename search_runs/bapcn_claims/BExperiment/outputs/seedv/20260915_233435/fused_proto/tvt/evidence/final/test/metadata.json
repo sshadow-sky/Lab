@@ -1,0 +1,478 @@
+{
+  "checkpoint": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/BExperiment/outputs/seedv/20260915_233435/fused_proto/tvt/checkpoints/final.pt",
+  "checkpoint_sha256": "4445f6ccf7017ade9e2edb066f533dc23e4764c73574f13464a895081eb5f6e9",
+  "checkpoint_tag": "final",
+  "epoch": 100,
+  "grl_iter": 2600,
+  "model_digest": "7c2a2f8a9ea8be66c828f857300e7857385582b9cc122ea38445474ae038f0a4",
+  "local_model_sha256": {
+    "baseline_model.py": "6303329e5d6e382369e8fb4e00cdbe1ad3f0040260774bb668dc72208a57e260",
+    "experiment_model.py": "6452a9a03cfdeb50cf0fa9243e33db756cb7e6662838c1d75ab1fd94176b2c85",
+    "evidence.py": "19d6760b53e5559389db856de73dda5b9f3d41af51c44c3b46b5e5c058c6a016"
+  },
+  "protocol": "tvt",
+  "dataset": "seedv",
+  "prototype_space": "fused",
+  "prototype_set_names": [
+    "fused"
+  ],
+  "split": {
+    "name": "tvt",
+    "source": [
+      6,
+      11,
+      14,
+      7,
+      4,
+      5,
+      10,
+      12,
+      3,
+      16
+    ],
+    "target": [
+      15,
+      8,
+      13
+    ],
+    "test": [
+      9,
+      1,
+      2
+    ]
+  },
+  "subject_ids_one_based": true,
+  "class_labels_zero_based": true,
+  "session": 1,
+  "model_session_index": 0,
+  "device": "cuda",
+  "batch_size": 512,
+  "drop_last": false,
+  "shuffle": false,
+  "source_n_samples": 27430,
+  "source_class_counts": [
+    4430,
+    5650,
+    6910,
+    5400,
+    5040
+  ],
+  "source_batches": [
+    {
+      "subject_id": 6,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    },
+    {
+      "subject_id": 16,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 16,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 16,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 16,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 16,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 16,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    }
+  ],
+  "prototype_construction": "All source samples: normalize each feature, mean within class, normalize each class mean.",
+  "normalization": "Original eval normalization within each fixed subject batch; no stored global normalization statistics.",
+  "posterior_helper": "BAPCN.source_prototype_posteriors",
+  "epsilon": 1e-06,
+  "temperature": 0.1,
+  "consensus_definition": "Sum of prototype-set posteriors weighted by helper-returned weights; training epsilon retained.",
+  "target_label_use": "Diagnostics only; target/test labels never enter encoding, prototypes, or posterior computation.",
+  "sample_selection": "All target/test samples, without a reliability threshold filter.",
+  "rng_policy": "Restore caller Python, NumPy, Torch CPU and CUDA RNG states after fresh-model export.",
+  "cohort": "test",
+  "n_samples": 8229,
+  "subject_ids": [
+    9,
+    1,
+    2
+  ],
+  "batches": [
+    {
+      "subject_id": 9,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 2560,
+      "stop_exclusive": 2743
+    }
+  ],
+  "predictions_sha256": "e9a075648d7800673f2b6825f045d25178948c9f08cc727129733a210947fda1",
+  "valid_classes": [
+    true,
+    true,
+    true,
+    true,
+    true
+  ]
+}

@@ -1,0 +1,205 @@
+{
+  "checkpoint": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/BExperiment/outputs/seediv/20260915_233432/fused_proto/tvt/checkpoints/epoch_015.pt",
+  "checkpoint_sha256": "248c9ff737acfaf11fee9750849a8ee78e2c2dab50d5d0462f544561a9dcd7d8",
+  "checkpoint_tag": "warmup15",
+  "epoch": 15,
+  "grl_iter": 60,
+  "model_digest": "037920ca12a9d3118dba72c80732c49c6786cf353722a537e2e5c6168386f40d",
+  "local_model_sha256": {
+    "baseline_model.py": "6303329e5d6e382369e8fb4e00cdbe1ad3f0040260774bb668dc72208a57e260",
+    "experiment_model.py": "6452a9a03cfdeb50cf0fa9243e33db756cb7e6662838c1d75ab1fd94176b2c85",
+    "evidence.py": "19d6760b53e5559389db856de73dda5b9f3d41af51c44c3b46b5e5c058c6a016"
+  },
+  "protocol": "tvt",
+  "dataset": "seediv",
+  "prototype_space": "fused",
+  "prototype_set_names": [
+    "fused"
+  ],
+  "split": {
+    "name": "tvt",
+    "source": [
+      15,
+      11,
+      7,
+      4,
+      5,
+      10,
+      12,
+      3,
+      8
+    ],
+    "target": [
+      14,
+      13,
+      2
+    ],
+    "test": [
+      9,
+      1,
+      6
+    ]
+  },
+  "subject_ids_one_based": true,
+  "class_labels_zero_based": true,
+  "session": 1,
+  "model_session_index": 0,
+  "device": "cuda",
+  "batch_size": 512,
+  "drop_last": false,
+  "shuffle": false,
+  "source_n_samples": 7659,
+  "source_class_counts": [
+    1953,
+    2331,
+    1638,
+    1737
+  ],
+  "source_batches": [
+    {
+      "subject_id": 15,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 512,
+      "stop_exclusive": 851
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 512,
+      "stop_exclusive": 851
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 512,
+      "stop_exclusive": 851
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 512,
+      "stop_exclusive": 851
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 512,
+      "stop_exclusive": 851
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 512,
+      "stop_exclusive": 851
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 512,
+      "stop_exclusive": 851
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 512,
+      "stop_exclusive": 851
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 512,
+      "stop_exclusive": 851
+    }
+  ],
+  "prototype_construction": "All source samples: normalize each feature, mean within class, normalize each class mean.",
+  "normalization": "Original eval normalization within each fixed subject batch; no stored global normalization statistics.",
+  "posterior_helper": "BAPCN.source_prototype_posteriors",
+  "epsilon": 1e-06,
+  "temperature": 0.1,
+  "consensus_definition": "Sum of prototype-set posteriors weighted by helper-returned weights; training epsilon retained.",
+  "target_label_use": "Diagnostics only; target/test labels never enter encoding, prototypes, or posterior computation.",
+  "sample_selection": "All target/test samples, without a reliability threshold filter.",
+  "rng_policy": "Restore caller Python, NumPy, Torch CPU and CUDA RNG states after fresh-model export.",
+  "cohort": "target",
+  "n_samples": 2553,
+  "subject_ids": [
+    14,
+    13,
+    2
+  ],
+  "batches": [
+    {
+      "subject_id": 14,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 512,
+      "stop_exclusive": 851
+    },
+    {
+      "subject_id": 13,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 13,
+      "start_inclusive": 512,
+      "stop_exclusive": 851
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 512,
+      "stop_exclusive": 851
+    }
+  ],
+  "predictions_sha256": "ca3c58bfb7d393ccd3e1ca3fad72a776b87785c2ce7148dd3cf0c023bd968648",
+  "valid_classes": [
+    true,
+    true,
+    true,
+    true
+  ]
+}
