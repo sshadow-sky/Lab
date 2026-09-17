@@ -1,0 +1,513 @@
+{
+  "checkpoint": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seed/20260917_135610/fused_alignment/tvt/checkpoints/epoch_015.pt",
+  "checkpoint_sha256": "cb84e57c13cc203340ce0dc3e9b2523537f50e07f373ef73d8c2190374e3b958",
+  "checkpoint_tag": "warmup15",
+  "epoch": 15,
+  "grl_iter": 75,
+  "model_digest": "590e3c85b9727b59dd76664e4f21b70b224b413b972f16685e05fab3ae97bca4",
+  "local_model_sha256": {
+    "baseline_model.py": "6303329e5d6e382369e8fb4e00cdbe1ad3f0040260774bb668dc72208a57e260",
+    "experiment_model.py": "8bc8118d749fb3f81d8c3a6a20d7a5045e507d0bbed6d2f79f3e3a9e1905ff33",
+    "evidence.py": "a250790dbefd6bf620fb4cab8d856fa09f3bbc470458c27b925f1a9cb0a1ba4d"
+  },
+  "protocol": "tvt",
+  "dataset": "seed",
+  "prototype_space": "band",
+  "prototype_set_names": [
+    "delta",
+    "theta",
+    "alpha",
+    "beta",
+    "gamma"
+  ],
+  "ablation": "fused_alignment",
+  "alignment_space": "fused",
+  "reliability_formula": "(P*margin*entropy*agreement)^(1/4)",
+  "reliability_threshold": 0.95,
+  "selection_diagnostic": "Offline score >= threshold; ignores warm-up gating, uses all-source prototypes.",
+  "selection_metrics_unit": "fraction; selected_accuracy blank if no samples qualify",
+  "split": {
+    "name": "tvt",
+    "source": [
+      15,
+      11,
+      7,
+      4,
+      5,
+      10,
+      12,
+      3,
+      8
+    ],
+    "target": [
+      14,
+      13,
+      2
+    ],
+    "test": [
+      9,
+      1,
+      6
+    ]
+  },
+  "subject_ids_one_based": true,
+  "class_labels_zero_based": true,
+  "session": 1,
+  "model_session_index": 0,
+  "device": "cuda",
+  "batch_size": 512,
+  "drop_last": false,
+  "shuffle": false,
+  "source_n_samples": 30546,
+  "source_class_counts": [
+    10080,
+    9936,
+    10530
+  ],
+  "source_batches": [
+    {
+      "subject_id": 15,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    }
+  ],
+  "prototype_construction": "All source samples: normalize each feature, mean within class, normalize each class mean.",
+  "normalization": "Original eval normalization within each fixed subject batch; no stored global normalization statistics.",
+  "posterior_helper": "BAPCN.source_prototype_posteriors",
+  "epsilon": 1e-06,
+  "temperature": 0.2,
+  "consensus_definition": "Sum of prototype-set posteriors weighted by helper-returned weights; training epsilon retained.",
+  "target_label_use": "Diagnostics only; target/test labels never enter encoding, prototypes, or posterior computation.",
+  "sample_selection": "All target/test samples, without a reliability threshold filter.",
+  "rng_policy": "Restore caller Python, NumPy, Torch CPU and CUDA RNG states after fresh-model export.",
+  "cohort": "test",
+  "n_samples": 10182,
+  "subject_ids": [
+    9,
+    1,
+    6
+  ],
+  "batches": [
+    {
+      "subject_id": 9,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    }
+  ],
+  "predictions_sha256": "34c50875c2727fe64ded630eb658ea074fecf706e1ecc1f5defa3815ad423a75",
+  "valid_classes": [
+    true,
+    true,
+    true
+  ]
+}

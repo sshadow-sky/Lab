@@ -1,0 +1,5 @@
+START no_agreement: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seed/20260917_135610/no_agreement/train.log
+DONE no_agreement
+START fused_alignment: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seed/20260917_135610/fused_alignment/train.log
+DONE fused_alignment
+Completed: /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seed/20260917_135610

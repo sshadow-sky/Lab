@@ -1,0 +1,50 @@
+{
+  "status": "baseline_not_provided",
+  "run_root": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seedv/20260917_135619",
+  "variant_roots": {
+    "no_agreement": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seedv/20260917_135619/no_agreement/tvt",
+    "fused_alignment": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seedv/20260917_135619/fused_alignment/tvt"
+  },
+  "baseline_dir": null,
+  "delta_direction": null,
+  "metric_unit": "fraction",
+  "aggregation": "equal_weight_per_test_subject",
+  "std_ddof": 0,
+  "std_interpretation": "test_subject_variability_not_seed_stability",
+  "checkpoint_tags": [
+    "best",
+    "final"
+  ],
+  "test_subjects": [
+    1,
+    2,
+    9
+  ],
+  "matched_fields": [
+    "profile",
+    "split",
+    "net_params",
+    "initial_digest",
+    "warmup_digest",
+    "model_source_sha256",
+    "torch_version",
+    "cuda_version",
+    "device",
+    "selection_policy"
+  ],
+  "ignored_profile_fields": [
+    "dataset_path"
+  ],
+  "state_parity": "training_recorded_initial_and_warmup_digests_equal",
+  "checkpoint_tensors_loaded": false,
+  "initial_digest": "63c2e6748da29147e2daeec710224cbaf24ef39c3c1fd443dfb67b23da42dc3c",
+  "warmup_digest": "69d4c3788170d2bb3dfb108ce44ee464c37bc66072b48dd72dcd6a096c114cec",
+  "input_sha256": {
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seedv/20260917_135619/no_agreement/tvt/manifest.json": "5a9919b4367d62b19c0977879c696633cff1e3dda0cf078cbf530b3d427d88f1",
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seedv/20260917_135619/fused_alignment/tvt/manifest.json": "8608b3c9319733b63bdda47130af5d8e0bb45d835860f6e8edfc628c76ff38e9",
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seedv/20260917_135619/no_agreement/tvt/metrics/test_best.csv": "10d66e1c9e752eb9b953b058d272dec23337476eeeddb540fe6bc127dfb84c0a",
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seedv/20260917_135619/fused_alignment/tvt/metrics/test_best.csv": "079c26ee6df826655200a56ea7ecebbb63f925cf743eae6bd5a50d990c3e0764",
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seedv/20260917_135619/no_agreement/tvt/metrics/test_final.csv": "2f73c3f18753a99eb2630224a2ef4f1607adee62a47628734396d87dfe50f421",
+    "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/CExperiment/outputs/seedv/20260917_135619/fused_alignment/tvt/metrics/test_final.csv": "56781237d396150fd27fce31e1ac1f5bbe564c6e2dddcf516a10097f80a64af2"
+  }
+}
