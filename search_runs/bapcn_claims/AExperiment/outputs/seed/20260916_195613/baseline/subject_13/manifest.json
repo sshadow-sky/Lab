@@ -1,0 +1,153 @@
+{
+  "profile": {
+    "key": "seed",
+    "dataset": "seed_de_lds",
+    "protocol": "loso",
+    "setting": "seed_sub_independent_leave_one_out_setting",
+    "subjects": 15,
+    "classes": 3,
+    "sessions": [
+      1
+    ],
+    "seed": 2024,
+    "epochs": 100,
+    "batch_size": 4608,
+    "lr": 0.01,
+    "weight_decay": 0.0001,
+    "optimizer": "adamw",
+    "source_profile": "LibEER/DMS_SGPAN_selected_loso_tsne.py PROFILES.seed; selected_loso_tsne/20260808_142915/seed/selected_loso_metadata.json",
+    "dataset_path": "/mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/SEED/SEED_EEG",
+    "model": {
+      "graph_hidden": 32,
+      "graph_readout_hidden": 64,
+      "gcl_readout_hidden": 64,
+      "spectral_hidden": 64,
+      "disentangle_dim": 64,
+      "projection_dim": 32,
+      "frequency_band_groups": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ]
+      ],
+      "cross_scale_heads": 4,
+      "dropout": 0.35,
+      "temperature": 0.2,
+      "node_drop_rate": 0.1,
+      "edge_drop_rate": 0.1,
+      "GLalpha": 0.01,
+      "K": 3,
+      "ssbn_eps": 1e-05,
+      "sin_min_count": 2,
+      "ugfcda_warmup_epochs": 15,
+      "ugfcda_eps": 1e-06,
+      "ugfcda_reliability_threshold": 0.95,
+      "ugfcda_proto_align_weight": 0.5,
+      "grl_max_iters": 2000,
+      "w_ce": 1,
+      "w_aj": 0.2,
+      "w_gcl": 0.25,
+      "w_align": 0.25,
+      "w_orth": 0.45,
+      "w_subject": 0.25
+    }
+  },
+  "split": {
+    "name": "subject_13",
+    "source": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15
+    ],
+    "target": [
+      13
+    ],
+    "test": [
+      13
+    ]
+  },
+  "net_params": {
+    "DEVICE": "cuda",
+    "num_of_vertices": 62,
+    "num_of_features": 5,
+    "category_number": 3,
+    "num_subjects": 15,
+    "graph_hidden": 32,
+    "graph_readout_hidden": 64,
+    "gcl_readout_hidden": 64,
+    "spectral_hidden": 64,
+    "disentangle_dim": 64,
+    "projection_dim": 32,
+    "frequency_band_groups": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        2
+      ],
+      [
+        3
+      ],
+      [
+        4
+      ]
+    ],
+    "cross_scale_heads": 4,
+    "dropout": 0.35,
+    "temperature": 0.2,
+    "ugfcda_warmup_epochs": 15,
+    "ugfcda_eps": 1e-06,
+    "ugfcda_reliability_threshold": 0.95,
+    "ugfcda_proto_align_weight": 0.5,
+    "node_drop_rate": 0.1,
+    "edge_drop_rate": 0.1,
+    "GLalpha": 0.01,
+    "K": 3,
+    "ssbn_eps": 1e-05,
+    "sin_min_count": 2,
+    "grl_max_iters": 2000.0,
+    "w_ce": 1.0,
+    "w_aj": 0.2,
+    "w_gcl": 0.25,
+    "w_align": 0.25,
+    "w_orth": 0.45,
+    "w_subject": 0.25
+  },
+  "prototype_space": "band",
+  "initial_digest": "660e1d126b8fee76822321920aa68c3e8ba191d4a596b97b4e0cfe3ee89de82a",
+  "model_source_sha256": "6303329e5d6e382369e8fb4e00cdbe1ad3f0040260774bb668dc72208a57e260",
+  "torch_version": "2.11.0+cu128",
+  "cuda_version": "12.8",
+  "device": "cuda",
+  "status": "complete",
+  "selection_policy": "fixed_final_epoch",
+  "warmup_digest": "1a51fa9202f6d61d8b9e7c2fda7be700da506a32fcf6c8bfa246fb26ba475237",
+  "final_digest": "9c44203a1a979c3fb555763568cc8bed01e045f5e8bc81dcbaafbf11cf757433",
+  "selected_epoch": 100,
+  "evidence_exported": true
+}

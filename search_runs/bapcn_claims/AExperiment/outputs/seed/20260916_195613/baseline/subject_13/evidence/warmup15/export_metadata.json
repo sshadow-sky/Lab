@@ -1,0 +1,572 @@
+{
+  "checkpoint": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/AExperiment/outputs/seed/20260916_195613/baseline/subject_13/checkpoints/epoch_015.pt",
+  "checkpoint_sha256": "5a4ab95d6c256dcef3abe70e1c0e78c735f5169169c9b3968ad0b5a9aadc3ee9",
+  "checkpoint_tag": "warmup15",
+  "epoch": 15,
+  "grl_iter": 150,
+  "model_digest": "1a51fa9202f6d61d8b9e7c2fda7be700da506a32fcf6c8bfa246fb26ba475237",
+  "local_model_sha256": {
+    "baseline_model.py": "6303329e5d6e382369e8fb4e00cdbe1ad3f0040260774bb668dc72208a57e260",
+    "experiment_model.py": "6452a9a03cfdeb50cf0fa9243e33db756cb7e6662838c1d75ab1fd94176b2c85",
+    "evidence.py": "19d6760b53e5559389db856de73dda5b9f3d41af51c44c3b46b5e5c058c6a016"
+  },
+  "protocol": "loso",
+  "dataset": "seed",
+  "prototype_space": "band",
+  "prototype_set_names": [
+    "delta",
+    "theta",
+    "alpha",
+    "beta",
+    "gamma"
+  ],
+  "split": {
+    "name": "subject_13",
+    "source": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15
+    ],
+    "target": [
+      13
+    ],
+    "test": [
+      13
+    ]
+  },
+  "subject_ids_one_based": true,
+  "class_labels_zero_based": true,
+  "session": 1,
+  "model_session_index": 0,
+  "device": "cuda",
+  "batch_size": 512,
+  "drop_last": false,
+  "shuffle": false,
+  "source_n_samples": 47516,
+  "source_class_counts": [
+    15680,
+    15456,
+    16380
+  ],
+  "source_batches": [
+    {
+      "subject_id": 1,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    }
+  ],
+  "prototype_construction": "All source samples: normalize each feature, mean within class, normalize each class mean.",
+  "normalization": "Original eval normalization within each fixed subject batch; no stored global normalization statistics.",
+  "posterior_helper": "BAPCN.source_prototype_posteriors",
+  "epsilon": 1e-06,
+  "temperature": 0.2,
+  "consensus_definition": "Sum of prototype-set posteriors weighted by helper-returned weights; training epsilon retained.",
+  "target_label_use": "Diagnostics only; target/test labels never enter encoding, prototypes, or posterior computation.",
+  "sample_selection": "All target/test samples, without a reliability threshold filter.",
+  "rng_policy": "Restore caller Python, NumPy, Torch CPU and CUDA RNG states after fresh-model export.",
+  "exports": {
+    "source_prototypes": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/AExperiment/outputs/seed/20260916_195613/baseline/subject_13/evidence/warmup15/source_prototypes.npz",
+    "metadata": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/AExperiment/outputs/seed/20260916_195613/baseline/subject_13/evidence/warmup15/export_metadata.json",
+    "test": {
+      "predictions": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/AExperiment/outputs/seed/20260916_195613/baseline/subject_13/evidence/warmup15/predictions.npz",
+      "metadata": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/AExperiment/outputs/seed/20260916_195613/baseline/subject_13/evidence/warmup15/metadata.json",
+      "csv": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/AExperiment/outputs/seed/20260916_195613/baseline/subject_13/evidence/warmup15/sample_predictions.csv"
+    }
+  }
+}

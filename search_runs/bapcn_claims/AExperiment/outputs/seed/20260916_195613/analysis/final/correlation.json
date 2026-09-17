@@ -1,0 +1,8 @@
+{
+  "n_subjects": 15,
+  "pearson_r": 0.6799972618090704,
+  "pearson_p_two_sided": 0.005282740990387907,
+  "ols_slope": 0.7276956353082218,
+  "ols_intercept": -0.36423475111214715,
+  "unavailable_reason": null
+}

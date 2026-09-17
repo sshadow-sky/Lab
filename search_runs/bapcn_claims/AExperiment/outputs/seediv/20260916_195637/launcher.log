@@ -1,0 +1,9 @@
+usage: run.py [-h] [--dataset {seed,seediv,seedv}]
+              [--dataset-path DATASET_PATH] [--setting SETTING]
+              [--run-dir RUN_DIR] [--libeer-dir LIBEER_DIR] [--device DEVICE]
+              [--variants {baseline,fused_proto} [{baseline,fused_proto} ...]]
+              [--subjects SUBJECTS [SUBJECTS ...]] [--dry-run] [--export-only]
+              [--skip-export]
+              [--checkpoint-tags {warmup15,final} [{warmup15,final} ...]]
+              [--export-batch-size EXPORT_BATCH_SIZE]
+run.py: error: This experiment supports seed

@@ -1,0 +1,611 @@
+{
+  "checkpoint": "/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/search_runs/bapcn_claims/AExperiment/outputs/seed/20260916_195613/baseline/subject_14/checkpoints/epoch_015.pt",
+  "checkpoint_sha256": "5f3e663a8566570aa9d83e592f475a020b6ba65e59452182e6c48f452698a420",
+  "checkpoint_tag": "warmup15",
+  "epoch": 15,
+  "grl_iter": 150,
+  "model_digest": "1e3c386545206bc75d2b76d7e47049635c7314082c657a2d69462ad7086e2601",
+  "local_model_sha256": {
+    "baseline_model.py": "6303329e5d6e382369e8fb4e00cdbe1ad3f0040260774bb668dc72208a57e260",
+    "experiment_model.py": "6452a9a03cfdeb50cf0fa9243e33db756cb7e6662838c1d75ab1fd94176b2c85",
+    "evidence.py": "19d6760b53e5559389db856de73dda5b9f3d41af51c44c3b46b5e5c058c6a016"
+  },
+  "protocol": "loso",
+  "dataset": "seed",
+  "prototype_space": "band",
+  "prototype_set_names": [
+    "delta",
+    "theta",
+    "alpha",
+    "beta",
+    "gamma"
+  ],
+  "split": {
+    "name": "subject_14",
+    "source": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      15
+    ],
+    "target": [
+      14
+    ],
+    "test": [
+      14
+    ]
+  },
+  "subject_ids_one_based": true,
+  "class_labels_zero_based": true,
+  "session": 1,
+  "model_session_index": 0,
+  "device": "cuda",
+  "batch_size": 512,
+  "drop_last": false,
+  "shuffle": false,
+  "source_n_samples": 47516,
+  "source_class_counts": [
+    15680,
+    15456,
+    16380
+  ],
+  "source_batches": [
+    {
+      "subject_id": 1,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 1,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 2,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 3,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 4,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 5,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 6,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 7,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 8,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 9,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 10,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 11,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 12,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 13,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 13,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 13,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 13,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 13,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 13,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 13,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 15,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    }
+  ],
+  "prototype_construction": "All source samples: normalize each feature, mean within class, normalize each class mean.",
+  "normalization": "Original eval normalization within each fixed subject batch; no stored global normalization statistics.",
+  "posterior_helper": "BAPCN.source_prototype_posteriors",
+  "epsilon": 1e-06,
+  "temperature": 0.2,
+  "consensus_definition": "Sum of prototype-set posteriors weighted by helper-returned weights; training epsilon retained.",
+  "target_label_use": "Diagnostics only; target/test labels never enter encoding, prototypes, or posterior computation.",
+  "sample_selection": "All target/test samples, without a reliability threshold filter.",
+  "rng_policy": "Restore caller Python, NumPy, Torch CPU and CUDA RNG states after fresh-model export.",
+  "cohort": "test",
+  "n_samples": 3394,
+  "subject_ids": [
+    14
+  ],
+  "batches": [
+    {
+      "subject_id": 14,
+      "start_inclusive": 0,
+      "stop_exclusive": 512
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 512,
+      "stop_exclusive": 1024
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 1024,
+      "stop_exclusive": 1536
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 1536,
+      "stop_exclusive": 2048
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 2048,
+      "stop_exclusive": 2560
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 2560,
+      "stop_exclusive": 3072
+    },
+    {
+      "subject_id": 14,
+      "start_inclusive": 3072,
+      "stop_exclusive": 3394
+    }
+  ],
+  "predictions_sha256": "38fcabd9b7aee34fcb66ae1a8c651af2385e6bc90329c845fdf489e04d92ae82",
+  "valid_classes": [
+    true,
+    true,
+    true
+  ]
+}

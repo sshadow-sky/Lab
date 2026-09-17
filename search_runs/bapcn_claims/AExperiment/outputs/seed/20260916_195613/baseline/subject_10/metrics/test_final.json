@@ -1,0 +1,18 @@
+{
+  "checkpoint_epoch": 100,
+  "checkpoint_tag": "final",
+  "classifier": "original_final_classifier",
+  "metrics_units": "fraction",
+  "subject_std_ddof": 0,
+  "subjects": [
+    10
+  ],
+  "accuracy": {
+    "mean": 0.858573954036535,
+    "std": 0.0
+  },
+  "macro_f1": {
+    "mean": 0.8545174586334161,
+    "std": 0.0
+  }
+}
