@@ -1,0 +1,115 @@
+import argparse
+
+import time
+from config.setting import preset_setting
+from data_utils.load_data import available_dataset
+
+
+def get_args_parser():
+    parser = argparse.ArgumentParser("EEG Lib for emotion recognition based on EEG", add_help=False)
+
+    # training  parameters
+    parser.add_argument('-batch_size', default=128, type=int, help='batch size per GPU')
+    parser.add_argument('-epochs', default=40, type=int)
+    parser.add_argument('-device', default='cuda', type=str, choices=['cuda', 'cuda:0', 'cpu'], help='which devices to train')
+    parser.add_argument('-eval', default=False, action='store_true', help='if eval, perform evaluation only')
+    parser.add_argument('-seed', default=1, type=int, help='random seed')
+    parser.add_argument('-num_workers', default=4, type=int)
+    parser.add_argument('-loss_func', default='crossEntropyLoss', type=str, help="the loss function")
+    parser.add_argument('-metrics', default=['acc'], type=str, nargs='+', help='which metrics used to evaluate')
+    parser.add_argument('-metric_choose', default='acc', type=str, help='which best metric choose to test')
+    parser.add_argument('-lr', default=0.001, type=float, help='learning rate')
+    parser.add_argument('-data_dir', default='./data_processed', type=str, help='the location to save processed data')
+
+    # resume parameters
+    parser.add_argument('-resume', action='store_true', help='resume from checkpoint')
+    parser.add_argument('-resume_epoch', default=0, type=int, help='resume epoch')
+    parser.add_argument('-checkpoint', default=None, type=str, help='checkpoint')
+
+    # model parameters
+    parser.add_argument('-model', default='DGCNN', type=str, help='Name of model to train')
+    # log parameters
+    parser.add_argument('-log_dir', default='./log/', help='location of log dir')
+    parser.add_argument('-output_dir', default='./result/', help='location of output dir')
+    parser.add_argument('-time', default=time.localtime(), help='the time now')
+
+    # preset parameters
+    parser.add_argument('-setting', default=None, choices=preset_setting,
+                        help='using preset setting')
+
+    # dataset parameters
+    parser.add_argument('-dataset', default='seed_de_lds', type=str, choices=available_dataset,
+                        help=f'available dataset are {available_dataset}')
+    parser.add_argument('-dataset_path', default='YourDatasetPath/', type=str,
+                        help='the location of dataset')
+    parser.add_argument('-low_pass', default=0.3, type=float, help='the minimum frequency of bandpass filter')
+    parser.add_argument('-high_pass', default=50, type=float, help='the maximum frequency of bandpass filter')
+    parser.add_argument('-time_window', default=1, type=float, help='the num of sample points of preprocessing time window/s')
+    parser.add_argument('-overlap', default=0, type=float, help='the length of overlap for each pretreatment/s')
+    parser.add_argument('-sample_length', default=1, type=int, help='sequence length of each sample')
+    parser.add_argument('-stride', default=1, type=int, help='the stride of a sliding window for data extraction')
+    parser.add_argument('-feature_type', default='de_lds', type=str, help='the feature type need to compute')
+    parser.add_argument('-eog_clean', default=False, action='store_true', help='whether clean eog')
+    parser.add_argument('-only_seg', default=False, action='store_true', help='whether only segment data')
+    parser.add_argument('-save_data', default=False, action='store_true', help='if save processed data')
+    parser.add_argument('-normalize', default=True, )
+
+    # train test split
+    parser.add_argument('-cross_trail', default='true', type=str, help="whether use cross-trail setting")
+    parser.add_argument('-experiment_mode', default='subject-dependent', type=str,
+                        help='which experiment mode be selected')
+    parser.add_argument('-split_type', default='front-back', type=str, choices=['kfold', 'leave-one-out', 'leave-one-out-train-val-test', 'front-back', 'train-val-test'],
+                        help="choose which method to split dataset")
+    parser.add_argument('-fold_num', default=5, type=int, help='the number of folds')
+    parser.add_argument('-fold_shuffle', default='true', type=str, help='whether shuffle when using k-fold split')
+    parser.add_argument('-front', default=9, type=int, help='convert the first few data sets into training sets')
+    parser.add_argument('-sessions', default=None, type=int, nargs='+', help="which sessions used to train")
+    parser.add_argument('-test_size', default=0.2, type=float, help="the ratio of the test dataset")
+    parser.add_argument('-val_size', default=0.2, type=float, help="the ratio of the val dataset")
+    parser.add_argument('-pr',default=None, type=int, nargs='+', help="which primary rounds to train")
+    parser.add_argument('-sr', default=None, type=int, nargs='+', help="which secondary rounds to train")
+    parser.add_argument('-bounds', default=None, type=float, nargs='+', help="emotion score bounds:[low, high]")
+    parser.add_argument('-onehot', default=True, action='store_true', help="if use onehot code")
+    parser.add_argument('-label_used', default=None, type=str, nargs='+', help="valence, arousal, dominance, liking")
+    parser.add_argument('-keep_dim',default=False, action='store_true')
+
+    # Explicit domain-adaptation parameters keep DAN/DANN search manifests
+    # self-contained instead of hiding these values in model code.
+    parser.add_argument('-dan_mmd_weight', default=0.5, type=float)
+    parser.add_argument('-dann_grl_alpha', default=0.1, type=float)
+
+    # DMS_SGPAN optional overrides, mainly used by search_para.py.
+    parser.add_argument('-dms_sgpan_ugfcda_warmup_epochs', default=None, type=int)
+    parser.add_argument('-dms_sgpan_ugfcda_eps', default=None, type=float)
+    parser.add_argument('-dms_sgpan_ugfcda_keep_ratio_start', default=None, type=float)
+    parser.add_argument('-dms_sgpan_ugfcda_keep_ratio_end', default=None, type=float)
+    parser.add_argument('-dms_sgpan_ugfcda_keep_ratio_step', default=None, type=float)
+    parser.add_argument('-dms_sgpan_ugfcda_keep_ratio_step_epochs', default=None, type=int)
+    parser.add_argument('-dms_sgpan_ugfcda_subject_weight', default=None, type=float)
+    parser.add_argument('-dms_sgpan_ugfcda_proto_align_weight', default=None, type=float)
+    parser.add_argument('-dms_sgpan_node_drop_rate', default=None, type=float)
+    parser.add_argument('-dms_sgpan_edge_drop_rate', default=None, type=float)
+    parser.add_argument('-dms_sgpan_dropout', default=None, type=float)
+    parser.add_argument('-dms_sgpan_temperature', default=None, type=float)
+    parser.add_argument('-dms_sgpan_graph_hidden', default=None, type=int)
+    parser.add_argument('-dms_sgpan_graph_readout_hidden', default=None, type=int)
+    parser.add_argument('-dms_sgpan_gcl_readout_hidden', default=None, type=int)
+    parser.add_argument('-dms_sgpan_spectral_hidden', default=None, type=int)
+    parser.add_argument('-dms_sgpan_disentangle_dim', default=None, type=int)
+    parser.add_argument('-dms_sgpan_projection_dim', default=None, type=int)
+    parser.add_argument('-dms_sgpan_cross_scale_heads', default=None, type=int)
+    parser.add_argument('-dms_sgpan_gl_alpha', default=None, type=float)
+    parser.add_argument('-dms_sgpan_cheb_k', default=None, type=int)
+    parser.add_argument('-dms_sgpan_ssbn_eps', default=None, type=float)
+    parser.add_argument('-dms_sgpan_sin_min_count', default=None, type=int)
+    parser.add_argument('-dms_sgpan_grl_max_iters', default=None, type=float)
+    parser.add_argument('-dms_sgpan_loss_ce', default=None, type=float)
+    parser.add_argument('-dms_sgpan_loss_aj', default=None, type=float)
+    parser.add_argument('-dms_sgpan_loss_gcl', default=None, type=float)
+    parser.add_argument('-dms_sgpan_loss_align', default=None, type=float)
+    parser.add_argument('-dms_sgpan_loss_orth', default=None, type=float)
+    parser.add_argument('-dms_sgpan_loss_subject', default=None, type=float)
+    parser.add_argument('-dms_sgpan_ugfcda_reliability_threshold', default=None, type=float)
+    parser.add_argument('-dms_sgpan_frequency_band_groups', default=None, type=str)
+    return parser
+

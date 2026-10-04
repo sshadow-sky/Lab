@@ -1,0 +1,7 @@
+protocol=deap_a
+dataset=deap
+setting=deap_sub_independent_train_val_test_setting
+variant=sample_only
+gpu=0
+entry=/mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/EXTRA/Lab/LibEER/LibEER/DMS_SGPAN_ablation_train.py
+command: CUDA_VISIBLE_DEVICES=0 python3 /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/EXTRA/Lab/LibEER/LibEER/DMS_SGPAN_ablation_train.py -model DMS_SGPAN -lr 0.01 -seed 2024 -metrics acc macro-f1 -metric_choose macro-f1 -device cuda -feature_type de_lds -time_window 1 -sample_length 1 -stride 1 -onehot -dms_sgpan_frequency_band_groups [[0],[1],[2],[3],[4]] -batch_size 2048 -epochs 40 -dataset deap -dataset_path /mnt/sdc/sdc1/yangli/yangli/EEG/EEG_Dataset/DEAP/data_preprocessed_python -setting deap_sub_independent_train_val_test_setting -num_workers 16 -bounds 5 5 -label_used arousal -dms_sgpan_loss_align 0.1 -dms_sgpan_loss_subject 0.2 -dms_sgpan_loss_gcl 0.2 -dms_sgpan_loss_orth 0.2 -dms_sgpan_dropout 0.3 -dms_sgpan_ugfcda_warmup_epochs 10 -dms_sgpan_ugfcda_eps 0.000001 -dms_sgpan_ugfcda_reliability_threshold 0.9 -dms_sgpan_temperature 0.2 -output_dir /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/EXTRA/Lab/search_runs/tvt_deap_arousal_ablation/20261005_004450/sample_only/output -log_dir /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/EXTRA/Lab/search_runs/tvt_deap_arousal_ablation/20261005_004450/sample_only/log -dms_sgpan_ablation sample_only

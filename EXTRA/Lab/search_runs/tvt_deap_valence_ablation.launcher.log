@@ -1,0 +1,43 @@
+Run root : /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/EXTRA/Lab/search_runs/tvt_deap_valence_ablation/20261005_004316
+Dataset  : DEAP-V (valence), subject-independent TVT
+GPU      : 0; variants: default
+[2026-10-05 00:43:19] FAIL    baseline           exit=1
+[2026-10-05 00:43:23] FAIL    basic_encoder      exit=1
+[2026-10-05 00:43:26] FAIL    no_disentangle     exit=1
+[2026-10-05 00:43:29] FAIL    no_prototype       exit=1
+[2026-10-05 00:43:32] FAIL    graph_only         exit=1
+[2026-10-05 00:43:36] FAIL    spectral_only      exit=1
+[2026-10-05 00:43:39] FAIL    no_gcl             exit=1
+[2026-10-05 00:43:42] FAIL    no_orth            exit=1
+[2026-10-05 00:43:46] FAIL    no_subject         exit=1
+[2026-10-05 00:43:48] FAIL    standard_attention exit=1
+[2026-10-05 00:43:52] FAIL    no_warmup          exit=1
+[2026-10-05 00:43:55] FAIL    prototype_only     exit=1
+[2026-10-05 00:43:58] FAIL    sample_only        exit=1
+[2026-10-05 00:44:01] FAIL    fused_proto        exit=1
+[2026-10-05 00:44:04] FAIL    pooled_align       exit=1
+[2026-10-05 00:44:07] FAIL    no_agreement       exit=1
+
+failed: baseline, basic_encoder, no_disentangle, no_prototype, graph_only, spectral_only, no_gcl, no_orth, no_subject, standard_attention, no_warmup, prototype_only, sample_only, fused_proto, pooled_align, no_agreement
+protocol      : deap_v  (dataset=deap, setting=deap_sub_independent_train_val_test_setting)
+extra args    : -label_used valence
+lambda_align  : 0.1    delta: 0.9    dropout: 0.3
+run root      : /mnt/sdc/sdc1/yangli/yangli/EEG/bk1/ZTC/EXTRA/Lab/search_runs/tvt_deap_valence_ablation/20261005_004316
+variants (16) : baseline, basic_encoder, no_disentangle, no_prototype, graph_only, spectral_only, no_gcl, no_orth, no_subject, standard_attention, no_warmup, prototype_only, sample_only, fused_proto, pooled_align, no_agreement
+
+[2026-10-05 00:43:16] START   baseline           (GPU 0)
+[2026-10-05 00:43:19] START   basic_encoder      (GPU 0)
+[2026-10-05 00:43:23] START   no_disentangle     (GPU 0)
+[2026-10-05 00:43:26] START   no_prototype       (GPU 0)
+[2026-10-05 00:43:29] START   graph_only         (GPU 0)
+[2026-10-05 00:43:32] START   spectral_only      (GPU 0)
+[2026-10-05 00:43:36] START   no_gcl             (GPU 0)
+[2026-10-05 00:43:39] START   no_orth            (GPU 0)
+[2026-10-05 00:43:42] START   no_subject         (GPU 0)
+[2026-10-05 00:43:46] START   standard_attention (GPU 0)
+[2026-10-05 00:43:48] START   no_warmup          (GPU 0)
+[2026-10-05 00:43:52] START   prototype_only     (GPU 0)
+[2026-10-05 00:43:55] START   sample_only        (GPU 0)
+[2026-10-05 00:43:58] START   fused_proto        (GPU 0)
+[2026-10-05 00:44:01] START   pooled_align       (GPU 0)
+[2026-10-05 00:44:04] START   no_agreement       (GPU 0)
